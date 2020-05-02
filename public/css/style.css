@@ -33,13 +33,74 @@ h6 {
     margin: 0 auto;
 }
 
-#displayOverlay{
-    transform: translateY(-100%);
+.logo{
+    left: 50%;
+    transform: translateX(-50%);
+}
+.logoMenu{
+    display: none;
+}
+
+.logoSmallImg{
+    display: none;
+}
+
+@media (max-width: 450px) {
+
+    .logoSmallImg{
+        display: block;
+    }
+
+    .logoFullImg{
+        display: none!important;
+    }
+}
+
+.mobileViewContacts{
+    display: none;
+}
+
+@media (max-width: 400px) {
+    .logo{
+        display: none!important;
+    }
+
+    .logoMenu{
+        display: block!important;
+    }
+
+    .centerFooterContent{
+        display: none;
+    }
+
+    .leftFooterContent, .rightFooterContent{
+        width: 47%!important;
+    }
+
+    .mobileViewContacts{
+        display: flex!important;
+    }
+
+    .menuContent{
+        margin-top: 0!important;
+    }
+}
+
+#displayOverlayMenu{
+    transform: translateY(-105%);
     transition: all ease-in-out .2s;
+    opacity: 0.95;
 }
 
 .showMenu{
-    transform: translateY(0%) !important;
+    transform: translateY(-5%) !important;
+}
+
+.overflowStop{
+    position: fixed;
+    right: 0;
+    left: 0;
+    overflow-y: scroll;
 }
 
 .info{
@@ -63,11 +124,13 @@ h6 {
 #menuToggle
 {
     display: block;
-    position: absolute;
+    position: relative;
     top: 50%;
-    transform: translateY(-50%);
     -webkit-user-select: none;
     user-select: none;
+    transform: translateY(-50%);
+    left: 10px;
+    height: 20px;
 }
 
 #menuToggle a
@@ -100,10 +163,10 @@ h6 {
 {
     display: block;
     width: 33px;
-    height: 4px;
-    margin-bottom: 5px;
+    height: 2px;
+    margin-bottom: 7px;
     position: relative;
-    background: #3182ce;
+    background: #fff;
     border-radius: 3px;
     z-index: 1;
     transform-origin: 4px 0px;
@@ -140,6 +203,84 @@ h6 {
 {
     transform: rotate(-45deg) translate(-3px, 9px);
 }
+
+#displayOverlayCabinet, #displayOverlayCart{
+    top: -100%;
+    right: 0;
+    opacity: 0.95;
+    transition: all cubic-bezier(0.65, 0.05, 0.36, 1) .4s;
+}
+
+#displayOverlayCart{
+    max-height: 50vh;
+}
+
+.showCabinetMenu{
+    top: 40px!important;
+}
+
+.delivery img:hover, .saleProducts img:hover, .comingSoon img:hover, .bonus img:hover{
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.slideCard{
+    box-shadow: 0px 0px 5px 0px rgba(166,160,160,0.75);
+}
+.slideCard:hover{
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.65);
+}
+
+.categories a{
+    max-width: 32.5%;
+    margin-top: 1%;
+}
+
+.categories img{
+    border-radius: 3px;
+}
+.categories img:hover{
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.mobileImg{
+    display: none;
+}
+@media (max-width: 690px) {
+    .categories a{
+        max-width: 49.5% !important;
+    }
+}
+@media (max-width: 470px) {
+    .mobileImg, .categories{
+        display: block!important;
+        margin-top: 1%;
+    }
+
+    .largeImg{
+        display: none!important;
+    }
+}
+
+.registerLink button{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #004179;
+    color: white;
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+.registerLink button:hover{
+    opacity: 0.75;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+
 
 
 

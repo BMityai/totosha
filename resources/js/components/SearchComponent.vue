@@ -1,7 +1,7 @@
 <template>
-    <div class="search pl-5 mt-8">
+    <div class="search mt-8">
         <form>
-            <div class="relative text-gray-600 flex justify-center w-3/4 m-auto">
+            <div class="relative text-gray-600 flex justify-center w-5/6 m-auto">
                 <input type="search" name="search" placeholder="Search" class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border-blue-600 border-2 border-solid w-full">
                 <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
                     <svg class="h-4 w-4 fill-current text-blue-600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve" width="512px" height="512px">

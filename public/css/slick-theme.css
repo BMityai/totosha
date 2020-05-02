@@ -18,7 +18,7 @@
     line-height: 0;
 
     position: absolute;
-    top: -6px;
+    top: -15px;
 
     display: block;
 
@@ -62,7 +62,7 @@
 .slick-next:before
 {
 
-    font-size: 20px;
+    font-size: 30px;
     line-height: 1;
 
     opacity: .75;
@@ -136,6 +136,7 @@
 
     text-align: center;
 }
+
 .slick-dots li
 {
     position: relative;
@@ -144,11 +145,25 @@
 
     width: 20px;
     height: 20px;
-    margin: 0 5px;
     padding: 0;
 
     cursor: pointer;
 }
+
+@media (max-width: 640px) {
+    .slick-dots li
+    {
+        width: 13px!important;
+    }
+}
+
+@media (max-width: 490px) {
+    .slick-dots li
+    {
+        width: 10px!important;
+    }
+}
+
 .slick-dots li button
 {
     font-size: 0;
@@ -180,7 +195,7 @@
 .slick-dots li button:before
 {
 
-    font-size: 10px;
+    font-size: 20px;
     line-height: 20px;
 
     position: absolute;
@@ -203,4 +218,14 @@
 {
     opacity: .75;
     color: black;
+}
+
+
+/* the slides */
+.slick-slide {
+    margin: 0 7px!important;
+}
+/* the parent */
+.slick-list {
+    margin: 0 -7px !important;
 }

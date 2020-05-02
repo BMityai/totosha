@@ -19,24 +19,28 @@
     @include('layouts.header')
 
     @yield('content')
+
+    @include('layouts.footer')
 </div>
 
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/menu.js') }}"></script>
+<script src="{{ asset('js/add.js') }}"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="{{ asset('js/slick.js') }}"></script>
 <script>
-
     $(document).ready(function () {
-        let imageCount = 4;
+        let imageCount = 5;
         let interval = 4000;
+        if ($(window).width() < 900) {
+            imageCount = 4;
+        }
         if ($(window).width() < 760) {
             imageCount = 3;
         }
 
         if ($(window).width() < 640) {
-            imageCount = 2;
+            imageCount = 2  ;
             interval = 2000
         }
         if ($(window).width() < 400) {
@@ -47,7 +51,7 @@
         $('.slickCarousel').slick({
             slidesToShow: imageCount,
             slidesToScroll: imageCount,
-            autoplay: true,
+            // autoplay: true,
             autoplaySpeed: interval,
             dots:true,
 
