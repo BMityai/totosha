@@ -48,7 +48,23 @@ function outsideClickCartListener(event) {
     }
 }
 
-
-
-
+// add product to cart (button & modal)
+function addToCart(event) {
+    event.preventDefault();
+    let button = event.target;
+    let modal = document.getElementById('displayOverlayAddToCart')
+    if(button.classList.contains('addCartButton')){
+        button.text = 'В КОРЗИНУ';
+        button.classList.remove('addCartButton')
+        modal.innerText = 'Товар успешно удален'
+    } else {
+        button.text = 'ДОБАВЛЕН';
+        button.classList.add('addCartButton');
+        modal.innerText = 'Товар успешно добавлен'
+    }
+    modal.classList.add('showInfo');
+    setTimeout(function () {
+        modal.classList.remove('showInfo');
+    }, 1000)
+}
 

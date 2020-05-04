@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@tailwindcss/ui": "^0.2.2",
-        "hooper": "^0.3.4"
+        "hooper": "^0.3.4",
+        "vue-range-component": "^1.0.3"
     }
 }

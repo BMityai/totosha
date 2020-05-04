@@ -19,9 +19,8 @@
     @include('layouts.header')
 
     @yield('content')
-
-    @include('layouts.footer')
 </div>
+@include('layouts.footer')
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/add.js') }}"></script>
@@ -44,7 +43,7 @@
             interval = 2000
         }
         if ($(window).width() < 400) {
-            imageCount = 1;
+            imageCount = 2;
             interval = 2000
         }
 

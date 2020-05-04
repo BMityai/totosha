@@ -1,11 +1,11 @@
 <template>
-    <div >
-    <div class="flex justify-between mb-1">
+    <div class="mr-2">
+    <div class="flex justify-between my-1">
         <div class="w-11/12">
-        <div class="productName text-white text-xl">
+        <div class="productName text-white text-base sm:text-xl">
             weqwefassgasdfa
         </div>
-        <div class="countPrice flex justify-between mt-4">
+        <div class="countPrice flex justify-between mt-4 ">
                 <div class="flex flex-row  h-6 w-24">
                     <button
                         class="font-semibold bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer rounded">
@@ -27,11 +27,13 @@
                         <span class="m-auto text-2xl text-black font-thin leading-none">+</span>
                     </button>
                 </div>
-            <div class="price w-1/2 text-white text-xl">123 ₸</div>
+            <div class="price w-1/2 text-white text-base sm:text-xl">123 ₸</div>
         </div>
         </div>
-        <div class="deleteProduct w-6">
+        <div class="deleteProduct w-6 opacity-75 hover:opacity-100">
+            <a href="">
             <img src="images/ico/cart/trash_can.png" alt="">
+            </a>
         </div>
     </div>
         <hr>

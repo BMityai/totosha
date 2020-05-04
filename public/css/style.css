@@ -10,7 +10,22 @@
 
 html {
     font-size: 14px;
-    font-family: "Lato Light"!important;
+    font-family: "Lato Light", serif !important;
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#app{
+    flex: 1 0 auto;
+}
+
+footer{
+    flex: 0 0 auto;
 }
 
 *,
@@ -92,8 +107,14 @@ h6 {
     opacity: 0.95;
 }
 
+#displayOverlayAddToCart{
+    transform: translateY(-105%);
+    transition: all ease-in-out .2s;
+    opacity: 0.95;
+}
+
 .showMenu{
-    transform: translateY(-5%) !important;
+    transform: translateY(0) !important;
 }
 
 .overflowStop{
@@ -211,7 +232,7 @@ h6 {
     transition: all cubic-bezier(0.65, 0.05, 0.36, 1) .4s;
 }
 
-#displayOverlayCart{
+.miniCartItemsContent{
     max-height: 50vh;
 }
 
@@ -277,10 +298,152 @@ h6 {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 2px;
+    width: 5px;
+}
+ /* Track */
+ ::-webkit-scrollbar-track {
+     background: #a3a4a5;
+     border-radius: 3px;
+ }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #D2D0EFFF;
+    border-radius: 3px;
 }
 
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+}
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.productsContent::after{
+    content: "";
+    flex: auto;
+    min-width: 200px;
+    width: 23%;
+    margin: 5px;
+}
+
+.productsContent .slideCard{
+    min-width: 200px;
+    width: 19%;
+}
+
+.filling-empty-space-childs {
+    min-width: 200px;
+
+    width:19%; /*the width of the images in this example*/
+    height:0; /*important! for the divs to collapse should they fall in a new row*/
+}
+
+@media (max-width: 1280px) {
+    .productsContent .slideCard{
+        min-width: 190px;
+        width: 19%;
+    }
+
+    .filling-empty-space-childs {
+        min-width: 190px;
+        width:19%;
+        height:0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .productsContent .slideCard{
+        min-width: 180px;
+        width: 19%;
+    }
+
+    .filling-empty-space-childs {
+        min-width: 180px;
+        width:19%;
+        height:0;
+    }
+}
+
+@media (max-width: 767px) {
+    .productsContent .slideCard{
+        min-width: 200px;
+        width: 19%;
+    }
+
+    .filling-empty-space-childs {
+        min-width: 200px;
+        width:19%;
+        height:0;
+    }
+}
+
+@media (max-width: 640px) {
+    .productsContent .slideCard{
+        max-width: 49%;
+        width: 49%;
+    }
+
+    .filling-empty-space-childs {
+        max-width: 49%;
+        width:49%;
+        height:0;
+    }
+}
+@media (max-width: 420px) {
+    .productsContent .slideCard{
+        max-width: 49%;
+        width: 49%;
+        min-width: 49%;
+    }
+
+    .cartProductName{
+        font-size: 12px;
+    }
+
+    .filling-empty-space-childs {
+        max-width: 49%;
+        width:49%;
+        height:0;
+        min-width: 49%;
+
+    }
+}
+
+.sale {
+    position: absolute;
+    background-color: #ed1406;
+    width: 30%;
+    top: 5px;
+    text-align: center;
+    border-radius: 0 8px 8px 0;
+}
+
+.sale span {
+    color: white;
+    vertical-align: middle;
+    display: inline-block;
+    width: auto;
+    font-weight: 600;
+    margin: 4px 0;
+}
+
+.cartProductName{
+    overflow: hidden;
+}
+
+.showInfo{
+    transform: translateY(0)!important;
+}
+
+.addCartButton{
+    background-color: #68d391!important;
+}
 
 
 

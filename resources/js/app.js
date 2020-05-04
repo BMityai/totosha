@@ -21,8 +21,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('search-component', require('./components/SearchComponent.vue').default);
-Vue.component('card-component', require('./components/cardComponent.vue').default);
-Vue.component('minicart-component', require('./components/miniCartItemComponent.vue').default);
+Vue.component('minicart-component', require('./components/MiniCartItemComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

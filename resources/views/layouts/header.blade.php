@@ -1,8 +1,8 @@
 <header>
     <div id="displayOverlayMenu" class="h-full w-full bg-blue-600 absolute z-10 h-screen overflow-auto">
-        <div class="container p-1 mt-6">
+        <div class="container p-1 mt-16 pb-3">
             <div class="logoMenu w-1/2 z-10 ml-auto mr-auto opacity-75 hover:opacity-100">
-                <a href="#" class="inline-block">
+                <a href="/" class="inline-block">
                     <img src="{{ asset('images/logos/logo_center_teddy.png') }}" alt=""
                          class="opacity-75 hover:opacity-100">
                 </a>
@@ -11,25 +11,22 @@
                 <div class="menuCategories w-full sm:w-2/5">
                     <h2 class="uppercase">Категории</h2>
                     <hr>
-                    <a href="" > <p class="opacity-75 hover:opacity-100 mt-4">Игрушки</p> </a>
-                    <a href="" > <p class="opacity-75 hover:opacity-100 mt-4">Безопасность ребенка</p> </a>
-                    <a href="" > <p class="opacity-75 hover:opacity-100 mt-4">Первая посуда</p> </a>
-                    <a href="" > <p class="opacity-75 hover:opacity-100 mt-4">Хранение вещей</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Средства гигиены и слюнявчики</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Белье и носочки</p> </a>
+                    @foreach($categories as $category)
+                        <a href="{{ route('category', $category->slug) }}"><p class="opacity-75 hover:opacity-100 mt-4"> {{ $category->name }}</p></a>
+                    @endforeach
                 </div>
                 <div class="menuInfoContent w-full sm:w-2/5 mt-10 sm:mt-0">
                     <h2 class="uppercase">Инфо</h2>
                     <hr>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">О нас</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Контакты</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p> </a>
-                    <a href=""> <p class="opacity-75 hover:opacity-100 mt-4">Принимаем заказы</p> </a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">О нас</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Контакты</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p></a>
+                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Принимаем заказы</p></a>
                 </div>
             </div>
         </div>
@@ -71,22 +68,36 @@
             </form>
         </div>
     </div>
-
     <div id="displayOverlayCart"
-         class="overflow-y-auto shadow-md rounded px-5 pt-6 pb-6 mb-4 h-auto w-3/4 sm:w-1/2 md:1/3 lg:w-1/3 bg-blue-600 fixed z-10">
-        <hr>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
-    <minicart-component></minicart-component>
+         class=" shadow-md rounded px-5 pt-6 pb-6 mb-4 h-auto w-3/4 sm:w-1/2 md:1/3 lg:w-1/3 bg-blue-600 fixed z-10">
+        <div class="miniCartItemsContent overflow-y-auto">
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+            <minicart-component></minicart-component>
+        </div>
+        <div class="totalPrice flex justify-between text-xl text-white opacity-75 font-bold">
+            <p>Итого:</p>
+            <p>3421 ₸</p>
+        </div>
 
+        <div>
+            <a href="">
+                <p class="bg-orange-500 hover:bg-orange-600 rounded text-center p-2">Перейти в корзину</p>
+            </a>
+        </div>
 
     </div>
+    <div id="displayOverlayAddToCart"
+         class=" shadow-md rounded pt-12 bg-green-400 fixed z-10 text-white w-full text-center text-bold">
+    </div>
+
+
 
     <div class="bg-blue-600 h-12 fixed top-0 right-0 left-0 z-20">
         <div class="container h-full flex justify-between">
@@ -99,10 +110,10 @@
             </div>
 
             <div class="logo h-full z-10 absolute">
-                <a href="#" class="h-full inline-block">
+                <a href="/" class="h-full inline-block">
                     <img src="{{ asset('images/logos/logo-white-no_bgrnd.png') }}" alt=""
                          class="logoFullImg h-full opacity-75 hover:opacity-100">
-                    <img  src="{{ asset('images/logos/logo_no_teddy.png') }}" alt=""
+                    <img src="{{ asset('images/logos/logo_no_teddy.png') }}" alt=""
                          class="logoSmallImg h-full opacity-75 hover:opacity-100">
                 </a>
             </div>

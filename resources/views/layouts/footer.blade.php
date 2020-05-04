@@ -36,19 +36,19 @@
                         <img src="{{ asset('images/logos/footer_logo.png') }}" alt=""
                              class="opacity-75 hover:opacity-100">
                     </a>
-                    <div class="contacts">
-                        <div class="socialNet flex justify-around">
-                            <a href="" class="w-1/5 sm:w-12">
-                                <img src="{{ asset('images/ico/contacts/instagram.png') }}" alt="">
-                            </a>
-                            <a href="" class="w-1/5 sm:w-12">
-                                <img src="{{ asset('images/ico/contacts/whatsApp.png') }}" alt="">
-                            </a>
-                            <a href="" class="w-1/5 sm:w-12">
-                                <img src="{{ asset('images/ico/contacts/telegram.png') }}" alt="">
-                            </a>
-                        </div>
-                    </div>
+{{--                    <div class="contacts">--}}
+{{--                        <div class="socialNet flex justify-around">--}}
+{{--                            <a href="" class="w-1/5 sm:w-12">--}}
+{{--                                <img src="{{ asset('images/ico/contacts/instagram.png') }}" alt="">--}}
+{{--                            </a>--}}
+{{--                            <a href="" class="w-1/5 sm:w-12">--}}
+{{--                                <img src="{{ asset('images/ico/contacts/whatsApp.png') }}" alt="">--}}
+{{--                            </a>--}}
+{{--                            <a href="" class="w-1/5 sm:w-12">--}}
+{{--                                <img src="{{ asset('images/ico/contacts/telegram.png') }}" alt="">--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
 
                 <div class="rightFooterContent w-1/3 p-1 text-center">

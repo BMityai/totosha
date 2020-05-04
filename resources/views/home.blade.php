@@ -2,7 +2,7 @@
 @section('title', 'Главная страница')
 @section('content')
 
-    <div class="container h-full h-12 mt-16">
+    <div class="container h-12 mt-16">
         <search-component></search-component>
     </div>
 
@@ -39,18 +39,12 @@
     <div class="container mt-6">
         <h2 class="text-xl">Новое поступление</h2>
         <div class="slickCarousel ml-1 mr-1 text-center">
-
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
+            @include('layouts.card')
+            @include('layouts.card')
+            @include('layouts.card')
+            @include('layouts.card')
+            @include('layouts.card')
+            @include('layouts.card')
 
         </div>
     </div>
@@ -95,23 +89,17 @@
         <h2 class="text-xl">Рекомендуемые товары</h2>
         <div class="slickCarousel ml-1 mr-1 text-center">
 
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
-            <card-component></card-component>
+            @include('layouts.card')
+            @include('layouts.card')
+            @include('layouts.card')
+            @include('layouts.card')
+            @include('layouts.card')
+
+
 
         </div>
     </div>
-    <div class="container">
-        <card-component></card-component>
-    </div>
+
     <div class="container mt-10">
         <div class="banner">
             <a href="">
