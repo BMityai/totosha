@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
 
-    <title>TOTOSHA.top: @yield('title')</title>
+    <title>Mimishka.kz: @yield('title')</title>
 
 </head>
 <body class="bg-white m-auto">
@@ -27,6 +27,7 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="{{ asset('js/slick.js') }}"></script>
+<script src="{{ asset('js/jquery.inputmask.js') }}"></script>
 <script>
     $(document).ready(function () {
         let imageCount = 5;
@@ -39,7 +40,7 @@
         }
 
         if ($(window).width() < 640) {
-            imageCount = 2  ;
+            imageCount = 2;
             interval = 2000
         }
         if ($(window).width() < 400) {
@@ -50,13 +51,28 @@
         $('.slickCarousel').slick({
             slidesToShow: imageCount,
             slidesToScroll: imageCount,
-            // autoplay: true,
+            autoplay: true,
             autoplaySpeed: interval,
-            dots:true,
+            dots: true,
+            pauseOnHover: false,
+        });
 
-            pauseOnHover:false,
+
+        $('.productSlickCarousel').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            autoplaySpeed: interval,
+            dots: true,
+            pauseOnHover: false,
         });
     });
+
+    $(document).ready(function () {
+        $('#birthDate').inputmask({"mask": "99/99/9999"});  //static mask
+        $('#phone').inputmask({"mask": "+7 (999) 999-99-99"}); //specifying options
+    });
+
 </script>
 
 </body>

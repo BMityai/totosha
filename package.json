@@ -27,6 +27,7 @@
     "dependencies": {
         "@tailwindcss/ui": "^0.2.2",
         "hooper": "^0.3.4",
+        "imask": "^6.0.3",
         "vue-range-component": "^1.0.3"
     }
 }

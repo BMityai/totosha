@@ -32,7 +32,7 @@
         </div>
         <div class="deleteProduct w-6 opacity-75 hover:opacity-100">
             <a href="">
-            <img src="images/ico/cart/trash_can.png" alt="">
+            <img :src=" '/images/ico/cart/trash_can.png' " alt="">
             </a>
         </div>
     </div>

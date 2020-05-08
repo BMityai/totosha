@@ -20,7 +20,22 @@ class HomeControllerService
 
     public function getCategoryBySlug($slug)
     {
-        return $this->dbRepository->getCategoryBySlug($slug);
+        return $this->dbRepository->getActiveCategoryBySlug($slug);
+    }
+
+    public function getActiveNewProducts()
+    {
+        return $this->dbRepository->getActiveNewProducts();
+    }
+
+    public function getActiveRecommendedProducts()
+    {
+        return $this->dbRepository->getActiveRecommendedProducts();
+    }
+
+    public function getActiveProductBySlug($slug)
+    {
+        return $this->dbRepository->getActiveProductBySlug($slug);
     }
 
 }

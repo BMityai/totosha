@@ -20312,102 +20312,98 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "mr-2" }, [
+    _c("div", { staticClass: "flex justify-between my-1" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "deleteProduct w-6 opacity-75 hover:opacity-100" },
+        [
+          _c("a", { attrs: { href: "" } }, [
+            _c("img", {
+              attrs: { src: "/images/ico/cart/trash_can.png", alt: "" }
+            })
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("hr")
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mr-2" }, [
-      _c("div", { staticClass: "flex justify-between my-1" }, [
-        _c("div", { staticClass: "w-11/12" }, [
+    return _c("div", { staticClass: "w-11/12" }, [
+      _c(
+        "div",
+        { staticClass: "productName text-white text-base sm:text-xl" },
+        [_vm._v("\n        weqwefassgasdfa\n    ")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "countPrice flex justify-between mt-4 " }, [
+        _c("div", { staticClass: "flex flex-row  h-6 w-24" }, [
           _c(
-            "div",
-            { staticClass: "productName text-white text-base sm:text-xl" },
-            [_vm._v("\n        weqwefassgasdfa\n    ")]
+            "button",
+            {
+              staticClass:
+                "font-semibold bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer rounded"
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "m-auto text-2xl text-black font-thin leading-none"
+                },
+                [_vm._v("-")]
+              )
+            ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "countPrice flex justify-between mt-4 " }, [
-            _c("div", { staticClass: "flex flex-row  h-6 w-24" }, [
+          _c("input", {
+            staticClass:
+              "md:p-2 p-1 text-xs md:text-base border-gray-400 focus:outline-none text-center",
+            attrs: { type: "hidden", readonly: "", name: "custom-input-number" }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "rounded countValue bg-white text-black w-24 text-base flex items-center justify-center cursor-default"
+            },
+            [_c("span", [_vm._v("22")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "rounded font-semibold text-black bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer"
+            },
+            [
               _c(
-                "button",
+                "span",
                 {
                   staticClass:
-                    "font-semibold bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer rounded"
+                    "m-auto text-2xl text-black font-thin leading-none"
                 },
-                [
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "m-auto text-2xl text-black font-thin leading-none"
-                    },
-                    [_vm._v("-")]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                staticClass:
-                  "md:p-2 p-1 text-xs md:text-base border-gray-400 focus:outline-none text-center",
-                attrs: {
-                  type: "hidden",
-                  readonly: "",
-                  name: "custom-input-number"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "rounded countValue bg-white text-black w-24 text-base flex items-center justify-center cursor-default"
-                },
-                [_c("span", [_vm._v("22")])]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "rounded font-semibold text-black bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer"
-                },
-                [
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "m-auto text-2xl text-black font-thin leading-none"
-                    },
-                    [_vm._v("+")]
-                  )
-                ]
+                [_vm._v("+")]
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "price w-1/2 text-white text-base sm:text-xl" },
-              [_vm._v("123 ₸")]
-            )
-          ])
+            ]
+          )
         ]),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "deleteProduct w-6 opacity-75 hover:opacity-100" },
-          [
-            _c("a", { attrs: { href: "" } }, [
-              _c("img", {
-                attrs: { src: "images/ico/cart/trash_can.png", alt: "" }
-              })
-            ])
-          ]
+          { staticClass: "price w-1/2 text-white text-base sm:text-xl" },
+          [_vm._v("123 ₸")]
         )
-      ]),
-      _vm._v(" "),
-      _c("hr")
+      ])
     ])
   }
 ]

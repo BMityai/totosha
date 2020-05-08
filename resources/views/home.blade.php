@@ -39,12 +39,10 @@
     <div class="container mt-6">
         <h2 class="text-xl">Новое поступление</h2>
         <div class="slickCarousel ml-1 mr-1 text-center">
-            @include('layouts.card')
-            @include('layouts.card')
-            @include('layouts.card')
-            @include('layouts.card')
-            @include('layouts.card')
-            @include('layouts.card')
+
+            @foreach($newProdusts as $product)
+            @include('layouts.card', $product)
+            @endforeach
 
         </div>
     </div>
@@ -89,13 +87,9 @@
         <h2 class="text-xl">Рекомендуемые товары</h2>
         <div class="slickCarousel ml-1 mr-1 text-center">
 
-            @include('layouts.card')
-            @include('layouts.card')
-            @include('layouts.card')
-            @include('layouts.card')
-            @include('layouts.card')
-
-
+            @foreach($recommendedProducts as $product)
+                @include('layouts.card', $product)
+            @endforeach
 
         </div>
     </div>

@@ -25,7 +25,7 @@ class ViewShareServiseProvider extends ServiceProvider
     public function boot()
     {
         $moiMalysgDbRepository = new MoiMalyshEloquentRepository();
-        $categories = $moiMalysgDbRepository->getAllCategories();
+        $categories = $moiMalysgDbRepository->getAllActiveCategories();
         view()->share('categories', $categories);
     }
 }

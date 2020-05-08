@@ -12,6 +12,7 @@ html {
     font-size: 14px;
     font-family: "Lato Light", serif !important;
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 body{
@@ -99,9 +100,19 @@ h6 {
     .menuContent{
         margin-top: 0!important;
     }
+
+    .showFilter, .sideProduct, .sideSort{
+        font-size: 10px!important;
+    }
 }
 
 #displayOverlayMenu{
+    transform: translateY(-105%);
+    transition: all ease-in-out .2s;
+    opacity: 0.95;
+}
+
+#displayOverlayAddToWishList{
     transform: translateY(-105%);
     transition: all ease-in-out .2s;
     opacity: 0.95;
@@ -205,8 +216,7 @@ h6 {
 {
     transform-origin: 0% 100%;
 }
-
-#menuToggle input:checked ~ span
+.forSandwichAllSpan
 {
     opacity: 1;
     transform: rotate(45deg) translate(-12px, -16px);
@@ -214,13 +224,13 @@ h6 {
 }
 
 
-#menuToggle input:checked ~ span:nth-last-child(3)
+.forSandwichThirdSpan
 {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-#menuToggle input:checked ~ span:nth-last-child(2)
+.forSandwichSecondSpan
 {
     transform: rotate(-45deg) translate(-3px, 9px);
 }
@@ -445,5 +455,28 @@ input::-webkit-inner-spin-button {
     background-color: #68d391!important;
 }
 
+.showFilterBlog{
+    visibility: visible!important;
+    position: relative!important;
+}
+
+.hiddenSortBlog{
+    visibility: hidden!important;
+    position: absolute!important;
+    z-index: -100!important;
+}
+
+.sidePrice input{
+    background-color: #dddddd;
+}
+
+.priceInfoContent{
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+}
+
+input::-webkit-input-placeholder {color:#c0392b;}
+input::-moz-placeholder          {color:#c0392b;}/* Firefox 19+ */
+input:-moz-placeholder           {color:#c0392b;}/* Firefox 18- */
+input:-ms-input-placeholder      {color:#c0392b;}
 
 

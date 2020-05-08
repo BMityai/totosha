@@ -96,17 +96,19 @@
     <div id="displayOverlayAddToCart"
          class=" shadow-md rounded pt-12 bg-green-400 fixed z-10 text-white w-full text-center text-bold">
     </div>
+    <div id="displayOverlayAddToWishList"
+         class=" shadow-md rounded pt-12 bg-red-500 fixed z-10 text-white w-full text-center text-bold">
+    </div>
 
 
 
     <div class="bg-blue-600 h-12 fixed top-0 right-0 left-0 z-20">
         <div class="container h-full flex justify-between">
 
-            <div id="menuToggle" class="z-20 opacity-75 hover:opacity-100">
-                <input id="sandwichButton" type="checkbox" onchange="menuShow()"/>
-                <span></span>
-                <span></span>
-                <span></span>
+            <div id="menuToggle" class="z-20 opacity-75 hover:opacity-100 cursor-pointer" onclick="menuShow()">
+                <span id="sandwich_1"></span>
+                <span id="sandwich_2"></span>
+                <span id="sandwich_3"></span>
             </div>
 
             <div class="logo h-full z-10 absolute">
@@ -122,7 +124,7 @@
                     <a href="#" class="h-full inline-block relative">
                         <img class="h-full opacity-75 hover:opacity-100"
                              src="{{ asset('images/ico/header/wish_list.png') }}" alt="">
-                        <span class="infoNum absolute z-10 ">21</span>
+                        <span id="wishlistInfoNum" class="infoNum absolute z-10 ">21</span>
                         <span class="info absolute bg-white text-white">6</span>
                     </a>
                 </div>
@@ -131,7 +133,7 @@
                     <div class="h-full inline-block relative">
                         <img class="h-full opacity-75 hover:opacity-100 cursor-pointer"
                              src="{{ asset('images/ico/header/shopping-bag.png') }}" alt="">
-                        <span class="infoNum absolute z-10 ">2</span>
+                        <span id="cartInfoNum" class="infoNum absolute z-10 ">2</span>
                         <span class="info absolute bg-white text-white">6</span>
                     </div>
                 </div>

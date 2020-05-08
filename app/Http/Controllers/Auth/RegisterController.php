@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use function foo\func;
+
 class RegisterController extends Controller
 {
     /*
@@ -44,30 +46,82 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        Validator::extend(
+            'correctBirthDate',
+            function ($birthDate, $value, $parameters) {
+                $dateParams           = explode("/", $value);
+                $nowDate              = date('d M Y');
+                $birthDateConcatenate = $dateParams[1] . '/' . $dateParams[0] . '/' . $dateParams[2];
+                $birthDate            = date('d M Y', strtotime($birthDateConcatenate));
+
+                if ((int)$dateParams[0] > 31 || (int)$dateParams[1] > 12) {
+                    return false;
+                }
+
+                if ((int)$dateParams[0] <= 0 || (int)$dateParams[1] <= 0) {
+                    return false;
+                }
+
+                if ((int)$dateParams[2] <= 1930) {
+                    return false;
+                }
+
+                if (strtotime($birthDate) >= strtotime($nowDate)) {
+                    return false;
+                }
+                return true;
+            }
+        );
+
+
+        $messages = [
+            'required'           => 'Обязательное поле для заполнения',
+            'name.string'        => 'Поле имя должно содержать только буквы',
+            'correct_birth_date' => 'Неверная дата рождения',
+            'email'              => 'Введите корректный email',
+            'confirmed'          => 'Пароли не совпадают',
+            'email.unique'       => 'Пользователь с таким email зарегистрирован',
+            'phone.unique'       => 'Пользователь с таким номером зарегистрирован',
+            'phone.max'          => 'Неверный номер телефона',
+            'phone.min'          => 'Неверный номер телефона',
+            'name.min'           => 'Имя должно содержать не менее :min букв',
+            'name.max'           => 'Имя должно содержать не более :max букв',
+            'password.min'       => 'Минимальное количество символов :min'
+        ];
+        return Validator::make(
+            $data,
+            [
+                'name'      => ['required', 'string', 'max:20', 'min:2'],
+                'birthDate' => ['required', 'string', 'max:10', 'correctBirthDate'],
+                'phone'     => ['required', 'string', 'max:18', 'min:18', 'unique:users'],
+                'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password'  => ['required', 'string', 'min:6', 'confirmed'],
+            ],
+            $messages
+        );
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return User::create(
+            [
+                'name'       => $data['name'],
+                'birth_date' => $data['birthDate'],
+                'phone'      => $data['phone'],
+                'email'      => $data['email'],
+                'password'   => Hash::make($data['password']),
+            ]
+        );
     }
 }

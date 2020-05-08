@@ -32,12 +32,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $newProdusts         = $this->service->getActiveNewProducts();
+        $recommendedProducts = $this->service->getActiveRecommendedProducts();
+        return view('home', ['newProdusts' => $newProdusts, 'recommendedProducts' => $recommendedProducts]);
     }
 
     public function getCategoryProducts($slug)
     {
         $category = $this->service->getCategoryBySlug($slug);
         return view('category', ['category' => $category]);
+    }
+
+    public function getProductPage($category, $product)
+    {
+        $product = $this->service->getActiveProductBySlug($product);
+        return view('product', ['product' => $product]);
     }
 }
