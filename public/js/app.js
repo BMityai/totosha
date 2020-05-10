@@ -1983,9 +1983,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {// console.log('Component mounted.')
-  }
+  data: function data() {
+    return {
+      count: 1,
+      no_in_stock: false,
+      totalPriceForProduct: 0
+    };
+  },
+  methods: {
+    setupPriceData: function setupPriceData() {
+      this.totalPriceForProduct = this.price;
+    },
+    countUp: function countUp() {
+      var productTotalCount = this.count;
+
+      if (this.count < this.count_in_stock) {
+        productTotalCount = this.count += 1;
+      } else {
+        this.no_in_stock = true;
+      }
+
+      this.totalPriceForProduct = productTotalCount * this.price;
+      this.totalPriceCalculate();
+    },
+    countDown: function countDown() {
+      var productTotalCount = this.count;
+
+      if (this.count > 1) {
+        productTotalCount = this.count -= 1;
+      }
+
+      this.totalPriceForProduct = productTotalCount * this.price;
+      this.totalPriceCalculate();
+    },
+    totalPriceCalculate: function totalPriceCalculate() {
+      setTimeout(function () {
+        var cartTotalPrice = 0;
+        var totalPriceContent = document.getElementById('cartTotalPrice');
+        var totalPriceElements = [].slice.call(document.getElementsByClassName('price'));
+        totalPriceElements.forEach(function (element) {
+          cartTotalPrice += parseInt(element.textContent.split(' ')[0]);
+        });
+        totalPriceContent.textContent = cartTotalPrice;
+      }, 100);
+    }
+  },
+  mounted: function mounted() {
+    this.setupPriceData();
+    this.totalPriceCalculate();
+  },
+  watch: {},
+  props: ['csrf', 'name', 'price', 'id', 'count_in_stock']
 });
 
 /***/ }),
@@ -20314,7 +20364,94 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "mr-2" }, [
     _c("div", { staticClass: "flex justify-between my-1" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "w-11/12" }, [
+        _c(
+          "div",
+          { staticClass: "productName text-white text-base sm:text-xl" },
+          [_vm._v("\n        " + _vm._s(this.name) + "\n    ")]
+        ),
+        _vm._v(" "),
+        _vm.no_in_stock
+          ? _c("p", { staticClass: "text-red-700 text-sm" }, [
+              _vm._v("Количество ограничено")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "countPrice flex justify-between mt-4 " }, [
+          _c("div", { staticClass: "flex flex-row  h-6 w-24" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "font-semibold bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer rounded",
+                on: {
+                  click: function($event) {
+                    return _vm.countDown()
+                  }
+                }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "m-auto text-2xl text-black font-thin leading-none"
+                  },
+                  [_vm._v("-")]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass:
+                "md:p-2 p-1 text-xs md:text-base border-gray-400 focus:outline-none text-center",
+              attrs: {
+                type: "hidden",
+                readonly: "",
+                name: "custom-input-number"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "rounded countValue bg-white text-black w-24 text-base flex items-center justify-center cursor-default"
+              },
+              [_c("span", [_vm._v(_vm._s(this.count))])]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "rounded font-semibold text-black bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer",
+                on: {
+                  click: function($event) {
+                    return _vm.countUp()
+                  }
+                }
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "m-auto text-2xl text-black font-thin leading-none"
+                  },
+                  [_vm._v("+")]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "price w-1/2 text-white text-base sm:text-xl" },
+            [_vm._v(_vm._s(this.totalPriceForProduct) + " ₸")]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -20332,81 +20469,7 @@ var render = function() {
     _c("hr")
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-11/12" }, [
-      _c(
-        "div",
-        { staticClass: "productName text-white text-base sm:text-xl" },
-        [_vm._v("\n        weqwefassgasdfa\n    ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "countPrice flex justify-between mt-4 " }, [
-        _c("div", { staticClass: "flex flex-row  h-6 w-24" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "font-semibold bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer rounded"
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "m-auto text-2xl text-black font-thin leading-none"
-                },
-                [_vm._v("-")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticClass:
-              "md:p-2 p-1 text-xs md:text-base border-gray-400 focus:outline-none text-center",
-            attrs: { type: "hidden", readonly: "", name: "custom-input-number" }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "rounded countValue bg-white text-black w-24 text-base flex items-center justify-center cursor-default"
-            },
-            [_c("span", [_vm._v("22")])]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "rounded font-semibold text-black bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer"
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticClass:
-                    "m-auto text-2xl text-black font-thin leading-none"
-                },
-                [_vm._v("+")]
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "price w-1/2 text-white text-base sm:text-xl" },
-          [_vm._v("123 ₸")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

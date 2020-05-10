@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
-use function foo\func;
 
 class RegisterController extends Controller
 {
@@ -31,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'email/verify';
 
     /**
      * Create a new controller instance.
@@ -100,7 +99,7 @@ class RegisterController extends Controller
                 'birthDate' => ['required', 'string', 'max:10', 'correctBirthDate'],
                 'phone'     => ['required', 'string', 'max:18', 'min:18', 'unique:users'],
                 'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password'  => ['required', 'string', 'min:6', 'confirmed'],
+                'password'  => ['required', 'string', 'min:8', 'confirmed'],
             ],
             $messages
         );
@@ -114,12 +113,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $phone = Helpers::getCleanPhone($data['phone']);
+        $birthDate = Helpers::getCleanBirthDate($data['birthDate']);
         return User::create(
             [
                 'name'       => $data['name'],
-                'birth_date' => $data['birthDate'],
-                'phone'      => $data['phone'],
+                'phone'      => $phone,
                 'email'      => $data['email'],
+                'birth_date' => $birthDate,
                 'password'   => Hash::make($data['password']),
             ]
         );

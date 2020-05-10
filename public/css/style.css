@@ -276,10 +276,16 @@ h6 {
 .mobileImg{
     display: none;
 }
+
 @media (max-width: 690px) {
     .categories a{
         max-width: 49.5% !important;
     }
+}
+
+.productsContent{
+    width: 78%;
+    float: right;
 }
 @media (max-width: 470px) {
     .mobileImg, .categories{
@@ -358,6 +364,7 @@ input::-webkit-inner-spin-button {
     .productsContent .slideCard{
         min-width: 190px;
         width: 19%;
+
     }
 
     .filling-empty-space-childs {
@@ -371,7 +378,9 @@ input::-webkit-inner-spin-button {
     .productsContent .slideCard{
         min-width: 180px;
         width: 19%;
+        margin-bottom: 1rem;
     }
+
 
     .filling-empty-space-childs {
         min-width: 180px;
@@ -390,6 +399,28 @@ input::-webkit-inner-spin-button {
         min-width: 200px;
         width:19%;
         height:0;
+    }
+
+
+    .productsContent{
+        width: auto!important;
+        float: none;
+    }
+
+    .sideFilterContent{
+        display: none;
+    }
+
+}
+
+.sideFilterContent
+{
+    width: 22%;
+}
+
+@media (min-width: 1280px) {
+    .productsContent .slideCard {
+        margin-bottom: 2.25rem !important;
     }
 }
 
@@ -480,3 +511,52 @@ input:-moz-placeholder           {color:#c0392b;}/* Firefox 18- */
 input:-ms-input-placeholder      {color:#c0392b;}
 
 
+#sideFilterForm input[type="tel"]{
+    background-color: #dddddd;
+}
+
+.showProductFullImg {
+    top:0!important;
+}
+
+#productFullImgModal{
+    background-color: #0000007d;
+    top: -100%;
+    transition: all linear .15s;
+}
+
+#productFullImg{
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 10px);
+    max-height: 90%;
+}
+
+.productImg button[aria-label='Next']{
+    background: url("../images/ico/slider/next.png") no-repeat;
+    width: 55px;
+    height: 55px;
+    background-size: cover;
+    top: 50%;
+    right: 5%;
+    opacity: .5;
+}
+
+.productImg button[aria-label='Previous']{
+    background: url("../images/ico/slider/prev.png") no-repeat;
+    width: 55px;
+    height: 55px;
+    background-size: cover;
+    top: 50%;
+    left: 5%;
+    opacity: .5;
+}
+.productImg button[aria-label='Next']:before,
+.productImg button[aria-label='Previous']:before{
+    content: '';
+}
+
+.productImg button[aria-label='Next']:hover,
+.productImg button[aria-label='Previous']:hover{
+    opacity: .75;
+}

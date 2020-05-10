@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Главная страница')
+@section('title', ': Главная страница')
 @section('content')
 
     <div class="container h-12 mt-16">
@@ -40,7 +40,7 @@
         <h2 class="text-xl">Новое поступление</h2>
         <div class="slickCarousel ml-1 mr-1 text-center">
 
-            @foreach($newProdusts as $product)
+            @foreach($newProducts as $product)
             @include('layouts.card', $product)
             @endforeach
 

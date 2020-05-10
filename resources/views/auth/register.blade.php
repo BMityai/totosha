@@ -1,132 +1,75 @@
-{{--@extends('layouts.app')--}}
-
-{{--@section('content')--}}
-{{--<div class="container">--}}
-{{--    <div class="row justify-content-center">--}}
-{{--        <div class="col-md-8">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-header">{{ __('Register') }}</div>--}}
-
-{{--                <div class="card-body">--}}
-{{--                    <form method="POST" action="{{ route('register') }}">--}}
-{{--                        @csrf--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>--}}
-
-{{--                                @error('name')--}}
-{{--                                    <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">--}}
-
-{{--                                @error('email')--}}
-{{--                                    <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">--}}
-
-{{--                                @error('password')--}}
-{{--                                    <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row">--}}
-{{--                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>--}}
-
-{{--                            <div class="col-md-6">--}}
-{{--                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="form-group row mb-0">--}}
-{{--                            <div class="col-md-6 offset-md-4">--}}
-{{--                                <button type="submit" class="btn btn-primary">--}}
-{{--                                    {{ __('Register') }}--}}
-{{--                                </button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-{{--@endsection--}}
 @extends('layouts.master')
 @section('title', 'регистрация')
 @section('content')
 
     <div class="container mt-16">
-        <div class="bg-grey-lighter min-h-screen flex flex-col">
+        <div class="bg-grey-lighter h-full flex flex-col">
             <div class="container max-w-xl mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                <div class="bg-white px-6 py-8 rounded border-blue-200 border text-black w-full">
+                <div class="bg-white px-6 py-8 rounded text-black w-full">
                     <h1 class="mb-8 text-3xl text-center">Регистрация</h1>
                     <form  action="{{ route('register') }}" method="POST">
                         @csrf
                         <span>Имя</span>
                         <input
                             type="text"
-                            class="block border border-blue-400 w-full p-1 text-xl rounded mb-4"
+                            class="block border @error('name') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
                             name="name" value="{{ old('name') }}"
                             placeholder="Имя"/>
 
-                        <span>Дата рождения</span>
+                        @error('name')
+                        <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
+                        @enderror
+
+                        <p class="mt-4">Дата рождения</p>
                         <input
                             id="birthDate"
                             type="tel"
-                            class="block border border-blue-400 w-full p-1 text-xl rounded mb-4"
+                            class="block border @error('birthDate') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
                             name="birthDate" value="{{ old('birthDate') }}"
                             placeholder="Дата рождения"/>
 
-                        <span>Телефон</span>
+                        @error('birthDate')
+                        <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
+                        @enderror
+
+                        <p class="mt-4">Телефон</p>
                         <input
                             id="phone"
                             type="tel"
-                            class="block border border-blue-400 w-full p-1 text-xl rounded mb-4"
+                            class="block border @error('phone') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
                             name="phone" value="{{ old('phone') }}"
                             placeholder="Номер телефона"/>
 
-                        <span>email</span>
+                        @error('phone')
+                        <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
+                        @enderror
+
+                        <p class="mt-4">email</p>
                         <input
                             type="email"
-                            class="block border border-blue-400 w-full p-1 text-xl rounded mb-4"
+                            class="block border @error('email') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
                             name="email" value="{{ old('email') }}"
                             placeholder="Email"/>
 
-                        <span>Пароль</span>
+                        @error('email')
+                        <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
+                        @enderror
+
+                        <p class="pt-4">Пароль</p>
                         <input
                             type="password"
-                            class="block border border-blue-400 w-full p-1 text-xl rounded mb-4"
+                            class="block border @error('password') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
                             name="password"
                             placeholder="*********"/>
 
-                        <span>Повторите пароль</span>
+                        @error('password')
+                        <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
+                        @enderror
+
+                        <p class="mt-4">Повторите пароль</p>
                         <input
                             type="password"
-                            class="block border border-blue-400 w-full p-1 text-xl rounded mb-4"
+                            class="block border @error('password') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded mb-4"
                             name="password_confirmation"
                             placeholder="*********"/>
 
@@ -150,9 +93,5 @@
             </div>
         </div>
     </div>
-
-    @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-    @endforeach
 
 @endsection

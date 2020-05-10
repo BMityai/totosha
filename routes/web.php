@@ -13,9 +13,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
-
+Auth::routes(['verify' => true]);
+Route::get('/login', 'HomeController@index')->name('login')->middleware('showLoginForm');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/{category}', 'HomeController@getCategoryProducts')->name('category');
-Route::get('/{category}/{product}', 'HomeController@getProductPage')->name('product');
+
+Route::group(['prefix' => '{category}'], function (){
+    Route::get('/', 'HomeController@getCategoryProducts')->name('category');
+    Route::get('/{product}', 'HomeController@getProductPage')->name('product');
+});
+
+Route::post('add_to_basket', 'BasketController@addOrDelete')->name('addToBasket');

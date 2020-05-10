@@ -18,9 +18,9 @@ class HomeControllerService
         $this->dbRepository = $moiMalyshEloquentRepository;
     }
 
-    public function getCategoryBySlug($slug)
+    public function getProductsByCategorySlug($slug, $filter, $requestQueryString)
     {
-        return $this->dbRepository->getActiveCategoryBySlug($slug);
+        return $this->dbRepository->getActiveProductsByCategorySlug($slug, $filter, $requestQueryString);
     }
 
     public function getActiveNewProducts()
@@ -36,6 +36,11 @@ class HomeControllerService
     public function getActiveProductBySlug($slug)
     {
         return $this->dbRepository->getActiveProductBySlug($slug);
+    }
+
+    public function getCategoryBySlug($slug)
+    {
+        return $this->dbRepository->getActiveCategoryBySlug($slug);
     }
 
 }

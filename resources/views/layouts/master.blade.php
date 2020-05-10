@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
 
-    <title>Mimishka.kz: @yield('title')</title>
+    <title>Mimishka.kz @yield('title')</title>
 
 </head>
 <body class="bg-white m-auto">
@@ -22,6 +22,7 @@
 </div>
 @include('layouts.footer')
 
+<script src="{{ asset('js/axios.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/add.js') }}"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>

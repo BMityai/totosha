@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Basket;
 use App\Category;
 use App\Reposotories\MoiMalyshEloquentRepository\MoiMalyshEloquentRepository;
 use App\Services\HomeControllerService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -32,15 +34,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $newProdusts         = $this->service->getActiveNewProducts();
-        $recommendedProducts = $this->service->getActiveRecommendedProducts();
-        return view('home', ['newProdusts' => $newProdusts, 'recommendedProducts' => $recommendedProducts]);
+        $newProducts = $this->service->getActiveNewProducts();
+        return view('home', ['newProducts' => $newProducts]);
     }
 
-    public function getCategoryProducts($slug)
+    public function getCategoryProducts(Request $request, $slug)
     {
+        $requestQueryString = $request->getQueryString();
+        $products = $this->service->getProductsByCategorySlug($slug, $request->toArray(), $requestQueryString);
         $category = $this->service->getCategoryBySlug($slug);
-        return view('category', ['category' => $category]);
+
+        return view('category', ['products' => $products, 'category' => $category]);
     }
 
     public function getProductPage($category, $product)
