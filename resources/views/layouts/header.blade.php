@@ -146,20 +146,14 @@
     <div id="displayOverlayCart"
          class=" shadow-md rounded px-5 pt-6 pb-6 mb-4 h-auto w-3/4 sm:w-1/2 md:1/3 lg:w-1/3 bg-blue-600 fixed z-10">
         <div id="notEmptyCart" class="@if($cartInfo->count() > 0) block @else hidden @endif">
-            <div class="miniCartItemsContent overflow-y-auto">
+            <div id="miniCartItemsContent" class="miniCartItemsContent overflow-y-auto">
                 @foreach($cartInfo as $productInCart)
-                    <minicart-component
-                        csrf="{{ csrf_token() }}"
-                        id="{{ $productInCart->id }}"
-                        name="{{ $productInCart->product->name }}"
-                        :count_in_stock="{{ $productInCart->product->count }}"
-                        price="{{ $productInCart->product->discount_price }}">
-                    </minicart-component>
+                    @include('layouts.miniCartItem', ['productInCart' => $productInCart])
                 @endforeach
             </div>
             <div class="totalPrice flex justify-between text-xl text-white opacity-75 font-bold">
                 <p>Итого:</p>
-                <p id="cartTotalPrice">3421 ₸</p>
+                <p id="cartTotalPrice"></p>
             </div>
             <div>
                 <a href="">

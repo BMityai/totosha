@@ -7,7 +7,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 
-class MoiMalyshEloquentRepository implements MoiMalyshEloquentRepositoryInterface
+class MainEloquentRepository implements MainEloquentRepositoryInterface
 {
     public function getActiveProductsByCategorySlug($slug, $filter, $requestQueryString)
     {
@@ -86,11 +86,11 @@ class MoiMalyshEloquentRepository implements MoiMalyshEloquentRepositoryInterfac
             ->where('product_id', $productId)
             ->first();
         if (empty($product)) {
-            Basket::create(
+            return Basket::create(
                 ['session_id' => $sessionId, 'product_id' => $productId]
             );
         } else {
-            $product->delete();
+            return $product->delete();
         }
     }
 
@@ -102,7 +102,7 @@ class MoiMalyshEloquentRepository implements MoiMalyshEloquentRepositoryInterfac
             ->where('product_id', $productId)
             ->first();
         if (empty($product)) {
-            Basket::create(
+            return Basket::create(
                 [
                     'session_id' => $sessionId,
                     'user_id'    => $userId,
@@ -110,7 +110,7 @@ class MoiMalyshEloquentRepository implements MoiMalyshEloquentRepositoryInterfac
                 ]
             );
         } else {
-            $product->delete();
+            return $product->delete();
         }
     }
 
@@ -122,4 +122,15 @@ class MoiMalyshEloquentRepository implements MoiMalyshEloquentRepositoryInterfac
         return Basket::where('session_id', session()->getId())->get();
     }
 
+    public function changeProductCountInBasket($productId, $count)
+    {
+        if(Auth::check()){
+            return Basket::where('user_id', Auth::user()->id)
+                ->where('product_id', $productId)
+                ->update(['count' => $count]);
+        }
+        return Basket::where('session_id', session()->getId())
+            ->where('product_id', $productId)
+            ->update(['count' => $count]);
+    }
 }

@@ -560,3 +560,26 @@ input:-ms-input-placeholder      {color:#c0392b;}
 .productImg button[aria-label='Previous']:hover{
     opacity: .75;
 }
+
+.count {
+    color: #fff;
+    text-align: center;
+}
+
+.count button {
+    background-color: #fff;
+    color: #000;
+}
+
+.price {
+    text-align: end;
+}
+
+.countValue {
+    border-left: solid 2px #3182ce;
+    border-right: solid 2px #3182ce;
+}
+
+.deleteProduct {
+    align-self: center;
+}

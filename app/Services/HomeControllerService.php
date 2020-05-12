@@ -4,18 +4,18 @@
 namespace App\Services;
 
 
-use App\Reposotories\MoiMalyshEloquentRepository\MoiMalyshEloquentRepositoryInterface;
+use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepositoryInterface;
 
 class HomeControllerService
 {
     /**
-     * @var MoiMalyshEloquentRepositoryInterface
+     * @var MainEloquentRepositoryInterface
      */
     private $dbRepository;
 
-    public function __construct(MoiMalyshEloquentRepositoryInterface $moiMalyshEloquentRepository)
+    public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
     {
-        $this->dbRepository = $moiMalyshEloquentRepository;
+        $this->dbRepository = $mainEloquentRepository;
     }
 
     public function getProductsByCategorySlug($slug, $filter, $requestQueryString)

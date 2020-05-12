@@ -4,7 +4,7 @@
 namespace App\Reposotories\MoiMalyshEloquentRepository;
 
 
-interface MoiMalyshEloquentRepositoryInterface
+interface MainEloquentRepositoryInterface
 {
 
 }

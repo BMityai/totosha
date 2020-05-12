@@ -25,3 +25,4 @@ Route::group(['prefix' => '{category}'], function (){
 });
 
 Route::post('add_to_basket', 'BasketController@addOrDelete')->name('addToBasket');
+Route::post('change_count', 'BasketController@changeCount')->name('changeCount');

@@ -4,27 +4,32 @@
 namespace App\Services;
 
 
-use App\Reposotories\MoiMalyshEloquentRepository\MoiMalyshEloquentRepositoryInterface;
+use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class BasketControllerService
 {
     /**
-     * @var MoiMalyshEloquentRepositoryInterface
+     * @var MainEloquentRepositoryInterface
      */
     private $dbRepository;
 
-    public function __construct(MoiMalyshEloquentRepositoryInterface $moiMalyshEloquentRepository)
+    public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
     {
-        $this->dbRepository = $moiMalyshEloquentRepository;
+        $this->dbRepository = $mainEloquentRepository;
     }
 
     public function addOrDeleteProducts(int $productId)
     {
         if(Auth::check()){
-            $this->dbRepository->createOrDeleteBasketByUserId($productId);
+            return $this->dbRepository->createOrDeleteBasketByUserId($productId);
         } else {
-            $this->dbRepository->createOrDeleteBasketBySessionId($productId);
+            return $this->dbRepository->createOrDeleteBasketBySessionId($productId);
         }
+    }
+
+    public function changeProductCountInMiniBasket($productId, $count)
+    {
+        return $this->dbRepository->changeProductCountInBasket($productId, $count);
     }
 }

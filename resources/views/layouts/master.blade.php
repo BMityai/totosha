@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="uri" content="{{ route('addToBasket') }}">
+    <meta name="count_uri" content="{{ route('changeCount') }}">
     <title>Mimishka.kz @yield('title')</title>
 
 </head>

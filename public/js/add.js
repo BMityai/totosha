@@ -44,6 +44,7 @@ function outsideClickCabinetListener(event) {
 function cartShow() {
     let wishlistModal = document.getElementById('displayOverlayCart');
     wishlistModal.classList.toggle("showCabinetMenu");
+    totalPriceCalculate();
 }
 
 // cart modal close listener
@@ -62,18 +63,29 @@ function addToCart(event) {
     event.preventDefault();
     let button = event.target;
     let modal = document.getElementById('displayOverlayAddToCart')
-    let cartInfo = document.getElementById('cartInfoNum')
-
+    let operation = '';
+    if (button.tagName === 'A') {
+        operation = showModalAndChangeButton(button);
+    } else {
+        operation = 'delete';
+    }
     //axios send request
-    let csrf_token = button.dataset.csrf;
+    let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let uri = document.querySelector('meta[name="uri"]').getAttribute('content');
     let product_id = button.dataset.id;
-    axios.post(button.href, {
+    axios.post(uri, {
         'productId': product_id,
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
         if (response.status === 200) {
-            showModalAndChangeButton(button);
+            if (operation === 'add') {
+                addMiniCartComponentToMiniCartItemsContent(response.data);
+            }
+            if (operation === 'delete') {
+                deleteMiniCartComponentToMiniCartItemsContent(product_id);
+            }
             changeCartInfoNum();
+            totalPriceCalculate()
 
         } else {
             modal.innerText = 'Ошибка... Что-то пошло не так...'
@@ -87,39 +99,103 @@ function addToCart(event) {
     }, 1000)
 }
 
-function showModalAndChangeButton(button)
-{
+function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
+    let miniCartItemsContent = document.getElementById('productInMinicartId_' + product_id);
+    let modal = document.getElementById('displayOverlayAddToCart')
+    let cartInfo = document.getElementById('cartInfoNum')
+    let cartInfoNum = cartInfo.textContent;
+    let button = document.getElementById('removeButtonFromCart_' + product_id);
+    let secondButton = document.getElementById('addButtonToBasket_' + product_id);
+    miniCartItemsContent.remove()
+    modal.classList.remove('bg-green-400');
+    button.text = 'В КОРЗИНУ';
+    button.classList.remove('addCartButton');
+    secondButton.text = 'В КОРЗИНУ';
+    secondButton.classList.remove('addCartButton');
+    modal.classList.add('bg-red-500');
+    cartInfo.textContent = parseInt(cartInfoNum) - 1;
+    modal.innerText = 'Товар успешно удален';
+    modal.classList.add('showInfo');
+
+    setTimeout(function () {
+        modal.classList.remove('showInfo');
+    }, 1000)
+}
+
+function addMiniCartComponentToMiniCartItemsContent(product) {
+    let miniCartItemsContent = document.getElementById('miniCartItemsContent');
+    miniCartItemsContent.insertAdjacentHTML('beforeEnd', getMiniCartItemHtml(product))
+}
+
+function getMiniCartItemHtml(product) {
+    return '<div class="mr-2" id="productInMinicartId_' + product.id + '">\n' +
+        '    <div class="flex justify-between my-1">\n' +
+        '        <div class="w-11/12">\n' +
+        '            <div class="productName text-white text-base sm:text-xl">\n' +
+        product.name +
+        '            </div>\n' +
+        '            <p class="countAlert hidden text-red-700 text-sm -mb-4">Количество ограничено</p>\n' +
+        '            <div class="countPrice flex justify-between mt-4 ">\n' +
+        '                <div class="flex flex-row  h-6 w-24">\n' +
+        '                    <button onclick="countDown(event)"\n' +
+        '                            class="font-semibold bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer rounded">\n' +
+        '                        <span class="m-auto text-2xl text-black font-thin leading-none">-</span>\n' +
+        '\n' +
+        '                    </button>\n' +
+        '                    <input\n' +
+        '                        type="hidden"\n' +
+        '                        class="md:p-2 p-1 text-xs md:text-base border-gray-400 focus:outline-none text-center"\n' +
+        '                        readonly\n' +
+        '                        name="custom-input-number"/>\n' +
+        '                    <div\n' +
+        '                        class="rounded countValue bg-white text-black w-24 text-base flex items-center justify-center cursor-default">\n' +
+        '                        <span data-max="' + product.count + '" data-id="' + product.id + '" class="productCount">1</span>\n' +
+        '                    </div>\n' +
+        '\n' +
+        '                    <button onclick="countUp(event)" class="rounded font-semibold text-black bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer">\n' +
+        '                        <span class="m-auto text-2xl text-black font-thin leading-none">+</span>\n' +
+        '                    </button>\n' +
+        '                </div>\n' +
+        '                <div class="price w-1/2 text-white text-base sm:text-xl" data-price="'+ product.price +'">' + product.price + ' ₸</div>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '        <div class="deleteProduct w-6 opacity-75 hover:opacity-100">\n' +
+        '            <span  class="cursor-pointer" onclick="addToCart(event)">\n' +
+        '                <img src="images/ico/cart/trash_can.png" alt="" data-id="' + product.id + '">\n' +
+        '            </span>\n' +
+        '        </div>\n' +
+        '    </div>\n' +
+        '    <hr>\n' +
+        '</div>'
+}
+
+function showModalAndChangeButton(button) {
     let modal = document.getElementById('displayOverlayAddToCart')
     let cartInfo = document.getElementById('cartInfoNum')
     let cartInfoNum = cartInfo.textContent;
 
     if (button.classList.contains('addCartButton')) {
-        modal.classList.remove('bg-green-400')
-        button.text = 'В КОРЗИНУ';
-        button.classList.remove('addCartButton')
-        modal.classList.add('bg-red-500')
-        cartInfo.textContent = parseInt(cartInfoNum) - 1;
-        modal.innerText = 'Товар успешно удален'
+        return 'delete';
     } else {
-        modal.classList.remove('bg-red-700')
+        modal.classList.remove('bg-red-500')
         button.text = 'В КОРЗИНЕ';
         button.classList.add('addCartButton');
         cartInfo.textContent = parseInt(cartInfoNum) + 1;
-        modal.classList.add('bg-green-400')
+        modal.classList.add('bg-green-400');
         modal.innerText = 'Товар успешно добавлен'
+        return 'add';
     }
 }
 
-function changeCartInfoNum()
-{
+function changeCartInfoNum() {
     let cartInfoBgrnd = document.getElementById('cartInfoBgrnd');
     let cartInfo = document.getElementById('cartInfoNum');
     let cartInfoNum = cartInfo.textContent;
-    if(parseInt(cartInfoNum) < 1 && !cartInfo.classList.contains('hidden')){
+    if (parseInt(cartInfoNum) < 1 && !cartInfo.classList.contains('hidden')) {
         cartInfoChangeToNotVisible(cartInfo, cartInfoBgrnd);
     }
 
-    if(parseInt(cartInfoNum) > 0 && !cartInfo.classList.contains('block')){
+    if (parseInt(cartInfoNum) > 0 && !cartInfo.classList.contains('block')) {
         cartInfoChangeToVisible(cartInfo, cartInfoBgrnd);
     }
 }
@@ -259,7 +335,80 @@ function showProductFullImg(event) {
     modalImg.src = img;
 }
 
+//count up mini cart product
+function countUp(event) {
+    let button = event.target;
+    let input = button.closest('div').querySelector('.productCount');
+    let maxValue = input.dataset.max;
+    let productId = input.dataset.id;
+    let value = parseInt(input.textContent);
+    let alertEl = document.getElementById('productInMinicartId_' + productId).querySelector('.countAlert')
 
+    if (parseInt(input.textContent) < parseInt(maxValue)) {
+        value += 1;
+        countChangeResponse(productId, value);
+        input.textContent = value;
+        editPerProductPrice(button);
+        totalPriceCalculate();
+    } else {
+        alertEl.classList.remove('hidden')
+    }
+}
+
+//count down mini cart product
+function countDown(event) {
+    let button = event.target;
+    let input = button.closest('div').querySelector('.productCount');
+    let productId = input.dataset.id;
+    let value = parseInt(input.textContent);
+    let alertEl = document.getElementById('productInMinicartId_' + productId).querySelector('.countAlert');
+
+    if (parseInt(input.textContent) > 1) {
+        value -= 1;
+        countChangeResponse(productId, value);
+        input.textContent = value;
+        editPerProductPrice(button);
+        totalPriceCalculate();
+        if(!alertEl.classList.contains('hidden')){
+            alertEl.classList.add('hidden')
+        }
+    }
+}
+
+//axios send count
+function countChangeResponse(productId, count) {
+    let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let uri = document.querySelector('meta[name="count_uri"]').getAttribute('content');
+    axios.post(uri, {
+        'productId': productId,
+        'count': count,
+        'X-CSRF-TOKEN': csrf_token
+    }).then(response => {
+        if (response.status === 200) {
+            return response.data.count
+        } else {
+            return null;
+        }
+    })
+}
+
+function editPerProductPrice(button) {
+    let count = button.closest('div').querySelector('.productCount').textContent;
+    let id = button.closest('div').querySelector('.productCount').dataset.id;
+    let price = document.getElementById('productInMinicartId_' + id).querySelector('.price');
+    let intPrice = parseInt(price.dataset.price);
+    price.textContent = parseInt(count) * intPrice + ' ₸';
+}
+
+function totalPriceCalculate() {
+        let cartTotalPrice = 0;
+        let totalPriceContent = document.getElementById('cartTotalPrice');
+        let totalPriceElements = [].slice.call(document.getElementsByClassName('price'));
+        totalPriceElements.forEach((element) => {
+            cartTotalPrice += parseInt(element.textContent.split(' ')[0]);
+        })
+        totalPriceContent.textContent = cartTotalPrice + ' ₸';
+}
 
 
 

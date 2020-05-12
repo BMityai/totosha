@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Basket;
-use App\Category;
-use App\Reposotories\MoiMalyshEloquentRepository\MoiMalyshEloquentRepository;
+use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepository;
 use App\Services\HomeControllerService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->service = new HomeControllerService(new MoiMalyshEloquentRepository());
+        $this->service = new HomeControllerService(new MainEloquentRepository());
     }
 
     /**

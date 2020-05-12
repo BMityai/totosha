@@ -21,11 +21,11 @@
         </div>
     </a>
     @if($product->count > 0 && !$product->coming_soon)
-        <a href="{{ route('addToBasket') }}" onclick="addToCart(event)" id="addButtonToBasket" data-csrf="{{ csrf_token() }}" data-id="{{ $product->id }}"
+        <a href="{{ route('addToBasket') }}" onclick="addToCart(event)" id="addButtonToBasket_{{ $product->id }}" data-id="{{ $product->id }}"
            class="@if($product->getIfInTheBasket->isNotEmpty()) hidden @else block @endif w-11/12 block text-center bg-orange-500 hover:bg-orange-600 p-2 mt-2 mr-auto ml-auto rounded outline-none">
             В КОРЗИНУ
         </a>
-        <a href="{{ route('addToBasket') }}" onclick="addToCart(event)" id="removeButtonFromCart" data-csrf="{{ csrf_token() }}" data-id="{{ $product->id }}"
+        <a href="{{ route('addToBasket') }}" onclick="addToCart(event)" id="removeButtonFromCart_{{ $product->id }}" data-csrf="{{ csrf_token() }}" data-id="{{ $product->id }}"
            class="@if($product->getIfInTheBasket->isNotEmpty()) block @else hidden @endif addCartButton w-11/12 block text-center bg-orange-500 hover:bg-orange-600 p-2 mt-2 mr-auto ml-auto rounded outline-none">
             В КОРЗИНЕ
         </a>

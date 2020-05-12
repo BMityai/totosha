@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Reposotories\MoiMalyshEloquentRepository\MoiMalyshEloquentRepository;
+use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepository;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,8 +34,8 @@ class ViewShareServiseProvider extends ServiceProvider
     {
         View::composer(['layouts.header', 'category'], function ($view)
         {
-            $moiMalyshDbRepository = new MoiMalyshEloquentRepository();
-            $view->with('categories', $moiMalyshDbRepository->getAllActiveCategories());
+            $mainDbRepository = new MainEloquentRepository();
+            $view->with('categories', $mainDbRepository->getAllActiveCategories());
         });
     }
 
@@ -43,8 +43,8 @@ class ViewShareServiseProvider extends ServiceProvider
     {
         View::composer(['home'], function ($view)
         {
-            $moiMalyshDbRepository = new MoiMalyshEloquentRepository();
-            $view->with('recommendedProducts', $moiMalyshDbRepository->getActiveRecommendedProducts());
+            $mainDbRepository = new MainEloquentRepository();
+            $view->with('recommendedProducts', $mainDbRepository->getActiveRecommendedProducts());
         });
     }
 
@@ -52,8 +52,8 @@ class ViewShareServiseProvider extends ServiceProvider
     {
         View::composer(['layouts.header'], function ($view)
         {
-            $moiMalyshDbRepository = new MoiMalyshEloquentRepository();
-            $view->with('cartInfo', $moiMalyshDbRepository->getCartInfo());
+            $mainDbRepository = new MainEloquentRepository();
+            $view->with('cartInfo', $mainDbRepository->getCartInfo());
         });
     }
 }
