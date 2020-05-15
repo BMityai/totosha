@@ -2,6 +2,9 @@
 
 return [
 
+    'bonusPercent' => env('BONUS_PERCENT'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

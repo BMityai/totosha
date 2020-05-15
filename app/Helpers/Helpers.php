@@ -4,6 +4,9 @@
 namespace App\Helpers;
 
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 class Helpers
 {
     /**
@@ -34,5 +37,29 @@ class Helpers
         $dateParams           = explode("/", $birthDate);
         $birthDate = $dateParams[2] . '-' . $dateParams[1] . '-' .$dateParams[0];
         return $birthDate;
+    }
+
+    /**
+     * Generate order number
+     *
+     * @param int $regionId
+     * @return string
+     */
+    public static function generateOrderNumber(int $regionId): string
+    {
+        $prefix = '0';
+        $suffix = '0';
+        if($regionId == 1){
+            $prefix = '1';
+        }
+
+        if(Auth::check()){
+            $suffix = '1';
+        }
+
+        $orderDate = Carbon::now()->getTimestamp();
+        $startDate=new Carbon('05-06-2019');
+        $endPart = $orderDate - $startDate->getTimestamp();
+        return $prefix . $suffix . $endPart . mt_rand(0, 9);
     }
 }

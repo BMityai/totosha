@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepository;
+use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\HomeControllerService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,7 @@ class HomeController extends Controller
      *
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         $newProducts = $this->service->getActiveNewProducts();
         return view('home', ['newProducts' => $newProducts]);

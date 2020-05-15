@@ -32,7 +32,13 @@ class AlterTableProducts extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('characteristic');
+            $table->dropColumn('note');
+            $table->dropColumn('height');
+            $table->dropColumn('width');
+            $table->dropColumn('depth');
+            $table->dropColumn('material');
+            $table->dropColumn('manufacturer');
+            $table->dropColumn('age');
         });
     }
 }

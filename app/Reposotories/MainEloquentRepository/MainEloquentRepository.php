@@ -1,10 +1,16 @@
 <?php
 
-namespace App\Reposotories\MoiMalyshEloquentRepository;
+namespace App\Reposotories\MainEloquentRepository;
 
 use App\Basket;
 use App\Category;
+use App\DeliveryType;
+use App\KazPostTarif;
+use App\Order;
+use App\OrderProduct;
+use App\PaymentForm;
 use App\Product;
+use App\Region;
 use Illuminate\Support\Facades\Auth;
 
 class MainEloquentRepository implements MainEloquentRepositoryInterface
@@ -116,7 +122,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
 
     public function getCartInfo()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return Basket::where('user_id', Auth::user()->id)->get();
         }
         return Basket::where('session_id', session()->getId())->get();
@@ -124,7 +130,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
 
     public function changeProductCountInBasket($productId, $count)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return Basket::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
                 ->update(['count' => $count]);
@@ -132,5 +138,86 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         return Basket::where('session_id', session()->getId())
             ->where('product_id', $productId)
             ->update(['count' => $count]);
+    }
+
+    public function getRegions()
+    {
+        return Region::all();
+    }
+
+    public function getPaymentTypes()
+    {
+        return PaymentForm::all();
+    }
+
+    public function getDeliveryTypes()
+    {
+        return DeliveryType::all();
+    }
+
+    public function getKazpostTarifByValue($deliveryTypeId, $value)
+    {
+        return KazPostTarif::where('delivery_type_id', (int)$deliveryTypeId)->where('value', $value)->first();
+    }
+
+    /**
+     * Create order
+     *
+     * @param array $params
+     * @param int $orderNumber
+     * @return object
+     */
+    public function createOrder(array $params, string $orderNumber): object
+    {
+        $userId     = Auth::check() ? Auth::user()->id : null;
+        $spentBonus = $params['spentBonus'] ?? 0;
+        return Order::create(
+            [
+                'number'           => $orderNumber,
+                'user_id'          => $userId,
+                'name'             => $params['name'],
+                'phone'            => $params['phone'],
+                'email'            => $params['email'],
+                'region_id'        => (int)$params['region'],
+                'district'         => $params['district'],
+                'city'             => $params['city'],
+                'street'           => $params['street'],
+                'building'         => $params['building'],
+                'apartment'        => $params['apartment'],
+                'delivery_type_id' => (int)$params['deliveryType'],
+                'payment_form_id'  => (int)$params['paymentType'],
+                'comment'          => $params['comment'],
+                'spent_bonus'      => $spentBonus,
+            ]
+        );
+    }
+
+    /**
+     * Create order products
+     *
+     * @param int $orderId
+     * @param object $product
+     * @param int $count
+     */
+    public function createOrderProduct(int $orderId, object $product, int $count): void
+    {
+        OrderProduct::create(
+            [
+                'order_id'       => $orderId,
+                'product_id'     => $product->id,
+                'name'           => $product->name,
+                'cost_price'     => $product->cost_price,
+                'price'          => $product->price,
+                'discount'       => $product->discount,
+                'discount_price' => $product->discount_price,
+                'art_no'         => $product->art_no,
+                'count'          => $count,
+            ]
+        );
+    }
+
+    public function deleteBasketProduct($basketProduct)
+    {
+        $basketProduct->delete();
     }
 }

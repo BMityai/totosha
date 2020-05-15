@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepository;
+use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\BasketControllerService;
 use Illuminate\Http\Request;
+
+use function foo\func;
 
 class BasketController extends Controller
 {
@@ -36,5 +38,32 @@ class BasketController extends Controller
     {
         $result = $this->service->changeProductCountInMiniBasket((int)$request->productId, (int)$request->count);
         return response()->json($result);
+    }
+
+    public function getBasket()
+    {
+        $basket           = $this->service->getBasket();
+        $totalPrice       = $this->service->getTotalPrice();
+        $paymentTypes     = $this->service->getPaymentTypes();
+        $deliveryTypes    = $this->service->getDeliveryTypes();
+        $regions          = $this->service->getRegions();
+        $bonusСoefficient = $this->service->getBonusCoefficient();
+        return view(
+            'basket',
+            [
+                'basket'           => $basket,
+                'totalPrice'       => $totalPrice,
+                'regions'          => $regions,
+                'paymentTypes'     => $paymentTypes,
+                'deliveryTypes'    => $deliveryTypes,
+                'bonusСoefficient' => $bonusСoefficient
+            ]
+        );
+    }
+
+    public function getDeliveryPrice(Request $request)
+    {
+        $deliveryPrice = $this->service->getDeliveryPrice($request->deliveryLocation, $request->deliveryType);
+        return response()->json($deliveryPrice);
     }
 }

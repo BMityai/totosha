@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepository;
+use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -54,6 +54,7 @@ class ViewShareServiseProvider extends ServiceProvider
         {
             $mainDbRepository = new MainEloquentRepository();
             $view->with('cartInfo', $mainDbRepository->getCartInfo());
+            $view->with('basket', $mainDbRepository->getCartInfo());
         });
     }
 }

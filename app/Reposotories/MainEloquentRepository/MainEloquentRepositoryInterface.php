@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Reposotories\MoiMalyshEloquentRepository;
+namespace App\Reposotories\MainEloquentRepository;
 
 
 interface MainEloquentRepositoryInterface

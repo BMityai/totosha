@@ -1,5 +1,6 @@
 <?php
 
+use App\PaymentForm;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+         $this->call(RegionSeeder::class);
+         $this->call(OrderStatusSeeder::class);
+         $this->call(PaymentForm::class);
+         $this->call(DeliveryTypeSeeder::class);
+         $this->call(KazPostTarifSeeder::class);
     }
 }

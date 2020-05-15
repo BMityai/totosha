@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Auth::routes(['verify' => true]);
+Route::get('basket', 'BasketController@getBasket')->name('basket');
+
 Route::get('/login', 'HomeController@index')->name('login')->middleware('showLoginForm');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -26,3 +28,9 @@ Route::group(['prefix' => '{category}'], function (){
 
 Route::post('add_to_basket', 'BasketController@addOrDelete')->name('addToBasket');
 Route::post('change_count', 'BasketController@changeCount')->name('changeCount');
+
+Route::post('get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
+
+Route::post('create_order', 'OrderController@createOrder')->name('createOrder');
+
+

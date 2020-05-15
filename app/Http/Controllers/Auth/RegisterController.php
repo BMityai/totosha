@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\Helpers;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -113,12 +112,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $phone = Helpers::getCleanPhone($data['phone']);
         $birthDate = Helpers::getCleanBirthDate($data['birthDate']);
         return User::create(
             [
                 'name'       => $data['name'],
-                'phone'      => $phone,
+                'phone'      => $data['phone'],
                 'email'      => $data['email'],
                 'birth_date' => $birthDate,
                 'password'   => Hash::make($data['password']),

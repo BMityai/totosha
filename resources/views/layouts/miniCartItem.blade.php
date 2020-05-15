@@ -19,14 +19,14 @@
                         name="custom-input-number"/>
                     <div
                         class="rounded countValue bg-white text-black w-24 text-base flex items-center justify-center cursor-default">
-                        <span class="productCount" data-max="{{ $productInCart->product->count }}" data-id="{{ $productInCart->product->id }}">{{ $productInCart->count }}</span>
+                        <span id="miniBasketCount_{{ $productInCart->product->id }}" class="productCount" data-max="{{ $productInCart->product->count }}" data-id="{{ $productInCart->product->id }}">{{ $productInCart->count }}</span>
                     </div>
 
                     <button onclick="countUp(event)" class="rounded font-semibold text-black bg-white hover:opacity-75 text-white border-gray-400 h-full w-20 flex focus:outline-none cursor-pointer">
                         <span class="m-auto text-2xl text-black font-thin leading-none">+</span>
                     </button>
                 </div>
-                <div class="price w-1/2 text-white text-base sm:text-xl" data-price="{{$productInCart->product->discount_price}}">{{$productInCart->product->discount_price * $productInCart->count}} ₸</div>
+                <div class="price w-1/2 text-white text-base sm:text-xl" data-price="{{$productInCart->product->discount_price}}" data-withoutDiscount="{{$productInCart->product->price}}">{{$productInCart->product->discount_price * $productInCart->count}} ₸</div>
             </div>
         </div>
         <div class="deleteProduct w-6 opacity-75 hover:opacity-100">

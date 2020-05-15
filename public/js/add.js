@@ -85,7 +85,8 @@ function addToCart(event) {
                 deleteMiniCartComponentToMiniCartItemsContent(product_id);
             }
             changeCartInfoNum();
-            totalPriceCalculate()
+            getDeliveryPrice();
+            totalPriceCalculate();
 
         } else {
             modal.innerText = 'Ошибка... Что-то пошло не так...'
@@ -101,17 +102,24 @@ function addToCart(event) {
 
 function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
     let miniCartItemsContent = document.getElementById('productInMinicartId_' + product_id);
+    let mainCartItemsContent = document.getElementById('mainCartProductContent_' + product_id);
     let modal = document.getElementById('displayOverlayAddToCart')
     let cartInfo = document.getElementById('cartInfoNum')
     let cartInfoNum = cartInfo.textContent;
     let button = document.getElementById('removeButtonFromCart_' + product_id);
     let secondButton = document.getElementById('addButtonToBasket_' + product_id);
-    miniCartItemsContent.remove()
+    miniCartItemsContent.remove();
     modal.classList.remove('bg-green-400');
-    button.text = 'В КОРЗИНУ';
-    button.classList.remove('addCartButton');
-    secondButton.text = 'В КОРЗИНУ';
-    secondButton.classList.remove('addCartButton');
+    if (button) {
+        button.text = 'В КОРЗИНУ';
+        button.classList.remove('addCartButton');
+        secondButton.text = 'В КОРЗИНУ';
+        secondButton.classList.remove('addCartButton');
+    }
+    if (mainCartItemsContent) {
+        mainCartItemsContent.remove();
+    }
+
     modal.classList.add('bg-red-500');
     cartInfo.textContent = parseInt(cartInfoNum) - 1;
     modal.innerText = 'Товар успешно удален';
@@ -119,7 +127,7 @@ function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
 
     setTimeout(function () {
         modal.classList.remove('showInfo');
-    }, 1000)
+    }, 1000);
 }
 
 function addMiniCartComponentToMiniCartItemsContent(product) {
@@ -156,7 +164,7 @@ function getMiniCartItemHtml(product) {
         '                        <span class="m-auto text-2xl text-black font-thin leading-none">+</span>\n' +
         '                    </button>\n' +
         '                </div>\n' +
-        '                <div class="price w-1/2 text-white text-base sm:text-xl" data-price="'+ product.price +'">' + product.price + ' ₸</div>\n' +
+        '                <div class="price w-1/2 text-white text-base sm:text-xl" data-price="' + product.price + '">' + product.price + ' ₸</div>\n' +
         '            </div>\n' +
         '        </div>\n' +
         '        <div class="deleteProduct w-6 opacity-75 hover:opacity-100">\n' +
@@ -343,15 +351,19 @@ function countUp(event) {
     let productId = input.dataset.id;
     let value = parseInt(input.textContent);
     let alertEl = document.getElementById('productInMinicartId_' + productId).querySelector('.countAlert')
-
+    let mainCartAlertEl = document.getElementById('countAlert_' + productId);
     if (parseInt(input.textContent) < parseInt(maxValue)) {
         value += 1;
         countChangeResponse(productId, value);
+        getDeliveryPrice();
         input.textContent = value;
         editPerProductPrice(button);
         totalPriceCalculate();
     } else {
         alertEl.classList.remove('hidden')
+        if (mainCartAlertEl) {
+            mainCartAlertEl.classList.remove('hidden')
+        }
     }
 }
 
@@ -362,15 +374,20 @@ function countDown(event) {
     let productId = input.dataset.id;
     let value = parseInt(input.textContent);
     let alertEl = document.getElementById('productInMinicartId_' + productId).querySelector('.countAlert');
+    let mainCartAlertEl = document.getElementById('countAlert_' + productId);
 
     if (parseInt(input.textContent) > 1) {
         value -= 1;
         countChangeResponse(productId, value);
+        getDeliveryPrice();
         input.textContent = value;
         editPerProductPrice(button);
         totalPriceCalculate();
-        if(!alertEl.classList.contains('hidden')){
+        if (!alertEl.classList.contains('hidden')) {
             alertEl.classList.add('hidden')
+        }
+        if (mainCartAlertEl && !mainCartAlertEl.classList.contains('hidden')) {
+            mainCartAlertEl.classList.add('hidden')
         }
     }
 }
@@ -397,18 +414,123 @@ function editPerProductPrice(button) {
     let id = button.closest('div').querySelector('.productCount').dataset.id;
     let price = document.getElementById('productInMinicartId_' + id).querySelector('.price');
     let intPrice = parseInt(price.dataset.price);
+    let withoutDiscountPrice = parseInt(price.dataset.withoutdiscount);
     price.textContent = parseInt(count) * intPrice + ' ₸';
+    let priceContent = document.getElementById('productInMaincartId_' + id);
+    if (priceContent) {
+
+        let miniBasketCount = document.getElementById('miniBasketCount_' + id)
+        let priceMainCart = priceContent.querySelector('.discountTotalPrice');
+        let withoutDiscountPriceMainCart = priceContent.querySelector('.withoutDiscountTotalPrice');
+        priceMainCart.textContent = parseInt(count) * intPrice + ' ₸';
+        if (withoutDiscountPriceMainCart) {
+            withoutDiscountPriceMainCart.textContent = parseInt(count) * withoutDiscountPrice + ' ₸';
+        }
+        miniBasketCount.textContent = count;
+        document.getElementById('mainCartProductCount_' + id).textContent = count;
+    }
+
 }
 
 function totalPriceCalculate() {
-        let cartTotalPrice = 0;
-        let totalPriceContent = document.getElementById('cartTotalPrice');
-        let totalPriceElements = [].slice.call(document.getElementsByClassName('price'));
-        totalPriceElements.forEach((element) => {
-            cartTotalPrice += parseInt(element.textContent.split(' ')[0]);
-        })
-        totalPriceContent.textContent = cartTotalPrice + ' ₸';
+    let cartTotalPrice = 0;
+    let spentBonus = document.getElementById('spentBonus');
+    let receivedBonus = document.getElementById('received_bonus');
+    let totalPriceContent = document.getElementById('cartTotalPrice');
+    let mainCartTotalPriceContent = document.getElementById('mainCartTotalPrice');
+    let totalPriceElements = [].slice.call(document.getElementsByClassName('price'));
+    totalPriceElements.forEach((element) => {
+        cartTotalPrice += parseInt(element.textContent.split(' ')[0]);
+    })
+    if (mainCartTotalPriceContent) {
+        let mainCartAmountPrice = document.getElementById('mainCartAmountPrice')
+        let deliveryPrice = document.getElementById('deliveryPrice').textContent;
+        mainCartTotalPriceContent.textContent = cartTotalPrice + ' ₸';
+        if(spentBonus){
+            let spentBonusValue = 0;
+            if(spentBonus.value) {
+                spentBonusValue = spentBonus.value
+            }
+            document.getElementById('spent_bonus_form').value = spentBonusValue;
+            let bonusValue = receivedBonus.dataset.bonus;
+            let summ = cartTotalPrice + parseInt(deliveryPrice) - parseInt(spentBonusValue);
+            mainCartAmountPrice.textContent = summ + ' ₸';
+            receivedBonus.textContent = '+ ' + Math.round(cartTotalPrice * parseInt(bonusValue) / 100) + ' ₸';
+        } else {
+            mainCartAmountPrice.textContent = cartTotalPrice + parseInt(deliveryPrice) + ' ₸'
+        }
+    }
+
+    totalPriceContent.textContent = cartTotalPrice + ' ₸';
 }
 
+function checkLocation(event) {
+    let locationId = event.target.value;
+    let deliveryTypeContent = document.getElementById('deliveryTypeContent');
+    let deliveryOptions = deliveryTypeContent.getElementsByTagName("option");
+    let deliveryRegion = document.getElementById('deliveryRegion');
+    let admLocation = document.getElementById('location');
+
+    if (locationId > 3 && admLocation.classList.contains('hidden')) {
+        admLocation.classList.remove('hidden');
+        admLocation.classList.add('sm' + ':' + 'flex');
+        deliveryRegion.classList.add('w' + '-' + '1/3')
+        deliveryRegion.classList.remove('w' + '-' + 'full');
+    }
+    if (locationId <= 3 && !admLocation.classList.contains('hidden')) {
+        admLocation.classList.remove('sm' + ':' + 'flex');
+        admLocation.classList.add('hidden');
+        deliveryRegion.classList.remove('w' + '-' + '1/3')
+        deliveryRegion.classList.add('w' + '-' + 'full');
+    }
+
+    if (locationId == 1) {
+        deliveryOptions[1].disabled = false;
+        deliveryOptions[1].selected = true;
+        deliveryOptions[2].disabled = true;
+        deliveryOptions[3].disabled = true;
+    } else {
+        deliveryOptions[1].disabled = true;
+        deliveryOptions[2].selected = true;
+        deliveryOptions[2].disabled = false;
+        deliveryOptions[3].disabled = false;
+    }
+    getDeliveryPrice()
+}
+
+function getDeliveryPrice() {
+    let deliveryPriceEl = document.getElementById('deliveryPrice');
+    if (deliveryPriceEl) {
+        let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let uri = document.getElementById('getDeliveryPriceUrl').href;
+        let deliveryType = document.getElementById('deliveryType').value;
+        let deliveryPriceInForm = document.getElementById('deliveryPriceInfo');
+        let deliveryLocation = document.getElementById('deliveryRegion').getElementsByTagName('select')[0].value
+        let modal = document.getElementById('displayOverlayAddToCart')
+
+        if (deliveryLocation && deliveryType) {
+            axios.post(uri, {
+                'deliveryType': deliveryType,
+                'deliveryLocation': deliveryLocation,
+                'X-CSRF-TOKEN': csrf_token
+            }).then(response => {
+                if (response.status === 200) {
+                    console.log('ok')
+                    let deliveryPrice = response.data;
+                    deliveryPriceEl.textContent = deliveryPrice + ' ₸';
+                    console.log(deliveryPriceInForm);
+                    deliveryPriceInForm.classList.remove('hidden');
+                    deliveryPriceInForm.textContent = 'Стоимость доставки: ' + deliveryPrice + ' ₸';
+                    totalPriceCalculate();
+                } else {
+                    modal.innerText = 'Ошибка... Что-то пошло не так...'
+                    modal.classList.add('bg-red-700')
+                }
+            })
+        } else {
+            return 0;
+        }
+    }
+}
 
 

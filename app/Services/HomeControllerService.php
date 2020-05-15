@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-use App\Reposotories\MoiMalyshEloquentRepository\MainEloquentRepositoryInterface;
+use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
 
 class HomeControllerService
 {

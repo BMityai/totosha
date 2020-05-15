@@ -39,7 +39,7 @@
             @if(request()->user()->hasVerifiedEmail())
                 <div class="bonusCabinet flex justify-center text-white text-xl">
                     <p>Мои бонусы: </p>
-                    <p>&#8195; 123 ₸</p>
+                    <p>&#8195; {{ \Illuminate\Support\Facades\Auth::user()->bonus }} ₸</p>
                 </div>
 
                 <a href="">
@@ -77,7 +77,7 @@
                     </div>
                 </a>
 
-                <a href="">
+                <a href="{{ route('logout') }}">
                     <div class="flex text-white mt-2 rounded p-2 hover:bg-blue-700">
                         <img class="w-8 h-8" src="{{ asset('images/ico/cabinet/logout.png') }}" alt="">
                         <p class="text-lg ml-4"> Выйти</p>
@@ -156,7 +156,7 @@
                 <p id="cartTotalPrice"></p>
             </div>
             <div>
-                <a href="">
+                <a href="{{ route('basket') }}">
                     <p class="bg-orange-500 hover:bg-orange-600 rounded text-center p-2">Перейти в корзину</p>
                 </a>
             </div>
