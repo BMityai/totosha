@@ -16,9 +16,9 @@ class DeliveryLocationRule implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param int $deliveryLocationId
+     * @param $deliveryLocationId
      */
-    public function __construct(int $deliveryLocationId)
+    public function __construct($deliveryLocationId)
     {
         $this->deliveryLocationId = (int)$deliveryLocationId;
         $this->dbRepository = new MainEloquentRepository();

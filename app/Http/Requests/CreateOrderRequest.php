@@ -34,7 +34,7 @@ class CreateOrderRequest extends FormRequest
             'region'        => ['required', 'numeric', new DeliveryLocationRule($this->request->get('region'))],
             'district'      => ['string', 'min:2'],
             'city'          => ['string', 'min:2'],
-            'street'        => ['string', 'min:2'],
+            'street'        => ['required', 'string', 'min:2'],
             'building'      => ['string', 'required'],
             'apartment'     => ['string'],
             'paymentType'   => ['numeric', 'required'],

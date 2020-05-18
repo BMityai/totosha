@@ -21,10 +21,10 @@ class DeliveryTypeRule implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param int $deliveryTypeId
-     * @param int $deliveryLocationId
+     * @param $deliveryTypeId
+     * @param $deliveryLocationId
      */
-    public function __construct(int $deliveryTypeId, int $deliveryLocationId)
+    public function __construct($deliveryTypeId, $deliveryLocationId)
     {
         $this->deliveryTypeId = $deliveryTypeId;
         $this->deliveryLocationId = $deliveryLocationId;

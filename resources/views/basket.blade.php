@@ -128,7 +128,7 @@
                             <span class="mt-4">Область</span>
                             <select onchange="checkLocation(event)" name="region"
                                     class="w-full border-gray-300 p-2 text-xl  rounded @error('region') border border-2 border-red-400 @enderror">
-                                <option class="hidden" disabled selected>Выберите область</option>
+                                <option hidden selected value>Выберите область</option>
 
                                 @foreach($regions as $region)
                                     <option value="{{ $region->id }}"

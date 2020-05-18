@@ -521,13 +521,13 @@ function getDeliveryPrice() {
     let deliveryPriceEl = document.getElementById('deliveryPrice');
     if (deliveryPriceEl) {
         let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        let uri = document.getElementById('getDeliveryPriceUrlgetDeliveryPriceUrl').href;
         let deliveryType = document.getElementById('deliveryType').value;
         let deliveryPriceInForm = document.getElementById('deliveryPriceInfo');
         let deliveryLocation = document.getElementById('deliveryRegion').getElementsByTagName('select')[0].value
         let modal = document.getElementById('displayOverlayAddToCart')
 
         if (deliveryLocation && deliveryType) {
+            let uri = document.getElementById('getDeliveryPriceUrl').href;
             axios.post(uri, {
                 'deliveryType': deliveryType,
                 'deliveryLocation': deliveryLocation,
