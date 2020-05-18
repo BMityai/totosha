@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddOrDeleteBasketProductRequest;
+use App\Http\Requests\BasketProductCountChangeRequest;
+use App\Http\Requests\DeliveryPriceRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\BasketControllerService;
-use Illuminate\Http\Request;
-
-use function foo\func;
 
 class BasketController extends Controller
 {
@@ -20,7 +20,7 @@ class BasketController extends Controller
         $this->service = new BasketControllerService(new MainEloquentRepository());
     }
 
-    public function addOrDelete(Request $request)
+    public function addOrDelete(AddOrDeleteBasketProductRequest $request)
     {
         $addInfo = $this->service->addOrDeleteProducts((int)$request->productId);
         if (is_object($addInfo)) {
@@ -34,7 +34,7 @@ class BasketController extends Controller
         };
     }
 
-    public function changeCount(Request $request)
+    public function changeCount(BasketProductCountChangeRequest $request)
     {
         $result = $this->service->changeProductCountInMiniBasket((int)$request->productId, (int)$request->count);
         return response()->json($result);
@@ -61,7 +61,7 @@ class BasketController extends Controller
         );
     }
 
-    public function getDeliveryPrice(Request $request)
+    public function getDeliveryPrice(DeliveryPriceRequest $request)
     {
         $deliveryPrice = $this->service->getDeliveryPrice($request->deliveryLocation, $request->deliveryType);
         return response()->json($deliveryPrice);

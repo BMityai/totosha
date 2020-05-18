@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FilterRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\HomeControllerService;
 use Illuminate\Http\Request;
@@ -30,13 +31,13 @@ class HomeController extends Controller
      *
      * @return Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
         $newProducts = $this->service->getActiveNewProducts();
         return view('home', ['newProducts' => $newProducts]);
     }
 
-    public function getCategoryProducts(Request $request, $slug)
+    public function getCategoryProducts(FilterRequest $request, $slug)
     {
         $requestQueryString = $request->getQueryString();
         $products = $this->service->getProductsByCategorySlug($slug, $request->toArray(), $requestQueryString);

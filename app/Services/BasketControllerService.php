@@ -77,7 +77,7 @@ class BasketControllerService
         return $this->dbRepository->getDeliveryTypes();
     }
 
-    public function getDeliveryPrice($regionId, $deliveryTypeId)
+    public function getDeliveryPrice(int $regionId,int $deliveryTypeId): int
     {
         $totalWeight = $this->getBasketProductsTotalWeight();
         $totalPrice = $this->getTotalPrice();
@@ -87,16 +87,17 @@ class BasketControllerService
         } else {
             $value = $this->kazpostHelper->convertValueByWeight($totalWeight);
         }
-
         return $this->dbRepository->getKazpostTarifByValue($deliveryTypeId, $value)->price;
-
     }
 
     private function getBasketProductsTotalWeight()
     {
         $basketProducts = $this->dbRepository->getCartInfo();
-        $totalWeight = 0;
+        $totalWeight = 0.01;
         foreach ($basketProducts as $basketProduct){
+            if (is_null($basketProduct->product->weight)){
+                continue;
+            }
             $totalWeight += $basketProduct->product->weight;
         }
         return $totalWeight;

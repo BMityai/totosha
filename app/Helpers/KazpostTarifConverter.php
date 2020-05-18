@@ -15,9 +15,13 @@ class KazpostTarifConverter
         }
     }
 
-    public function convertValueByWeight($weight)
+    /**
+     * @param int $weight
+     * @return string
+     */
+    public function convertValueByWeight(float $weight): string
     {
-        switch ($weight){
+        switch ($weight) {
             case ($weight <= 1.8):
                 return '0 - 2';
                 break;
@@ -37,9 +41,5 @@ class KazpostTarifConverter
                 return '12 - 14';
                 break;
         }
-
     }
-
-
-
 }

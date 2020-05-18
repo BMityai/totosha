@@ -77,6 +77,7 @@ function addToCart(event) {
         'productId': product_id,
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
+        console.log(response.status)
         if (response.status === 200) {
             if (operation === 'add') {
                 addMiniCartComponentToMiniCartItemsContent(response.data);
@@ -277,6 +278,20 @@ function wishList(event) {
         modal.innerText = 'Удален из Wish List'
     }
 
+    let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let uri = document.querySelector('meta[name="wishlistadduri"]').getAttribute('content');
+    let product_id = wishlistButton.dataset.id;
+    axios.post(uri, {
+        'productId': product_id,
+        'X-CSRF-TOKEN': csrf_token
+    }).then(response => {
+        if (response.status === 200) {
+            console.log('ok')
+
+        }
+    });
+
+
     modal.classList.add('showInfo');
     setTimeout(function () {
         modal.classList.remove('showInfo');
@@ -466,6 +481,8 @@ function totalPriceCalculate() {
 
 function checkLocation(event) {
     let locationId = event.target.value;
+    let districtInput = document.getElementById('customerDistrict');
+    let cityInput = document.getElementById('customerCity');
     let deliveryTypeContent = document.getElementById('deliveryTypeContent');
     let deliveryOptions = deliveryTypeContent.getElementsByTagName("option");
     let deliveryRegion = document.getElementById('deliveryRegion');
@@ -474,8 +491,10 @@ function checkLocation(event) {
     if (locationId > 3 && admLocation.classList.contains('hidden')) {
         admLocation.classList.remove('hidden');
         admLocation.classList.add('sm' + ':' + 'flex');
-        deliveryRegion.classList.add('w' + '-' + '1/3')
+        deliveryRegion.classList.add('sm' + ':' + 'w' + '-' + '1/3');
         deliveryRegion.classList.remove('w' + '-' + 'full');
+        districtInput.value = '';
+        cityInput.value = '';
     }
     if (locationId <= 3 && !admLocation.classList.contains('hidden')) {
         admLocation.classList.remove('sm' + ':' + 'flex');
@@ -502,7 +521,7 @@ function getDeliveryPrice() {
     let deliveryPriceEl = document.getElementById('deliveryPrice');
     if (deliveryPriceEl) {
         let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        let uri = document.getElementById('getDeliveryPriceUrl').href;
+        let uri = document.getElementById('getDeliveryPriceUrlgetDeliveryPriceUrl').href;
         let deliveryType = document.getElementById('deliveryType').value;
         let deliveryPriceInForm = document.getElementById('deliveryPriceInfo');
         let deliveryLocation = document.getElementById('deliveryRegion').getElementsByTagName('select')[0].value

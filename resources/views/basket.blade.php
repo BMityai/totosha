@@ -51,8 +51,14 @@
                 @auth
                 <div class="flex my-4 text-base   justify-between">
                     <span>Потратить бонусы</span>
-                    <input id="spentBonus" onchange="totalPriceCalculate()" name="spentBonus" type="tel" class="w-20 border text-right mr-8" placeholder="0 ₸">
+                    <input id="spentBonus" onchange="totalPriceCalculate()"
+                           name="spentBonus" type="tel"
+                           value="{{ old('spentBonus') }}"
+                           class="@error('spentBonus') border border-2 border-red-700 @enderror w-20 rounded border text-right mr-8" placeholder="0 ₸">
                 </div>
+                    @error('spentBonus')
+                    <p class="-mt-3 text-center text-red-700 text-sm">{{ $message }}</p>
+                    @enderror
                 @endauth
 
                 <div class="flex my-4 text-lg font-semibold justify-between">
@@ -106,11 +112,11 @@
                             <span class="mt-4">email</span>
                             <input
                                 type="email"
-                                class="block border @error('email') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
-                                name="email" value="{{ old('email') }}"
+                                class="block border @error('customerEmail') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
+                                name="customerEmail" value="{{ old('customerEmail') }}"
                                 placeholder="Email"/>
 
-                            @error('email')
+                            @error('customerEmail')
                             <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
                             @enderror
                         </div>
@@ -118,17 +124,20 @@
 
                     <p class="mt-4 text-center font-semibold">Адрес доставки</p>
                     <div class="deliveryLocation block sm:flex justify-between">
-                        <div id="deliveryRegion" class="deliveryRegion w-full">
+                        <div id="deliveryRegion" class="deliveryRegion @if (old('region') > 3) sm:w-1/3 @else w-full @endif">
                             <span class="mt-4">Область</span>
                             <select onchange="checkLocation(event)" name="region"
-                                    class="border-gray-300 w-full p-2 text-xl  rounded">
-                                <option value="" class="hidden" disabled selected>Выберите область</option>
+                                    class="w-full border-gray-300 p-2 text-xl  rounded @error('region') border border-2 border-red-400 @enderror">
+                                <option class="hidden" disabled selected>Выберите область</option>
 
                                 @foreach($regions as $region)
                                     <option value="{{ $region->id }}"
                                             @if($region->is_active == false)
                                             disabled
                                         @endif
+                                        @if(old('region') == $region->id)
+                                            selected
+                                            @endif
                                     >{{ $region->region }}</option>
                                 @endforeach
                             </select>
@@ -138,13 +147,13 @@
                             @enderror
                         </div>
 
-                        <div id="location" class="hidden sm:w-2/3">
+                        <div id="location" class="@if (old('region') > 3) sm:flex @else hidden @endif sm:w-2/3">
                             <div class="deliveryDistrict sm:w-1/2 sm:mx-1">
                                 <span class="mt-4">Район</span>
-                                <input
-                                    type="district"
-                                    class="block border @error('email') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
-                                    name="district" value="{{ old('email') }}"
+                                <input id="customerDistrict"
+                                    type="text"
+                                    class="block border @error('district') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
+                                    name="district" value="{{ old('district') }}"
                                     placeholder="Район"/>
 
                                 @error('district')
@@ -154,13 +163,13 @@
 
                             <div class="deliveryCity sm:w-1/2">
                                 <span class="mt-4">Город/село</span>
-                                <input
-                                    type="district"
-                                    class="block border @error('email') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
-                                    name="city" value="{{ old('email') }}"
+                                <input id="customerCity"
+                                    type="text"
+                                    class="block border @error('city') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
+                                    name="city" value="{{ old('city') }}"
                                     placeholder="Район"/>
 
-                                @error('district')
+                                @error('city')
                                 <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -171,11 +180,11 @@
                     <p class="mt-4 ">Улица (мкр)</p>
                     <input
                         type="text"
-                        class="block border @error('district') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
-                        name="street" value="{{ old('district') }}"
+                        class="block border @error('street') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
+                        name="street" value="{{ old('street') }}"
                         placeholder="Улица"/>
 
-                    @error('district')
+                    @error('street')
                     <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
                     @enderror
 
@@ -209,7 +218,7 @@
                     <div class="paymentAndDeliveryInfo  sm:flex justify-between">
                         <div class="paymentContent w-full sm:pr-1 sm:w-1/2">
                             <p class="mt-4">Форма оплаты</p>
-                            <select name="paymentType" class="border-gray-300 w-full p-1 text-xl rounded">
+                            <select name="paymentType" class="@error('paymentType') border-red-400 @else border-gray-300 @enderror border w-full p-1 text-xl rounded">
                                 @foreach($paymentTypes as $paymentType)
                                     <option value="" class="hidden" disabled selected>Выберите способ</option>
                                     <option value="{{ $paymentType->id }}"
@@ -227,7 +236,8 @@
                         </div>
                         <div id="deliveryTypeContent" class="deliveryTypeContent w-full sm:pl-1 sm:w-1/2">
                             <p class="mt-4">Тип доставки</p>
-                            <select id="deliveryType" onchange="getDeliveryPrice()" name="deliveryType" class="border-gray-300 w-full p-1 text-xl rounded">
+                            <select id="deliveryType" onchange="getDeliveryPrice()" name="deliveryType"
+                                    class="@error('deliveryType') border-red-400 @else border-gray-300 @enderror border w-full p-1 text-xl rounded">
                                 <option value="" class="hidden" disabled selected>Выберите тип</option>
                                 @foreach($deliveryTypes as $deliveryType)
                                     <option value="{{ $deliveryType->id }}"
@@ -248,7 +258,7 @@
                     <p class="mt-4 ">Комментарий</p>
                     <textarea
                         class="h-32 block border @error('apartment') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
-                        name="comment" value="{{ old('apartment') }}"
+                        name="comment" value="{{ old('comment') }}"
                         placeholder="Коментарий к заказу" style="resize:none"></textarea>
                     @error('comment')
                     <p class="text-red-600 text-center -mb-4">{{ $message }}</p>

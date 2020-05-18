@@ -155,7 +155,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         return DeliveryType::all();
     }
 
-    public function getKazpostTarifByValue($deliveryTypeId, $value)
+    public function getKazpostTarifByValue($deliveryTypeId, $value):object
     {
         return KazPostTarif::where('delivery_type_id', (int)$deliveryTypeId)->where('value', $value)->first();
     }
@@ -177,7 +177,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'user_id'          => $userId,
                 'name'             => $params['name'],
                 'phone'            => $params['phone'],
-                'email'            => $params['email'],
+                'email'            => $params['customerEmail'],
                 'region_id'        => (int)$params['region'],
                 'district'         => $params['district'],
                 'city'             => $params['city'],
@@ -219,5 +219,25 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function deleteBasketProduct($basketProduct)
     {
         $basketProduct->delete();
+    }
+
+    public function getActiveProductById($productId):object
+    {
+        return Product::where('is_active', true)->where('id', $productId)->get();
+    }
+
+    public function getAvtiveDeliveryTypeById(int $deliveryTypeId):object
+    {
+        return DeliveryType::where('is_active', true)->where('id', $deliveryTypeId)->get();
+    }
+
+    public function getActiveDeliveryLocationById(int $deliveryLocationId): object
+    {
+        return Region::where('is_active', true)->where('id', $deliveryLocationId)->get();
+    }
+
+    public function getActivePaymentTypeById($paymentTypeId)
+    {
+        return PaymentForm::where('is_active', true)->where('id', $paymentTypeId)->get();
     }
 }

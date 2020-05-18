@@ -7,20 +7,42 @@
               class="mt-4 block md:hidden">
             <div class="flex justify-around rounded-lg bg-blue-600 h-12 items-center">
                 <div id="sideSort" class="sideSort w-1/4 sm:w-auto">
-                    <select onchange="filteredProducts()" name="sort" class="h-8 rounded w-full sm:w-auto">
+                    <select onchange="filteredProducts()" name="sort"
+                            class=" @error('sort') border border-2 border-red-700 @enderror h-8 rounded w-full sm:w-auto">
                         <option value="" selected disabled>Сортировать</option>
-                        <option value="priceUp">По цене &#8593</option>
-                        <option value="priceDown">По цене &#8595</option>
-                        <option value="new">По новизне</option>
+                        <option value="priceUp"
+                                @if(request()->sort == 'priceUp')
+                                selected
+                                @endif>
+                            По цене &#8593
+                        </option>
+                        <option value="priceDown"
+                                @if(request()->sort == 'priceDown')
+                                selected
+                                @endif>
+                            По цене &#8595</option>
+                        <option value="new"
+                                @if(request()->sort == 'new')
+                                selected
+                                @endif
+                        >По новизне</option>
                     </select>
                 </div>
                 <div id="sideProduct" class="sideProduct w-1/4 sm:w-auto">
-                    <div class="available w-full sm:w-auto">
-                        <select onchange="filteredProducts()" name="stockFilter" id=""
-                                class="h-8 rounded w-full sm:w-auto">
+                    <div class="available w-full sm:w-auto ">
+                        <select onchange="filteredProducts()" name="stockFilter"
+                                class="h-8 rounded w-full sm:w-auto @error('stockFilter') border border-2 border-red-700 @enderror">
                             <option value="" disabled selected>Товар</option>
-                            <option value="inStock">В наличии</option>
-                            <option value="comingSoon">Скоро в продаже</option>
+                            <option value="inStock"
+                                    @if(request()->stockFilter == 'inStock')
+                                    selected
+                                    @endif
+                            >В наличии</option>
+                            <option value="comingSoon"
+                                    @if(request()->stockFilter == 'comingSoon')
+                                    selected
+                                    @endif
+                            >Скоро в продаже</option>
                         </select>
                     </div>
                 </div>
@@ -33,10 +55,14 @@
                      class="sidePrice w-2/3 sm:w-5/12 items-center invisible absolute sm:visible sm:relative">
                     <div class="priceRange flex">
                         <div class="priceFrom w-1/2 text-white">c <input type="number" name="priceFrom"
-                                                                         class="w-4/5 text-black text-center h-8 rounded outline-none"
+                                                                         class="w-4/5 text-black text-center h-8 rounded outline-none
+                                                                         @error('priceFrom') border border-2 border-red-700 @enderror"
+                                                                         value="{{ old('priceFrom') ?? request()->priceFrom }}"
                                                                          placeholder="цена"></div>
                         <div class="priceTo w-1/2 text-white"> по <input type="number" name="priceTo"
-                                                                         class="w-4/5 h-8 rounded text-black text-center outline-none"
+                                                                         class="w-4/5 h-8 rounded text-black text-center outline-none
+                                                                         @error('priceTo') border border-2 border-red-700 @enderror"
+                                                                         value="{{ old('priceTo') ?? request()->priceTo }}"
                                                                          placeholder="цена"></div>
                     </div>
                 </div>
@@ -67,62 +93,76 @@
                 <form id="sideFilterForm" method="GET" action="{{ route('category', $category->slug) }}"
                       class="w-full">
                     <div class="mt-1">
-                        <select onchange="sideFilteredProducts()" name="sort" class="h-8 rounded w-10/12">
+                        <select onchange="sideFilteredProducts()" name="sort"
+                                class="@error('sort') border border-2 border-red-700 @enderror h-8 rounded w-10/12">
                             <option value="" selected disabled>Выбрать</option>
                             <option value="priceUp"
-                                @if(request()->sort == 'priceUp')
+                                    @if(request()->sort == 'priceUp')
                                     selected
                                 @endif
                             >
                                 По цене &#8593
                             </option>
                             <option value="priceDown"
-                                @if(request()->sort == 'priceDown')
-                                selected
+                                    @if(request()->sort == 'priceDown')
+                                    selected
                                 @endif
                             >
                                 По цене &#8595
                             </option>
                             <option value="new"
-                                @if(request()->sort == 'new')
+                                    @if(request()->sort == 'new')
                                     selected
                                 @endif
                             >
                                 По новизне
                             </option>
                         </select>
+                        @error('sort')
+                        <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
                     <h1 class="mt-4 font-bold">Фильтровать</h1>
                     <div class="mt-1">
-                        <select onchange="sideFilteredProducts()" name="stockFilter" class="h-8 rounded w-10/12">
+                        <select onchange="sideFilteredProducts()" name="stockFilter"
+                                class="@error('stockFilter') border border-2 border-red-700 @enderror h-8 rounded w-10/12">
                             <option value="" disabled selected>Товар</option>
                             <option value="inStock"
-                                @if(request()->stockFilter == 'inStock')
+                                    @if(request()->stockFilter == 'inStock')
                                     selected
                                 @endif
                             >
                                 В наличии
                             </option>
                             <option value="comingSoon"
-                                @if(request()->stockFilter == 'comingSoon')
+                                    @if(request()->stockFilter == 'comingSoon')
                                     selected
                                 @endif
                             >
                                 Скоро в продаже
                             </option>
                         </select>
+                        @error('stockFilter')
+                        <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <h1 class="mt-4 font-bold">По цене</h1>
                     <div class="w-10/12 text-white mt-1">
-                        <input type="tel" name="priceFrom" value="{{ request()->priceFrom }}"
-                               class="text-black text-center h-8 rounded outline-none w-full"
+                        <input type="tel" name="priceFrom" value="{{ old('priceFrom') ?? request()->priceFrom }}"
+                               class="@error('priceFrom') border border-2 border-red-700 @enderror text-black text-center h-8 rounded outline-none w-full"
                                placeholder="с">
+                        @error('priceFrom')
+                        <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="w-10/12 text-white mt-1">
-                        <input type="tel" name="priceTo" value="{{ request()->priceTo }}"
-                               class="h-8 rounded text-black text-center outline-none w-full"
+                        <input type="tel" name="priceTo" value="{{ old('priceTo') ?? request()->priceTo }}"
+                               class="@error('priceTo') border border-2 border-red-700 @enderror h-8 rounded text-black text-center outline-none w-full"
                                placeholder="по">
+                        @error('priceTo')
+                        <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
+                        @enderror
                     </div>
                     <input type="submit" value="Применить"
                            class="w-10/12 h-8 rounded bg-orange-400 hover:bg-orange-500 mt-4">

@@ -10,7 +10,7 @@
             <img class="rounded-t" src="http://placehold.it/800x700" alt="">
             <span onclick="wishList(event)" href="3" class="absolute w-8 bottom-0 right-0 mr-2 mb-2">
                 <img class="rounded-t" src="{{ asset('/images/ico/card/wishlist.png') }}" alt="">
-                <img class="rounded-t absolute top-0 opacity-0 z-20" src="{{ asset('/images/ico/card/wishlistAdd.png') }}" alt="">
+                <img class="rounded-t absolute top-0 opacity-0 z-20" src="{{ asset('/images/ico/card/wishlistAdd.png') }}" data-id="{{ $product->id }}"  alt="">
             </span>
         </div>
 
