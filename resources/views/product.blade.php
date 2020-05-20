@@ -159,11 +159,20 @@
                             СКОРО В ПРОДАЖЕ
                         </a>
                     @endif
+                    @if($product->getIfInTheWishlist->isNotEmpty())
+                    <a href="#" onclick="wishlistProductPage(event)"
+                       data-id="{{ $product->id }}"
+                       class="text-lg sm:text-xs md:text-base w-full block text-center bg-indigo-500 hover:bg-indigo-600 p-2 mt-2 mr-auto ml-auto rounded outline-none addCartButton">
+                        В ИЗБРАННОМ
+                    </a>
+                    @else
 
                     <a href="#" onclick="wishlistProductPage(event)"
+                       data-id="{{ $product->id }}"
                        class="text-lg sm:text-xs md:text-base w-full block text-center bg-indigo-500 hover:bg-indigo-600 p-2 mt-2 mr-auto ml-auto rounded outline-none">
                         В ИЗБРАННОЕ
                     </a>
+                    @endif
                 </div>
             </div>
             <div class="productDescription w-full sm:w-5/12 px-3 block sm:hidden">

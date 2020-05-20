@@ -6,8 +6,7 @@ namespace App\Services;
 
 use App\Helpers\Helpers;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+
 
 class OrderControllerService
 {
@@ -17,9 +16,15 @@ class OrderControllerService
      */
     private $dbRepository;
 
+    /**
+     * @var BasketControllerService
+     */
+    private $basketControllerService;
+
     public function __construct(MainEloquentRepository $mainEloquentRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
+        $this->basketControllerService = new BasketControllerService(new MainEloquentRepository());
     }
 
     /**
@@ -31,7 +36,9 @@ class OrderControllerService
     public function createOrder(array $params): string
     {
         $orderNumber = Helpers::generateOrderNumber((int)$params['region']);
-        $newOrder = $this->dbRepository->createOrder($params, $orderNumber);
+        $totalPrice = $this->basketControllerService->getTotalPrice();
+        $deliveryPrice = $this->basketControllerService->getDeliveryPrice($params['region'], $params['deliveryType']);
+        $newOrder = $this->dbRepository->createOrder($params, $orderNumber, $totalPrice, $deliveryPrice);
         $this->createOrderProducts($newOrder->id);
         return $orderNumber;
     }

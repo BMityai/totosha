@@ -583,3 +583,28 @@ input:-ms-input-placeholder      {color:#c0392b;}
 .deleteProduct {
     align-self: center;
 }
+
+ .tab input, .tab-content { display: none; }
+.tab {
+    border: 1px solid #e9eaec; /* Параметры рамки */
+    border-radius: 3px; /* Скругляем уголки */
+    color: #3e4044; /* Цвет текста */
+    margin-bottom: 10px; /* Расстояние между пунктами */
+}
+.tab-title {
+    padding: 10px; /* Поля вокруг текста */
+    display: block; /* Блочный элемент */
+    cursor: pointer; /* Вид курсора */
+}
+.tab-content {
+    padding: 10px 20px; /* Поля вокруг текста */
+}
+.tab :checked + .tab-title {
+    background-color: #50a2de; /* Цвет фона */
+    border-radius: 3px 3px 0 0; /* Скругляем уголки */
+    color: #fff; /* Цвет текста */
+}
+
+.tab :checked ~ .tab-content {
+    display: block; /* Показываем содержимое */
+}

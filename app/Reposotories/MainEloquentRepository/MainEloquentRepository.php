@@ -11,6 +11,7 @@ use App\OrderProduct;
 use App\PaymentForm;
 use App\Product;
 use App\Region;
+use App\WishList;
 use Illuminate\Support\Facades\Auth;
 
 class MainEloquentRepository implements MainEloquentRepositoryInterface
@@ -123,7 +124,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function getCartInfo()
     {
         if (Auth::check()) {
-            return Basket::where('user_id', Auth::user()->id)->get();
+            return Auth::user()->BasketProducts;
         }
         return Basket::where('session_id', session()->getId())->get();
     }
@@ -155,7 +156,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         return DeliveryType::all();
     }
 
-    public function getKazpostTarifByValue($deliveryTypeId, $value):object
+    public function getKazpostTarifByValue($deliveryTypeId, $value): object
     {
         return KazPostTarif::where('delivery_type_id', (int)$deliveryTypeId)->where('value', $value)->first();
     }
@@ -167,7 +168,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
      * @param int $orderNumber
      * @return object
      */
-    public function createOrder(array $params, string $orderNumber): object
+    public function createOrder(array $params, string $orderNumber, int $totalPrice, int $deliveryPrice): object
     {
         $userId     = Auth::check() ? Auth::user()->id : null;
         $spentBonus = $params['spentBonus'] ?? 0;
@@ -188,6 +189,8 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'payment_form_id'  => (int)$params['paymentType'],
                 'comment'          => $params['comment'],
                 'spent_bonus'      => $spentBonus,
+                'total_sum'      => $totalPrice,
+                'delivery_price'   => $deliveryPrice,
             ]
         );
     }
@@ -221,12 +224,12 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         $basketProduct->delete();
     }
 
-    public function getActiveProductById($productId):object
+    public function getActiveProductById($productId): object
     {
         return Product::where('is_active', true)->where('id', $productId)->get();
     }
 
-    public function getAvtiveDeliveryTypeById(int $deliveryTypeId):object
+    public function getAvtiveDeliveryTypeById(int $deliveryTypeId): object
     {
         return DeliveryType::where('is_active', true)->where('id', $deliveryTypeId)->get();
     }
@@ -236,8 +239,51 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         return Region::where('is_active', true)->where('id', $deliveryLocationId)->get();
     }
 
-    public function getActivePaymentTypeById($paymentTypeId)
+    public function getActivePaymentTypeById(int $paymentTypeId): object
     {
         return PaymentForm::where('is_active', true)->where('id', $paymentTypeId)->get();
+    }
+
+    public function createOrDeleteWishListBySessionId(int $productId): void
+    {
+        $sessionId       = session()->getId();
+        $wishListProduct = WishList::where('session_id', $sessionId)->where('product_id', $productId)->first();
+        if (empty($wishListProduct)) {
+            WishList::create(
+                [
+                    'session_id' => $sessionId,
+                    'product_id' => $productId
+                ]
+            );
+        } else {
+            $wishListProduct->delete();
+        }
+    }
+
+    public function createOrDeleteWishListByUserId(int $productId): void
+    {
+        $userId          = Auth::user()->id;
+        $sessionId       = session()->getId();
+        $wishListProduct = WishList::where('user_id', $userId)->where('product_id', $productId)->first();
+        if (empty($wishListProduct)) {
+            WishList::create(
+                [
+                    'session_id' => $sessionId,
+                    'user_id'    => $userId,
+                    'product_id' => $productId
+                ]
+            );
+        } else {
+            $wishListProduct->delete();
+        }
+    }
+
+    public function getWishList(): object
+    {
+        if (Auth::check()) {
+            return Auth::user()->WishListProducts;
+        } else {
+            return WishList::where('session_id', session()->getId())->get();
+        }
     }
 }

@@ -25,7 +25,33 @@ class Order extends Model
         'order_status_id',
         'received_bonus',
         'spent_bonus',
-        'is_paid'
+        'is_paid',
+        'total_sum',
+        'delivery_price'
     ];
-    //
+
+    public function status()
+    {
+        return $this->belongsTo(OrderStatus::class, 'order_status_id');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function deliveryType()
+    {
+        return $this->belongsTo(DeliveryType::class);
+    }
+
+    public function paymentForm()
+    {
+        return $this->belongsTo(PaymentForm::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(OrderProduct::class, 'order_id');
+    }
 }

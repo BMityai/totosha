@@ -17,5 +17,9 @@ class OrderProduct extends Model
         'art_no',
         'count',
     ];
-    //
+
+    public function orders()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

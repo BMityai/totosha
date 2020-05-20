@@ -42,7 +42,7 @@
                     <p>&#8195; {{ \Illuminate\Support\Facades\Auth::user()->bonus }} ₸</p>
                 </div>
 
-                <a href="">
+                <a href="{{ route('ordersHistory') }}">
                     <div class="flex text-white mt-2 rounded p-2 hover:bg-blue-700">
                         <img class="w-8 h-8" src="{{ asset('images/ico/cabinet/orders.png') }}" alt="">
                         <p class="text-lg ml-4">История заказов</p>
@@ -215,11 +215,11 @@
             </div>
             <div class="rightElements text-right p-2 z-10 flex">
                 <div class="wishList h-full inline-block">
-                    <a href="#" class="h-full inline-block relative">
+                    <a href="{{ route('wishList') }}" class="h-full inline-block relative">
                         <img class="h-full opacity-75 hover:opacity-100"
                              src="{{ asset('images/ico/header/wish_list.png') }}" alt="">
-                        <span id="wishlistInfoNum" class="infoNum absolute z-10 ">21</span>
-                        <span class="info absolute bg-white text-white">6</span>
+                        <span id="wishlistInfoNum" class="@if($wishListInfo > 0) block @else hidden @endif infoNum absolute z-10 ">{{ $wishListInfo }}</span>
+                        <span id="wishlistInfoBgrnd" class="@if($wishListInfo > 0) block @else hidden @endif info absolute bg-white text-white">6</span>
                     </a>
                 </div>
 

@@ -109,6 +109,8 @@ function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
     let cartInfoNum = cartInfo.textContent;
     let button = document.getElementById('removeButtonFromCart_' + product_id);
     let secondButton = document.getElementById('addButtonToBasket_' + product_id);
+    let buttonInProductPage = document.getElementById('removeButtonFromCart');
+    let secondButtonInProductPage = document.getElementById('addButtonToBasket');
     miniCartItemsContent.remove();
     modal.classList.remove('bg-green-400');
     if (button) {
@@ -116,6 +118,12 @@ function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
         button.classList.remove('addCartButton');
         secondButton.text = 'В КОРЗИНУ';
         secondButton.classList.remove('addCartButton');
+    }
+    if(buttonInProductPage){
+        buttonInProductPage.text = 'В КОРЗИНУ';
+        buttonInProductPage.classList.remove('addCartButton');
+        secondButtonInProductPage.text = 'В КОРЗИНУ';
+        secondButtonInProductPage.classList.remove('addCartButton');
     }
     if (mainCartItemsContent) {
         mainCartItemsContent.remove();
@@ -170,7 +178,7 @@ function getMiniCartItemHtml(product) {
         '        </div>\n' +
         '        <div class="deleteProduct w-6 opacity-75 hover:opacity-100">\n' +
         '            <span  class="cursor-pointer" onclick="addToCart(event)">\n' +
-        '                <img src="images/ico/cart/trash_can.png" alt="" data-id="' + product.id + '">\n' +
+        '                <img src="/images/ico/cart/trash_can.png" alt="" data-id="' + product.id + '">\n' +
         '            </span>\n' +
         '        </div>\n' +
         '    </div>\n' +
@@ -261,7 +269,12 @@ function wishList(event) {
     let wishlistButton = event.target;
     let wishlist = document.getElementById('wishlistInfoNum');
     let wishlistInfo = wishlist.textContent;
-    let modal = document.getElementById('displayOverlayAddToWishList')
+    let modal = document.getElementById('displayOverlayAddToWishList');
+    let wishlistBgrnd = document.getElementById('wishlistInfoBgrnd');
+
+    let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let uri = document.querySelector('meta[name="wishlistadduri"]').getAttribute('content');
+    let product_id = wishlistButton.dataset.id;
 
     if (wishlistButton.classList.contains('opacity-0')) {
         modal.classList.remove('bg-red-500')
@@ -270,17 +283,37 @@ function wishList(event) {
         modal.classList.add('bg-green-400')
         modal.innerText = 'Добавлен в Wish List'
 
+        if(parseInt(wishlist.textContent) == 1){
+            wishlist.classList.remove('hidden');
+            wishlistBgrnd.classList.remove('hidden');
+            wishlist.classList.add('block');
+            wishlistBgrnd.classList.add('block');
+        }
+
     } else {
+        let productCard = document.getElementById('productCard_' + product_id);
         modal.classList.remove('bg-green-400')
+        wishlistButton.classList.remove('opacity-100')
         wishlistButton.classList.add('opacity-0');
         wishlist.textContent = parseInt(wishlistInfo) - 1;
         modal.classList.add('bg-red-500')
         modal.innerText = 'Удален из Wish List'
+        if (document.location.pathname === '/wishlist'){
+            productCard.remove();
+        }
+        if(parseInt(wishlist.textContent) == 0){
+            let emptyWishlistPage = document.getElementById('emptyWishlist');
+            if(emptyWishlistPage){
+                emptyWishlistPage.classList.remove('hidden');
+            }
+            wishlist.classList.remove('block');
+            wishlistBgrnd.classList.remove('block');
+            wishlist.classList.add('hidden');
+            wishlistBgrnd.classList.add('hidden');
+        }
     }
 
-    let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    let uri = document.querySelector('meta[name="wishlistadduri"]').getAttribute('content');
-    let product_id = wishlistButton.dataset.id;
+
     axios.post(uri, {
         'productId': product_id,
         'X-CSRF-TOKEN': csrf_token
@@ -304,19 +337,51 @@ function wishlistProductPage(event) {
     let wishlistButton = event.target;
     let wishlist = document.getElementById('wishlistInfoNum');
     let wishlistInfo = wishlist.textContent;
+    let wishlistBgrnd = document.getElementById('wishlistInfoBgrnd');
     let modal = document.getElementById('displayOverlayAddToWishList')
+    let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let uri = document.querySelector('meta[name="wishlistadduri"]').getAttribute('content');
+    let product_id = wishlistButton.dataset.id;
 
     if (wishlistButton.classList.contains('addCartButton')) {
         wishlistButton.classList.remove('addCartButton');
         wishlist.textContent = parseInt(wishlistInfo) - 1;
         modal.innerText = 'Удален из Wish List'
         wishlistButton.text = 'В ИЗБРАННОЕ';
+        if(parseInt(wishlist.textContent) === 0){
+            let emptyWishlistPage = document.getElementById('emptyWishlist');
+            if(emptyWishlistPage){
+                emptyWishlistPage.classList.remove('hidden');
+            }
+            wishlist.classList.remove('block');
+            wishlistBgrnd.classList.remove('block');
+            wishlist.classList.add('hidden');
+            wishlistBgrnd.classList.add('hidden');
+        }
+
     } else {
         wishlistButton.classList.add('addCartButton');
         wishlist.textContent = parseInt(wishlistInfo) + 1;
         modal.innerText = 'Добавлен в Wish List'
         wishlistButton.text = 'В ИЗБРАННОМ';
+        if(parseInt(wishlist.textContent) === 1){
+            wishlist.classList.remove('hidden');
+            wishlistBgrnd.classList.remove('hidden');
+            wishlist.classList.add('block');
+            wishlistBgrnd.classList.add('block');
+        }
     }
+
+
+
+    axios.post(uri, {
+        'productId': product_id,
+        'X-CSRF-TOKEN': csrf_token
+    }).then(response => {
+        if (response.status === 200) {
+            console.log('ok')
+        }
+    });
 
     modal.classList.add('showInfo');
     setTimeout(function () {
@@ -499,7 +564,7 @@ function checkLocation(event) {
     if (locationId <= 3 && !admLocation.classList.contains('hidden')) {
         admLocation.classList.remove('sm' + ':' + 'flex');
         admLocation.classList.add('hidden');
-        deliveryRegion.classList.remove('w' + '-' + '1/3')
+        deliveryRegion.classList.remove('sm:w' + '-' + '1/3')
         deliveryRegion.classList.add('w' + '-' + 'full');
     }
 
@@ -509,6 +574,7 @@ function checkLocation(event) {
         deliveryOptions[2].disabled = true;
         deliveryOptions[3].disabled = true;
     } else {
+        console.log(2)
         deliveryOptions[1].disabled = true;
         deliveryOptions[2].selected = true;
         deliveryOptions[2].disabled = false;

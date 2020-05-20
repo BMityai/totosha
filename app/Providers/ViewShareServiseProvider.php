@@ -55,6 +55,7 @@ class ViewShareServiseProvider extends ServiceProvider
             $mainDbRepository = new MainEloquentRepository();
             $view->with('cartInfo', $mainDbRepository->getCartInfo());
             $view->with('basket', $mainDbRepository->getCartInfo());
+            $view->with('wishListInfo', count($mainDbRepository->getWishList()));
         });
     }
 }

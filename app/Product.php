@@ -50,4 +50,19 @@ class Product extends Model
         }
         return $this->basketProducts()->where('session_id', session()->getId());
     }
+
+    public function wishList()
+    {
+        return $this->hasMany(WishList::class);
+    }
+
+    public function getIfInTheWishList()
+    {
+        if (Auth::check()) {
+//            dd($this->wishList);
+
+            return $this->wishList()->where('user_id', Auth::user()->id);
+        }
+        return $this->wishList()->where('session_id', session()->getId());
+    }
 }

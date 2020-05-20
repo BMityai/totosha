@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 
+Route::get('/cabinet/orders', 'CustomerCabinet\CabinetController@getOrders')->name('ordersHistory');
+
+
+Route::get('wishlist', 'WishListController@get')->name('wishList');
+
 Route::get('basket', 'BasketController@getBasket')->name('basket');
 
 Route::get('/login', 'HomeController@index')->name('login')->middleware('showLoginForm');
@@ -27,12 +32,11 @@ Route::group(['prefix' => '{category}'], function (){
     Route::get('/{product}', 'HomeController@getProductPage')->name('product');
 });
 
-Route::post('add_to_basket', 'BasketController@addOrDelete')->name('addToBasket');
-Route::post('change_count', 'BasketController@changeCount')->name('changeCount');
+Route::post('/add_to_basket', 'BasketController@addOrDelete')->name('addToBasket');
+Route::post('/change_count', 'BasketController@changeCount')->name('changeCount');
 
-Route::post('get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
+Route::post('/get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
 
-Route::post('create_order', 'OrderController@createOrder')->name('createOrder');
-Route::post('add_to_wishlist', 'WishListController@addOrDelete')->name('addToWishList');
-
+Route::post('/create_order', 'OrderController@createOrder')->name('createOrder');
+Route::post('/add_to_wishlist', 'WishListController@addOrDelete')->name('addToWishList');
 
