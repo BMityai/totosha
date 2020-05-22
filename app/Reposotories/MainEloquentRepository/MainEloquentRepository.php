@@ -5,14 +5,17 @@ namespace App\Reposotories\MainEloquentRepository;
 use App\Basket;
 use App\Category;
 use App\DeliveryType;
+use App\Helpers\Helpers;
 use App\KazPostTarif;
 use App\Order;
 use App\OrderProduct;
 use App\PaymentForm;
 use App\Product;
 use App\Region;
+use App\User;
 use App\WishList;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MainEloquentRepository implements MainEloquentRepositoryInterface
 {
@@ -189,7 +192,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'payment_form_id'  => (int)$params['paymentType'],
                 'comment'          => $params['comment'],
                 'spent_bonus'      => $spentBonus,
-                'total_sum'      => $totalPrice,
+                'total_sum'        => $totalPrice,
                 'delivery_price'   => $deliveryPrice,
             ]
         );
@@ -285,5 +288,26 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         } else {
             return WishList::where('session_id', session()->getId())->get();
         }
+    }
+
+    public function updateUserData($data, $checkIsNotChangeEmail)
+    {
+        Auth::user()->update(
+            [
+                'name'  => $data['name'],
+                'phone' => Helpers::getCleanPhone($data['phone']),
+                'email' => $data['email'],
+
+            ]
+        );
+        if (!$checkIsNotChangeEmail) {
+            Auth::user()->email_verified_at = null;
+            Auth::user()->save();
+        }
+    }
+
+    public function changePassword(string $newPassword): void
+    {
+        Auth::user()->update(['password' => Hash::make($newPassword)]);
     }
 }

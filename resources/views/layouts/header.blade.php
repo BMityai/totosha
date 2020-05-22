@@ -49,28 +49,28 @@
                     </div>
                 </a>
 
-                <a href="">
+                <a href="{{ route('bonusHistory') }}">
                     <div class="flex text-white mt-2 rounded p-2 hover:bg-blue-700">
                         <img class="w-8 h-8" src="{{ asset('images/ico/cabinet/bonus.png') }}" alt="">
                         <p class="text-lg ml-4">Бонусный счет</p>
                     </div>
                 </a>
 
-                <a href="">
+                <a href="{{ route('wishList') }}">
                     <div class="flex text-white mt-2 rounded p-2 hover:bg-blue-700">
                         <img class="w-8 h-8" src="{{ asset('images/ico/cabinet/wishlist.png') }}" alt="">
                         <p class="text-lg ml-4"> Мой WishList</p>
                     </div>
                 </a>
 
-                <a href="">
+                <a href="{{ route('getFormForUpdateUserData') }}">
                     <div class="flex text-white mt-2 rounded p-2 hover:bg-blue-700">
                         <img class="w-8 h-8" src="{{ asset('images/ico/cabinet/anketa.png') }}" alt="">
                         <p class="text-lg ml-4"> Обновить анкету</p>
                     </div>
                 </a>
 
-                <a href="">
+                <a href="{{ route('changePasswordForm') }}">
                     <div class="flex text-white mt-2 rounded p-2 hover:bg-blue-700">
                         <img class="w-8 h-8" src="{{ asset('images/ico/cabinet/password.png') }}" alt="">
                         <p class="text-lg ml-4"> Сменить пароль</p>
@@ -188,9 +188,14 @@
         Поздравляем. Верификация прошла успешно.
     </div>
     <div
+        class="text-lg shadow-md rounded pt-12 bg-green-500 fixed z-10 text-white w-full text-center text-bold @if(session('updateData')) block @else hidden @endif">
+        {{ session()->get('updateData') }}
+    </div>
+    <div
         class="emailNotVerufy text-lg shadow-md rounded pt-12 bg-red-700 fixed z-10 text-white w-full text-center text-bold @if(session('emailNotVerify')) block @else hidden @endif">
         Регистрация не завершена. Пожалуйста, подтвердите email адрес.
     </div>
+
     <div onclick="showProductFullImg(event)" id="productFullImgModal"
          class="overflow-y-auto w-full h-full z-10 absolute">
         <img id="productFullImg" class=" absolute rounded-t cursor-pointer" src="http://placehold.it/830x730" alt="">

@@ -27,10 +27,10 @@
             @foreach($orders as $order)
                 <div class="tab">
                     <input type="checkbox" id="tab{{$order->id}}" name="tab-group">
-                    <label for="tab{{$order->id}}" class="tab-title text-sm sm:text-base hover:bg-gray-300">
-                        <div class="flex justify-between">
+                    <label for="tab{{$order->id}}" class="tab-title text-xs sm:text-base hover:bg-gray-300">
+                        <div  class="flex justify-between">
                             <div class="orderNum w-1/4 text-center">
-                                # {{ $order->number }}
+                                {{ $order->number }}
                             </div>
                             <div class="orderDate w-1/4 text-center">
                                 {{ date('d-m-Y', strtotime(stristr($order->created_at, ' ', true))) }}
@@ -44,8 +44,8 @@
                         </div>
                     </label>
                     <section class="tab-content bg-blue-100 text-sm sm:text-base">
-                        <div class="flex justify-between">
-                            <div class="w-1/2 mr-6">
+                        <div class="block sm:flex justify-between">
+                            <div class="w-full sm:w-1/2 sm:mr-6">
                                 <p class="font-semibold text-center">Адрес доставки</p>
                                 <div class="flex justify-between mt-2">
                                     <div>Область</div>
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
 
-                            <div class="w-1/2 ml-6">
+                            <div class="w-full sm:w-1/2 sm:ml-6">
                                 <p class="font-semibold text-center">Дополнительная информация</p>
                                 <div class="flex justify-between mt-2">
                                     <div>Тип доставки</div>
@@ -99,11 +99,11 @@
                         <div class="mt-2">
                             <p class="font-semibold text-center mt-4">Товары в заказе</p>
                             <div class="flex mt-2 font-semibold italic">
-                                <div class="w-1/4 text-center">
+                                <div class="hidden sm:block w-1/4 text-center">
                                     Позиция
                                 </div>
 
-                                <div  class="w-1/5 text-center">
+                                <div  class="w-1/3 sm:w-1/5 text-center">
                                    Цена
                                 </div>
 
@@ -115,7 +115,7 @@
                                     Количество
                                 </div>
 
-                                <div class="w-1/5 text-center">
+                                <div class="w-1/3 sm:w-1/5 text-center">
                                    Сумма
                                 </div>
                             </div>

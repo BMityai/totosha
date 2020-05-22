@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['verify' => true]);
 
 Route::get('/cabinet/orders', 'CustomerCabinet\CabinetController@getOrders')->name('ordersHistory');
+Route::get('/cabinet/form_for_update', 'CustomerCabinet\CabinetController@getFormForUpdateUserData')->name('getFormForUpdateUserData');
+Route::post('/cabinet/update_data', 'CustomerCabinet\CabinetController@updateUserData')->name('updateUserData');
+Route::get('/cabinet/change_password', 'CustomerCabinet\CabinetController@getFormForChangePassword')->name('changePasswordForm');
+Route::post('/cabinet/change_password', 'CustomerCabinet\CabinetController@changeUserPassword')->name('changePassword');
+Route::get('/cabinet/bonus', 'CustomerCabinet\CabinetController@getBonus')->name('bonusHistory');
 
 
 Route::get('wishlist', 'WishListController@get')->name('wishList');

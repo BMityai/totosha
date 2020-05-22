@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FilterRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\HomeControllerService;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
