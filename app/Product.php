@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Search\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,10 @@ class Product extends Model
         'material',
         'manufacturer',
         'age'
+    ];
+    use Searchable;
+    protected $casts = [
+        'tags' => 'json',
     ];
 
     public function category()
