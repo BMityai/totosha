@@ -222,6 +222,12 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         );
     }
 
+    public function updateUserBonusAfterCreateOrder(int $spentBonus): void
+    {
+        Auth::user()->bonus -= $spentBonus;
+        Auth::user()->save();
+    }
+
     public function deleteBasketProduct($basketProduct)
     {
         $basketProduct->delete();
@@ -309,5 +315,13 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function changePassword(string $newPassword): void
     {
         Auth::user()->update(['password' => Hash::make($newPassword)]);
+    }
+
+    public function search(string $searchKey)
+    {
+        return Product::query()
+            ->where('name', 'like', "%{$searchKey}%")
+            ->orWhere('description', 'like', "%{$searchKey}%")
+            ->get();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CustomerCabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\UpdateUserDataRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\CabinetControllerService;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class CabinetController extends Controller
         return view('CustomerCabinet.userDataUpdate');
     }
 
-    public function updateUserData(Request $request)
+    public function updateUserData(UpdateUserDataRequest $request)
     {
        if($this->service->updateUserData($request->all())){
            session()->flash('updateData', 'Изменение прошло успешно');

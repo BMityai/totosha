@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container h-12 mt-16">
-        <search-component></search-component>
+        @include('layouts.search')
     </div>
 
     <div class="container mt-3">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Rules\DeliveryLocationRule;
 use App\Rules\DeliveryTypeRule;
 use App\Rules\SpentBonusCheckRule;
+use App\Services\BasketControllerService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateOrderRequest extends FormRequest
@@ -26,8 +28,11 @@ class CreateOrderRequest extends FormRequest
      */
     public function rules()
     {
+        $service = new BasketControllerService(new MainEloquentRepository());
+        $totalPrice = $service->getTotalPrice();
+
         $rules = [
-            'spentBonus'    => ['numeric', new SpentBonusCheckRule($this->request->get('spentBonus'))],
+            'spentBonus'    => ['numeric', 'max:' . $totalPrice,  new SpentBonusCheckRule($this->request->get('spentBonus'))],
             'name'          => ['required', 'string', 'min:2', 'max:20'],
             'phone'         => ['required', 'string', 'min:18', 'max:18'],
             'customerEmail' => ['required', 'email'],
@@ -50,5 +55,10 @@ class CreateOrderRequest extends FormRequest
             array_push($rules['city'], 'required');
         }
         return $rules;
+    }
+
+    public function messages()
+    {
+        return ['spentBonus.max' => 'А без сдачи не найдется?'];
     }
 }

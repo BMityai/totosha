@@ -32,7 +32,7 @@ class ViewShareServiseProvider extends ServiceProvider
 
     private function GetCategories()
     {
-        View::composer(['layouts.header', 'category'], function ($view)
+        View::composer(['layouts.header', 'category', 'searchResult'], function ($view)
         {
             $mainDbRepository = new MainEloquentRepository();
             $view->with('categories', $mainDbRepository->getAllActiveCategories());

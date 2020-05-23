@@ -4,7 +4,7 @@
 
 
     <div class="container mt-16 ">
-        <search-component></search-component>
+        @include('layouts.search')
         <div class="breadCrumbs mt-6">
             <a href="{{ route('home') }}">Главная</a>
             <span> / </span>

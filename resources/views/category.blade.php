@@ -2,7 +2,7 @@
 @section('title', ':' . $category->name)
 @section('content')
     <div class="container mt-16 ">
-        <search-component></search-component>
+        @include('layouts.search')
         <form id="filterForm" method="GET" action="{{ route('category', $category->slug) }}"
               class="mt-4 block md:hidden">
             <div class="flex justify-around rounded-lg bg-blue-600 h-12 items-center">

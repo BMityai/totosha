@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Helpers\BonusCalcHelper;
 use App\Helpers\Helpers;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 
@@ -35,11 +36,16 @@ class OrderControllerService
      */
     public function createOrder(array $params): string
     {
+
+        $spentBonus = $params['spentBonus'] ?? 0;
+        dd($params);
+
         $orderNumber = Helpers::generateOrderNumber((int)$params['region']);
         $totalPrice = $this->basketControllerService->getTotalPrice();
         $deliveryPrice = $this->basketControllerService->getDeliveryPrice($params['region'], $params['deliveryType']);
         $newOrder = $this->dbRepository->createOrder($params, $orderNumber, $totalPrice, $deliveryPrice);
         $this->createOrderProducts($newOrder->id);
+        $this->updateUserBonus($newOrder->spent_bonus);
         return $orderNumber;
     }
 
@@ -57,4 +63,10 @@ class OrderControllerService
             $this->dbRepository->deleteBasketProduct($basketProduct);
         }
     }
+
+    private function updateUserBonus(int $spentBonus): void
+    {
+        $this->dbRepository->updateUserBonusAfterCreateOrder($spentBonus);
+    }
+
 }

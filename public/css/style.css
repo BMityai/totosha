@@ -608,3 +608,4 @@ input:-ms-input-placeholder      {color:#c0392b;}
 .tab :checked ~ .tab-content {
     display: block; /* Показываем содержимое */
 }
+

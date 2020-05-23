@@ -15,13 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 
-Route::get('/cabinet/orders', 'CustomerCabinet\CabinetController@getOrders')->name('ordersHistory');
-Route::get('/cabinet/form_for_update', 'CustomerCabinet\CabinetController@getFormForUpdateUserData')->name('getFormForUpdateUserData');
-Route::post('/cabinet/update_data', 'CustomerCabinet\CabinetController@updateUserData')->name('updateUserData');
-Route::get('/cabinet/change_password', 'CustomerCabinet\CabinetController@getFormForChangePassword')->name('changePasswordForm');
-Route::post('/cabinet/change_password', 'CustomerCabinet\CabinetController@changeUserPassword')->name('changePassword');
-Route::get('/cabinet/bonus', 'CustomerCabinet\CabinetController@getBonus')->name('bonusHistory');
+Route::group(['prefix' => '/cabinet', 'middleware'=>'auth'], function (){
+    Route::get('/orders', 'CustomerCabinet\CabinetController@getOrders')->name('ordersHistory');
+    Route::get('/form_for_update', 'CustomerCabinet\CabinetController@getFormForUpdateUserData')->name('getFormForUpdateUserData');
+    Route::post('/update_data', 'CustomerCabinet\CabinetController@updateUserData')->name('updateUserData');
+    Route::get('/change_password', 'CustomerCabinet\CabinetController@getFormForChangePassword')->name('changePasswordForm');
+    Route::post('/change_password', 'CustomerCabinet\CabinetController@changeUserPassword')->name('changePassword');
+    Route::get('/bonus', 'CustomerCabinet\CabinetController@getBonus')->name('bonusHistory');
+});
 
+Route::post('/search', 'SearchController@search')->name('search');
 
 Route::get('wishlist', 'WishListController@get')->name('wishList');
 

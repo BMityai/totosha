@@ -1,5 +1,5 @@
 <header>
-    <div id="displayOverlayMenu" class="h-full w-full bg-blue-600 absolute z-10 h-screen overflow-auto">
+    <div id="displayOverlayMenu" class="h-full w-full bg-blue-600 absolute z-30 h-screen overflow-auto">
         <div class="container p-1 mt-16 pb-3">
             <div class="logoMenu w-1/2 z-10 ml-auto mr-auto opacity-75 hover:opacity-100">
                 <a href="/" class="inline-block">
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div id="displayOverlayCabinet"
-         class="shadow-md rounded px-8 pt-6 pb-8 mb-4 h-auto w-3/4 sm:w-1/2 md:1/3 lg:w-1/3 bg-blue-600 fixed z-10 @if(session()->has('getLogin')) showCabinetMenu @endif">
+         class="shadow-md rounded px-8 pt-6 pb-8 mb-4 h-auto w-3/4 sm:w-1/2 md:1/3 lg:w-1/3 bg-blue-600 fixed z-30 @if(session()->has('getLogin')) showCabinetMenu @endif">
 
         @auth
             @if(request()->user()->hasVerifiedEmail())
@@ -144,7 +144,7 @@
         @endguest
     </div>
     <div id="displayOverlayCart"
-         class=" shadow-md rounded px-5 pt-6 pb-6 mb-4 h-auto w-3/4 sm:w-1/2 md:1/3 lg:w-1/3 bg-blue-600 fixed z-10">
+         class=" shadow-md rounded px-5 pt-6 pb-6 mb-4 h-auto w-3/4 sm:w-1/2 md:1/3 lg:w-1/3 bg-blue-600 fixed z-30">
         <div id="notEmptyCart" class="@if($cartInfo->count() > 0) block @else hidden @endif">
             <div id="miniCartItemsContent" class="miniCartItemsContent overflow-y-auto">
                 @foreach($cartInfo as $productInCart)

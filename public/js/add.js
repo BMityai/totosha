@@ -119,7 +119,7 @@ function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
         secondButton.text = 'В КОРЗИНУ';
         secondButton.classList.remove('addCartButton');
     }
-    if(buttonInProductPage){
+    if (buttonInProductPage) {
         buttonInProductPage.text = 'В КОРЗИНУ';
         buttonInProductPage.classList.remove('addCartButton');
         secondButtonInProductPage.text = 'В КОРЗИНУ';
@@ -283,7 +283,7 @@ function wishList(event) {
         modal.classList.add('bg-green-400')
         modal.innerText = 'Добавлен в Wish List'
 
-        if(parseInt(wishlist.textContent) == 1){
+        if (parseInt(wishlist.textContent) == 1) {
             wishlist.classList.remove('hidden');
             wishlistBgrnd.classList.remove('hidden');
             wishlist.classList.add('block');
@@ -298,12 +298,12 @@ function wishList(event) {
         wishlist.textContent = parseInt(wishlistInfo) - 1;
         modal.classList.add('bg-red-500')
         modal.innerText = 'Удален из Wish List'
-        if (document.location.pathname === '/wishlist'){
+        if (document.location.pathname === '/wishlist') {
             productCard.remove();
         }
-        if(parseInt(wishlist.textContent) == 0){
+        if (parseInt(wishlist.textContent) == 0) {
             let emptyWishlistPage = document.getElementById('emptyWishlist');
-            if(emptyWishlistPage){
+            if (emptyWishlistPage) {
                 emptyWishlistPage.classList.remove('hidden');
             }
             wishlist.classList.remove('block');
@@ -348,9 +348,9 @@ function wishlistProductPage(event) {
         wishlist.textContent = parseInt(wishlistInfo) - 1;
         modal.innerText = 'Удален из Wish List'
         wishlistButton.text = 'В ИЗБРАННОЕ';
-        if(parseInt(wishlist.textContent) === 0){
+        if (parseInt(wishlist.textContent) === 0) {
             let emptyWishlistPage = document.getElementById('emptyWishlist');
-            if(emptyWishlistPage){
+            if (emptyWishlistPage) {
                 emptyWishlistPage.classList.remove('hidden');
             }
             wishlist.classList.remove('block');
@@ -364,14 +364,13 @@ function wishlistProductPage(event) {
         wishlist.textContent = parseInt(wishlistInfo) + 1;
         modal.innerText = 'Добавлен в Wish List'
         wishlistButton.text = 'В ИЗБРАННОМ';
-        if(parseInt(wishlist.textContent) === 1){
+        if (parseInt(wishlist.textContent) === 1) {
             wishlist.classList.remove('hidden');
             wishlistBgrnd.classList.remove('hidden');
             wishlist.classList.add('block');
             wishlistBgrnd.classList.add('block');
         }
     }
-
 
 
     axios.post(uri, {
@@ -526,9 +525,9 @@ function totalPriceCalculate() {
         let mainCartAmountPrice = document.getElementById('mainCartAmountPrice')
         let deliveryPrice = document.getElementById('deliveryPrice').textContent;
         mainCartTotalPriceContent.textContent = cartTotalPrice + ' ₸';
-        if(spentBonus){
+        if (spentBonus) {
             let spentBonusValue = 0;
-            if(spentBonus.value) {
+            if (spentBonus.value) {
                 spentBonusValue = spentBonus.value
             }
             document.getElementById('spent_bonus_form').value = spentBonusValue;
@@ -617,5 +616,6 @@ function getDeliveryPrice() {
         }
     }
 }
+
 
 

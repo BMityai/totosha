@@ -246,9 +246,12 @@
                                 <option value="" class="hidden" disabled selected>Выберите тип</option>
                                 @foreach($deliveryTypes as $deliveryType)
                                     <option value="{{ $deliveryType->id }}"
-                                            @if($deliveryType->is_active == false)
-                                            disabled
+                                        @if($deliveryType->is_active == false || $deliveryType->id != old('deliveryType'))
+                                        disabled
                                         @endif
+                                        @if($deliveryType->id == old('deliveryType'))
+                                            selected
+                                            @endif
                                     > {{ $deliveryType->name }} </option>
                                 @endforeach
                             </select>
