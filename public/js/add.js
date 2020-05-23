@@ -6,9 +6,11 @@ function menuShow() {
     let span3 = document.getElementById('sandwich_3')
     let menuModal = document.getElementById('displayOverlayMenu');
     if (menuModal.classList.contains('showMenu')) {
-        window.scrollTo(0, body.dataset.scrollY)
+        setTimeout(function () {
+            window.scrollTo(0, body.dataset.scrollY);
+        },1);
         menuModal.classList.remove('showMenu');
-        body.classList.remove('overflowStop')
+        body.classList.remove('overflowStop');
         span3.classList.remove('forSandwichAllSpan')
         span2.classList.remove('forSandwichSecondSpan')
         span1.classList.remove('forSandwichThirdSpan')

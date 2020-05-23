@@ -96,7 +96,7 @@
 
     <div class="container mt-10">
         <div class="banner">
-            <a href="">
+            <a href="{{ route('getRequestForm') }}">
             <img class="rounded-lg" src="{{ asset('images/home/request.png') }}" alt="">
             </a>
         </div>

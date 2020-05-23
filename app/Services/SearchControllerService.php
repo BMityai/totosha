@@ -21,6 +21,11 @@ class SearchControllerService
 
     public function getSearchOptions($searchKey)
     {
-        return $this->dbRepository->search($searchKey);
+        $result = collect([]);
+        $keys = explode(' ', $searchKey);
+        foreach(array_diff(array_unique($keys), ['']) as $key){
+            $result->push($this->dbRepository->search($key));
+        };
+        return $result->unique();
     }
 }

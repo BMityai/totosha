@@ -4,10 +4,10 @@
 @section('content')
 <div class="container mt-16 ">
     <div class="cartIco w-full mx-auto">
-        <img src="{{ asset('images/wishlist/wishlist.png') }}" alt="">
+        @include('layouts.search')
     </div>
 
-    <div class="breadCrumbs">
+    <div class="breadCrumbs mt-16">
         <a href="{{ route('home') }}">Главная</a>
         <span> / </span>
         <span> Поиск </span>
@@ -27,7 +27,7 @@
         <div class="productsContent flex justify-between flex-wrap mt-4">
 
             <p id="emptyWishlist" class="@if(count($results) > 0) hidden @else block @endif text-center">
-                Ваш Wishlist пуст...
+                Товаров соответствующих Вашему запросу не найдено...
             </p>
 
             @if($results)

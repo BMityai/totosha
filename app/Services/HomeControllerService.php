@@ -28,19 +28,24 @@ class HomeControllerService
         return $this->dbRepository->getActiveNewProducts();
     }
 
-    public function getActiveRecommendedProducts()
+    public function getActiveRecommendedProducts(): object
     {
         return $this->dbRepository->getActiveRecommendedProducts();
     }
 
-    public function getActiveProductBySlug($slug)
+    public function getActiveProductBySlug(string $slug): object
     {
         return $this->dbRepository->getActiveProductBySlug($slug);
     }
 
-    public function getCategoryBySlug($slug)
+    public function getCategoryBySlug(string $slug): object
     {
         return $this->dbRepository->getActiveCategoryBySlug($slug);
+    }
+
+    public function savePreorder(array $data):void
+    {
+        $this->dbRepository->savePreorder($data);
     }
 
 }

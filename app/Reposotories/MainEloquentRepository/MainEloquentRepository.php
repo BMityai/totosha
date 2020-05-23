@@ -10,6 +10,7 @@ use App\KazPostTarif;
 use App\Order;
 use App\OrderProduct;
 use App\PaymentForm;
+use App\Preorder;
 use App\Product;
 use App\Region;
 use App\User;
@@ -323,5 +324,19 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             ->where('name', 'like', "%{$searchKey}%")
             ->orWhere('description', 'like', "%{$searchKey}%")
             ->get();
+    }
+
+    public function savePreorder($data)
+    {
+        Preorder::create(
+            [
+                'name' => $data['name'],
+                'phone' => $data['phone'],
+                'email' => $data['customerEmail'],
+                'product_name' => $data['productName'],
+                'product_link' => $data['productLink'],
+                'product_description' => $data['productDescription'],
+            ]
+        );
     }
 }

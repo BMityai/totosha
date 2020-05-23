@@ -201,10 +201,10 @@
         <img id="productFullImg" class=" absolute rounded-t cursor-pointer" src="http://placehold.it/830x730" alt="">
     </div>
 
-    <div class="bg-blue-600 h-12 fixed top-0 right-0 left-0 z-20">
+    <div class="bg-blue-600 h-12 fixed top-0 right-0 left-0 z-30">
         <div class="container h-full flex justify-between">
 
-            <div id="menuToggle" class="z-20 opacity-75 hover:opacity-100 cursor-pointer" onclick="menuShow()">
+            <div id="menuToggle" class="z-30 opacity-75 hover:opacity-100 cursor-pointer" onclick="menuShow()">
                 <span id="sandwich_1"></span>
                 <span id="sandwich_2"></span>
                 <span id="sandwich_3"></span>

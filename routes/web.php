@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 
+Route::get('/request_form', 'HomeController@getPreorderForm')->name('getRequestForm');
+Route::post('/create_preorder', 'HomeController@createPreorder')->name('createPreorder');
+Route::post('/create_comment', 'HomeController@createPreorder')->name('createPreorder');
+
 Route::group(['prefix' => '/cabinet', 'middleware'=>'auth'], function (){
     Route::get('/orders', 'CustomerCabinet\CabinetController@getOrders')->name('ordersHistory');
     Route::get('/form_for_update', 'CustomerCabinet\CabinetController@getFormForUpdateUserData')->name('getFormForUpdateUserData');

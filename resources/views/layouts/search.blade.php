@@ -2,7 +2,7 @@
     <form action="{{ route('search') }}" method="POST">
         @csrf
         <div class="relative text-gray-600 flex justify-center w-5/6 m-auto">
-            <input id="searchInput" type="text" name="search" list="huge_list" placeholder="Введите наименование товара"
+            <input id="searchInput" type="text" name="search" list="huge_list" placeholder="Введите наименование товара" value="{{ request('search') }}"
                    class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border-blue-600 border-2 border-solid w-full">
 
             <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">

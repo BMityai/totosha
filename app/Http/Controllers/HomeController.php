@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FilterRequest;
+use App\Http\Requests\PreorderRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\HomeControllerService;
+use http\Env\Request;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
@@ -48,5 +50,16 @@ class HomeController extends Controller
     {
         $product = $this->service->getActiveProductBySlug($product);
         return view('product', ['product' => $product]);
+    }
+
+    public function getPreorderForm()
+    {
+        return view('preorderForm');
+    }
+
+    public function createPreorder(PreorderRequest $request)
+    {
+        $this->service->savePreorder($request->all());
+        return view('successPreorder');
     }
 }
