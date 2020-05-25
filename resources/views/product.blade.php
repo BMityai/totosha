@@ -18,11 +18,16 @@
         <div class="productContent block    sm:flex">
             <div class="productImg mt-4 w-full sm:w-2/5 md:w-1/3">
                 <div class="productSlickCarousel">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer" src="http://placehold.it/800x700" alt="">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer" src="http://placehold.it/800x700" alt="">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer" src="http://placehold.it/800x700" alt="">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer" src="http://placehold.it/800x700" alt="">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer" src="http://placehold.it/800x700" alt="">
+                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
+                         src="http://placehold.it/800x700" alt="">
+                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
+                         src="http://placehold.it/800x700" alt="">
+                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
+                         src="http://placehold.it/800x700" alt="">
+                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
+                         src="http://placehold.it/800x700" alt="">
+                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
+                         src="http://placehold.it/800x700" alt="">
                 </div>
 
             </div>
@@ -30,7 +35,7 @@
                 <h1 class="productName text-center text-2xl">{{ $product->name }}</h1>
                 <div class="mt-6 text-md md:text-xl flex justify-between">
                     <p>Характеристики</p>
-                    <a href="#productReviews" class=" text-blue-700 hover:text-blue-600 hover:underline"> Отзывы (2)</a>
+                    <a href="#productReviews" class=" text-blue-700 hover:text-blue-600 hover:underline"> Отзывы ({{ count($product->reviews) }})</a>
                 </div>
                 <div class="artNo flex mt-4">
                     <div class="w-3/5 md:w-2/5 lg:w-1/3">
@@ -43,58 +48,58 @@
                 </div>
 
                 @if($product->age)
-                <div class="manufacturer flex mt-2">
-                    <div class="w-3/5 md:w-2/5 lg:w-1/3">
-                        Возраст
+                    <div class="manufacturer flex mt-2">
+                        <div class="w-3/5 md:w-2/5 lg:w-1/3">
+                            Возраст
+                        </div>
+                        <div class="pl-1 w-2/3">
+                            {{ $product->age }}
+                        </div>
                     </div>
-                    <div class="pl-1 w-2/3">
-                        {{ $product->age }}
-                    </div>
-                </div>
                 @endif
 
                 @if($product->manufacturer)
-                <div class="manufacturer flex mt-2">
-                    <div class="w-3/5 md:w-2/5 lg:w-1/3">
-                        Производитель
+                    <div class="manufacturer flex mt-2">
+                        <div class="w-3/5 md:w-2/5 lg:w-1/3">
+                            Производитель
+                        </div>
+                        <div class="pl-1 w-2/3">
+                            {{ $product->manufacturer }}
+                        </div>
                     </div>
-                    <div class="pl-1 w-2/3">
-                        {{ $product->manufacturer }}
-                    </div>
-                </div>
                 @endif
 
                 @if($product->height && $product->weight && $product->depth)
-                <div class="dimension flex mt-2">
-                    <div class="w-3/5 md:w-2/5 lg:w-1/3">
-                        Габариты
+                    <div class="dimension flex mt-2">
+                        <div class="w-3/5 md:w-2/5 lg:w-1/3">
+                            Габариты
+                        </div>
+                        <div class="pl-1 w-2/3">
+                            {{ $product->height }}mm x {{ $product->width }}mm x {{ $product->depth }}mm
+                        </div>
                     </div>
-                    <div class="pl-1 w-2/3">
-                        {{ $product->height }}mm x {{ $product->width }}mm x {{ $product->depth }}mm
-                    </div>
-                </div>
                 @endif
 
                 @if($product->material)
-                <div class="material flex mt-2">
-                    <div class="w-3/5 md:w-2/5 lg:w-1/3">
-                        Материал
+                    <div class="material flex mt-2">
+                        <div class="w-3/5 md:w-2/5 lg:w-1/3">
+                            Материал
+                        </div>
+                        <div class="pl-1 w-2/3">
+                            {{ $product->material }}
+                        </div>
                     </div>
-                    <div class="pl-1 w-2/3">
-                        {{ $product->material }}
-                    </div>
-                </div>
                 @endif
 
                 @if($product->note)
-                <div class="note flex mt-2">
-                    <div class="w-3/5 md:w-2/5 lg:w-1/3">
-                        * Примечание
+                    <div class="note flex mt-2">
+                        <div class="w-3/5 md:w-2/5 lg:w-1/3">
+                            * Примечание
+                        </div>
+                        <div class="pl-1 w-2/3">
+                            {{ $product->note }}
+                        </div>
                     </div>
-                    <div class="pl-1 w-2/3">
-                        {{ $product->note }}
-                    </div>
-                </div>
                 @endif
 
 
@@ -108,21 +113,28 @@
                                 class="@if($product->discount == 0)text-xl font-bold @else text-lg line-through @endif text-right">{{$product->price}}
                                 ₸
                             </div>
-                            @if($product->discount > 0)<div class="text-xl text-right font-bold">{{$product->discount_price}} ₸</div> @endif
+                            @if($product->discount > 0)
+                                <div class="text-xl text-right font-bold">{{$product->discount_price}} ₸</div> @endif
                         </div>
                     </div>
 
                     <div class="flex mt-4">
                         <span class="w-1/2 text-lg  self-end">Скидка</span>
                         <div class="priceBlock w-1/2">
-                            <div class="text-lg @if($product->discount > 0) font-bold @endif text-right">{{$product->discount}} %</div>
+                            <div
+                                class="text-lg @if($product->discount > 0) font-bold @endif text-right">{{$product->discount}}
+                                %
+                            </div>
                         </div>
                     </div>
 
                     <div class="flex mt-3">
                         <span class="w-1/2 text-lg  self-end">Вы экономите</span>
                         <div class="priceBlock w-1/2">
-                            <div class="text-lg @if($product->discount > 0) font-bold @endif text-right">{{$product->price - $product->discount_price}} ₸</div>
+                            <div
+                                class="text-lg @if($product->discount > 0) font-bold @endif text-right">{{$product->price - $product->discount_price}}
+                                ₸
+                            </div>
                         </div>
                     </div>
 
@@ -138,11 +150,13 @@
                     </div>
 
                     @if($product->count > 0 && !$product->coming_soon)
-                        <a id="addButtonToBasket" href="{{ route('addToBasket') }}" onclick="addToCart(event)" data-csrf="{{ csrf_token() }}" data-id="{{ $product->id }}"
+                        <a id="addButtonToBasket" href="{{ route('addToBasket') }}" onclick="addToCart(event)"
+                           data-csrf="{{ csrf_token() }}" data-id="{{ $product->id }}"
                            class="@if($product->getIfInTheBasket->isNotEmpty()) hidden @else block @endif text-lg sm:text-xs md:text-base w-full block text-center bg-orange-500 hover:bg-orange-600 p-2 mt-4 rounded outline-none">
                             В КОРЗИНУ
                         </a>
-                        <a id="removeButtonFromCart" href="{{ route('addToBasket') }}" onclick="addToCart(event)" data-csrf="{{ csrf_token() }}" data-id="{{ $product->id }}"
+                        <a id="removeButtonFromCart" href="{{ route('addToBasket') }}" onclick="addToCart(event)"
+                           data-csrf="{{ csrf_token() }}" data-id="{{ $product->id }}"
                            class="@if($product->getIfInTheBasket->isNotEmpty()) block @else hidden @endif addCartButton text-lg sm:text-xs md:text-base w-full block text-center bg-orange-500 hover:bg-orange-600 p-2 mt-4 rounded outline-none">
                             В КОРЗИНЕ
                         </a>
@@ -160,18 +174,18 @@
                         </a>
                     @endif
                     @if($product->getIfInTheWishlist->isNotEmpty())
-                    <a href="#" onclick="wishlistProductPage(event)"
-                       data-id="{{ $product->id }}"
-                       class="text-lg sm:text-xs md:text-base w-full block text-center bg-indigo-500 hover:bg-indigo-600 p-2 mt-2 mr-auto ml-auto rounded outline-none addCartButton">
-                        В ИЗБРАННОМ
-                    </a>
+                        <a href="#" onclick="wishlistProductPage(event)"
+                           data-id="{{ $product->id }}"
+                           class="text-lg sm:text-xs md:text-base w-full block text-center bg-indigo-500 hover:bg-indigo-600 p-2 mt-2 mr-auto ml-auto rounded outline-none addCartButton">
+                            В ИЗБРАННОМ
+                        </a>
                     @else
 
-                    <a href="#" onclick="wishlistProductPage(event)"
-                       data-id="{{ $product->id }}"
-                       class="text-lg sm:text-xs md:text-base w-full block text-center bg-indigo-500 hover:bg-indigo-600 p-2 mt-2 mr-auto ml-auto rounded outline-none">
-                        В ИЗБРАННОЕ
-                    </a>
+                        <a href="#" onclick="wishlistProductPage(event)"
+                           data-id="{{ $product->id }}"
+                           class="text-lg sm:text-xs md:text-base w-full block text-center bg-indigo-500 hover:bg-indigo-600 p-2 mt-2 mr-auto ml-auto rounded outline-none">
+                            В ИЗБРАННОЕ
+                        </a>
                     @endif
                 </div>
             </div>
@@ -261,42 +275,68 @@
 
         <div id="productReviews" class="reviews px-3 w-full sm:w-3/4">
             <div class="text-xl mt-6 flex justify-between">
-                <span>Отзывы (4)</span>
-                <a onclick="showReviewForm(event)" class="ml-4 text-blue-700 hover:text-blue-600 hover:underline" href="#">Оставить отзыв</a>
+                <span>Отзывы ({{ count($product->reviews) }})</span>
+                <a onclick="showReviewForm(event)" class="ml-4 text-blue-700 hover:text-blue-600 hover:underline"
+                   href="#">Оставить отзыв</a>
             </div>
-            <form id="reviewForm" action="" class="hidden">
-                <textarea class="w-full border outline-none text-lg"  name="" id="" rows="10"></textarea>
-                <input type="submit" value="ОТПРАВИТЬ" class="p-2 cursor-pointer rounded bg-blue-600 hover:bg-blue-500 text-white">
-            </form>
-            <div class="text-sm sm:text-xl">
-                <div class="mt-2">
-                    <span class="font-bold">TestName</span>
-                    <span class="opacity-75 ml-4">12.12.2020 г. 13:34</span>
-                </div>
-                <div>
-                    <p>
-                        test review  test review test review test review test review test review test review test review test review test review test review test review test review test review test
-                    </p>
-                </div>
-            </div>
-            <div class="text-sm sm:text-xl">
-                <div class="flex ">
-                    <img class="w-10 sm:w-20 h-10 sm:h-20" src="{{ asset('images/ico/review/lapki.png') }}" alt="">
+            <form id="reviewForm" action="{{ route('createComment') }}" class="@if (count($errors) == 0)hidden @endif"
+                  method="POST">
+                @csrf
+                <p class="mt-4">Имя</p>
+                <input type="text" name="name"
+                       class="w-full border @error('name') border-red-700 @enderror outline-none text-lg"
+                       placeholder="Ваше имя">
+                @error('name')
+                <p class="text-red-700 text-center -mb-4">{{ $message }}</p>
+                @enderror
+                <input type="text" name="productId" value="{{ $product->id }}" class="hidden">
 
+                <textarea class="w-full border @error('review') border-red-700 @enderror outline-none text-lg mt-4"
+                          name="review" id="" rows="10"></textarea>
+                @error('review')
+                <p class="text-red-700 text-center -mb-4">{{ $message }}</p>
+                @enderror
+                <input type="submit" value="ОТПРАВИТЬ"
+                       class="p-2 cursor-pointer rounded bg-blue-600 hover:bg-blue-500 text-white">
+            </form>
+
+            @foreach($product->reviews as $review)
+                <div class="text-sm sm:text-xl mt-6">
+                    <div class="mt-2">
+                        <span class="font-bold">{{ $review->name }}</span>
+                        <span
+                            class="opacity-75 ml-4">{{  date('d-m-Y', strtotime(stristr($review->created_at, ' ', true)))  }}</span>
+                    </div>
                     <div>
-                        <div class="mt-2">
-                            <span class="font-bold italic">Mimishka.kz</span>
-                            <span class="opacity-75 ml-4">12.12.2020 г. 13:34</span>
-                        </div>
-                        <div class="italic">
-                            <p>
-                                test review  test review test review test review test review test review test review test review test review test review test review test review test review test review test
-                            </p>
+                        <p>
+                            {{ $review->review }}
+                        </p>
+                    </div>
+                </div>
+                @isset($review->admin_review)
+
+                    <div class="text-sm sm:text-xl bg-blue-200 rounded">
+                        <div class="flex ">
+                            <img class="w-10 sm:w-20 h-10 sm:h-20" src="{{ asset('images/ico/review/lapki.png') }}"
+                                 alt="">
+                            <div>
+                                <div class="mt-2">
+                                    <span class="font-bold italic">Mimishka.kz</span>
+                                    <span
+                                        class="opacity-75 ml-4">{{  date('d-m-Y', strtotime(stristr($review->updated_at, ' ', true)))  }}</span>
+                                </div>
+                                <div class="italic">
+                                    <p>
+                                        {{ $review->admin_review }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                @endisset
 
-                </div>
-            </div>
+            @endforeach
+
         </div>
 
         <div class="recommended mt-8">

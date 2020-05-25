@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,10 @@ Auth::routes(['verify' => true]);
 
 Route::get('/request_form', 'HomeController@getPreorderForm')->name('getRequestForm');
 Route::post('/create_preorder', 'HomeController@createPreorder')->name('createPreorder');
-Route::post('/create_comment', 'HomeController@createPreorder')->name('createPreorder');
+Route::post('/create_comment', 'HomeController@createComment')->name('createComment');
+Route::get('/coming_soon', 'HomeController@getComingSoonProducts')->name('getComingSoonProducts');
+Route::get('/sales', 'HomeController@getSalesProducts')->name('getSalesProducts');
+Route::get('/reviews', 'HomeController@getReviews')->name('getReviews');
 
 Route::group(['prefix' => '/cabinet', 'middleware'=>'auth'], function (){
     Route::get('/orders', 'CustomerCabinet\CabinetController@getOrders')->name('ordersHistory');

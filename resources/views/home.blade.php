@@ -19,12 +19,12 @@
                 </a>
             </div>
             <div class="comingSoon pl-1 sm:p-0 sm:ml-1  sm:mr-1 w-1/2 sm:w-auto">
-                <a href="#">
+                <a href="{{ route('getComingSoonProducts') }}">
                     <img class="rounded-lg" src="{{ asset('images/home/coming_soon.png') }}" alt="">
                 </a>
             </div>
             <div class="saleProducts pr-1 sm:p-0 mt-2 sm:m-0 sm:ml-1 sm:mr-1 w-1/2 sm:w-auto">
-                <a href="#">
+                <a href="{{ route('getSalesProducts') }}">
                     <img class="rounded-lg" src="{{ asset('images/home/sale.png') }}" alt="">
                 </a>
             </div>

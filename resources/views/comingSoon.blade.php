@@ -1,9 +1,9 @@
 @extends('layouts.master')
-@section('title', ':' . $category->name)
+@section('title', ': скоро в продаже')
 @section('content')
     <div class="container mt-16 ">
         @include('layouts.search')
-        <form id="filterForm" method="GET" action="{{ route('category', $category->slug) }}"
+        <form id="filterForm" method="GET" action="{{ route('getComingSoonProducts') }}"
               class="mt-4 block md:hidden">
             <div class="flex justify-around rounded-lg bg-blue-600 h-12 items-center">
                 <div id="sideSort" class="sideSort w-1/4 sm:w-auto">
@@ -13,18 +13,18 @@
                         <option value="priceUp"
                                 @if(request()->sort == 'priceUp')
                                 selected
-                                @endif>
+                            @endif>
                             По цене &#8593
                         </option>
                         <option value="priceDown"
                                 @if(request()->sort == 'priceDown')
                                 selected
-                                @endif>
+                            @endif>
                             По цене &#8595</option>
                         <option value="new"
                                 @if(request()->sort == 'new')
                                 selected
-                                @endif
+                            @endif
                         >По новизне</option>
                     </select>
                 </div>
@@ -36,12 +36,12 @@
                             <option value="inStock"
                                     @if(request()->stockFilter == 'inStock')
                                     selected
-                                    @endif
+                                @endif
                             >В наличии</option>
                             <option value="comingSoon"
                                     @if(request()->stockFilter == 'comingSoon')
                                     selected
-                                    @endif
+                                @endif
                             >Скоро в продаже</option>
                         </select>
                     </div>
@@ -75,7 +75,7 @@
             <div class="breadCrumbs">
                 <a href="{{ route('home') }}">Главная</a>
                 <span> / </span>
-                <span href="{{ route('category', $category->slug) }}">{{ $category->name }}</span>
+                Скоро в продаже
             </div>
             <a class="block md:hidden" href="">Сбросить фильтр</a>
 
@@ -90,7 +90,7 @@
                     @endforeach
                 </div>
                 <h1 class="mt-4 font-bold">Сортировать</h1>
-                <form id="sideFilterForm" method="GET" action="{{ route('category', $category->slug) }}"
+                <form id="sideFilterForm" method="GET" action="{{ route('getComingSoonProducts') }}"
                       class="w-full">
                     <div class="mt-1">
                         <select onchange="sideFilteredProducts()" name="sort"
@@ -167,7 +167,7 @@
                     <input type="submit" value="Применить"
                            class="w-10/12 h-8 rounded bg-orange-400 hover:bg-orange-500 mt-4">
                     <p class="mt-2 text-center w-10/12 hover:bg-gray-300 rounded">
-                        <a href="{{ route('category', $category->slug) }}">Сбросить фильтр</a>
+                        <a href="{{ route('getComingSoonProducts') }}">Сбросить фильтр</a>
                     </p>
                 </form>
 

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FilterRequest;
 use App\Http\Requests\PreorderRequest;
+use App\Http\Requests\ProductReviewRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\HomeControllerService;
-use http\Env\Request;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
@@ -34,6 +34,7 @@ class HomeController extends Controller
     public function index()
     {
         $newProducts = $this->service->getActiveNewProducts();
+
         return view('home', ['newProducts' => $newProducts]);
     }
 
@@ -62,4 +63,32 @@ class HomeController extends Controller
         $this->service->savePreorder($request->all());
         return view('successPreorder');
     }
+
+    public function createComment(ProductReviewRequest $request)
+    {
+        session()->flash('review', true);
+        $this->service->createReview($request->all());
+        return redirect()->back();
+    }
+
+    public function getComingSoonProducts(FilterRequest $request)
+    {
+        $requestQueryString = $request->getQueryString();
+        $products = $this->service->getActiveComingSoonProducts($request->toArray(), $requestQueryString);
+        return view('comingSoon', ['products' => $products]);
+    }
+
+    public function getSalesProducts(FilterRequest $request)
+    {
+        $requestQueryString = $request->getQueryString();
+        $products = $this->service->getActiveSalesProducts($request->toArray(), $requestQueryString);
+        return view('sales', ['products' => $products]);
+    }
+
+    public function getReviews()
+    {
+        $reviews = $this->service->getReviews();
+        return view('reviews', ['reviews' => $reviews]);
+    }
+
 }

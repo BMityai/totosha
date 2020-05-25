@@ -33,6 +33,8 @@ class Product extends Model
         'age'
     ];
 
+    protected $with = ['category', 'getIfInTheBasket', 'getIfInTheWishList'];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -59,10 +61,14 @@ class Product extends Model
     public function getIfInTheWishList()
     {
         if (Auth::check()) {
-//            dd($this->wishList);
-
             return $this->wishList()->where('user_id', Auth::user()->id);
         }
         return $this->wishList()->where('session_id', session()->getId());
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class)->orderBy('created_at', 'DESC');
+    }
+
 }

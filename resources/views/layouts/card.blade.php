@@ -1,5 +1,4 @@
 <div id="productCard_{{ $product->id }}" class="slideCard mt-1 mb-1 rounded max-w-xs pb-2">
-
     <a class="outline-none" href="{{ route('product', ['category' => $product->category->slug, 'product' => $product->slug]) }}">
         <div class="relative">
             <div class="sale">
@@ -7,6 +6,7 @@
                     <span>-{{ $product->discount }} %</span>
                 @endif
             </div>
+
             <img class="rounded-t" src="http://placehold.it/800x700" alt="">
             <span onclick="wishList(event)" href="3" class="absolute w-8 bottom-0 right-0 mr-2 mb-2">
                 <img class="rounded-t" src="{{ asset('/images/ico/card/wishlist.png') }}" alt="">

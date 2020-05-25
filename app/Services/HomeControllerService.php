@@ -48,4 +48,25 @@ class HomeControllerService
         $this->dbRepository->savePreorder($data);
     }
 
+    public function createReview(array $data)
+    {
+        $this->dbRepository->createReview($data);
+    }
+
+    public function getActiveComingSoonProducts($filter, $requestQueryString)
+    {
+        return $this->dbRepository->getActiveComingSoonProducts($filter, $requestQueryString);
+    }
+
+    public function getActiveSalesProducts($filter, $requestQueryString)
+    {
+        return $this->dbRepository->getActiveSalesProducts($filter, $requestQueryString);
+    }
+
+    public function getReviews()
+    {
+        return $this->dbRepository->getReviews();
+    }
+
+
 }

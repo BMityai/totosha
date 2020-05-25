@@ -13,6 +13,7 @@ use App\PaymentForm;
 use App\Preorder;
 use App\Product;
 use App\Region;
+use App\Review;
 use App\User;
 use App\WishList;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,9 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
 
     public function getActiveRecommendedProducts()
     {
-        return Product::where('is_active', true)->where('recommended', true)->get();
+        return Product::where('is_active', true)
+            ->where('recommended', true)
+            ->get();
     }
 
     public function getActiveProductBySlug($slug)
@@ -330,13 +333,59 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     {
         Preorder::create(
             [
-                'name' => $data['name'],
-                'phone' => $data['phone'],
-                'email' => $data['customerEmail'],
-                'product_name' => $data['productName'],
-                'product_link' => $data['productLink'],
+                'name'                => $data['name'],
+                'phone'               => $data['phone'],
+                'email'               => $data['customerEmail'],
+                'product_name'        => $data['productName'],
+                'product_link'        => $data['productLink'],
                 'product_description' => $data['productDescription'],
             ]
         );
+    }
+
+    public function createReview(array $data): void
+    {
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+        } else {
+            $userId = null;
+        }
+        $productId = isset($data['productId']) ?? null;
+
+        Review::create(
+            [
+                'name'       => $data['name'],
+                'product_id' => $productId,
+                'review'     => $data['review'],
+                'user_id'    => $userId
+            ]
+        );
+    }
+
+    public function getActiveComingSoonProducts($filter, $requestQueryString)
+    {
+        $productsQuery = Product::query()
+            ->where('is_active', true)
+            ->where('coming_soon', true);
+        if (!empty($filter)) {
+            $this->filterAccordingToCustomerRequest($productsQuery, $filter);
+        }
+        return $productsQuery->paginate(12)->withPath('?' . $requestQueryString);
+    }
+
+    public function getActiveSalesProducts($filter, $requestQueryString)
+    {
+        $productsQuery = Product::query()
+            ->where('is_active', true)
+            ->where('discount', '>',0);
+        if (!empty($filter)) {
+            $this->filterAccordingToCustomerRequest($productsQuery, $filter);
+        }
+        return $productsQuery->paginate(12)->withPath('?' . $requestQueryString);
+    }
+
+    public function getReviews()
+    {
+        return Review::all()->sortByDesc('created_at');
     }
 }

@@ -30,6 +30,8 @@ class Order extends Model
         'delivery_price'
     ];
 
+    protected $with = ['status', 'region', 'deliveryType', 'paymentForm'];
+
     public function status()
     {
         return $this->belongsTo(OrderStatus::class, 'order_status_id');

@@ -20,7 +20,7 @@
                     <h2 class="uppercase">Инфо</h2>
                     <hr>
                     <a href=""><p class="opacity-75 hover:opacity-100 mt-4">О нас</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>
+                    <a href="{{ route('getReviews') }}"><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>
                     <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>
                     <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>
                     <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>
@@ -186,6 +186,10 @@
     <div
         class="succesVerify text-lg shadow-md rounded pt-12 bg-green-500 fixed z-10 text-white w-full text-center text-bold @if(session('emailVerify')) block @else hidden @endif">
         Поздравляем. Верификация прошла успешно.
+    </div>
+    <div
+        class="text-lg shadow-md rounded pt-12 bg-green-500 fixed z-10 text-white w-full text-center text-bold @if(session('review') == true) block @else hidden @endif">
+         Ваш отзыв успешно опубликован.
     </div>
     <div
         class="text-lg shadow-md rounded pt-12 bg-green-500 fixed z-10 text-white w-full text-center text-bold @if(session('updateData')) block @else hidden @endif">

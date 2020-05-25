@@ -37,6 +37,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = ['WishListProducts'];
+
     public function Orders()
     {
         return $this->hasMany(Order::class);

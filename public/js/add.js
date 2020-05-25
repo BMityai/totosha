@@ -346,6 +346,8 @@ function wishlistProductPage(event) {
     let product_id = wishlistButton.dataset.id;
 
     if (wishlistButton.classList.contains('addCartButton')) {
+        modal.classList.add('bg-red-500')
+        modal.classList.remove('bg-green-400')
         wishlistButton.classList.remove('addCartButton');
         wishlist.textContent = parseInt(wishlistInfo) - 1;
         modal.innerText = 'Удален из Wish List'
@@ -362,6 +364,8 @@ function wishlistProductPage(event) {
         }
 
     } else {
+        modal.classList.remove('bg-red-500')
+        modal.classList.add('bg-green-400')
         wishlistButton.classList.add('addCartButton');
         wishlist.textContent = parseInt(wishlistInfo) + 1;
         modal.innerText = 'Добавлен в Wish List'
