@@ -9,15 +9,17 @@ use App\Helpers\Helpers;
 use App\KazPostTarif;
 use App\Order;
 use App\OrderProduct;
+use App\OrderStatus;
 use App\PaymentForm;
 use App\Preorder;
 use App\Product;
 use App\Region;
 use App\Review;
-use App\User;
 use App\WishList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+use function GuzzleHttp\Psr7\str;
 
 class MainEloquentRepository implements MainEloquentRepositoryInterface
 {
@@ -377,15 +379,136 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     {
         $productsQuery = Product::query()
             ->where('is_active', true)
-            ->where('discount', '>',0);
+            ->where('discount', '>', 0);
         if (!empty($filter)) {
             $this->filterAccordingToCustomerRequest($productsQuery, $filter);
         }
         return $productsQuery->paginate(12)->withPath('?' . $requestQueryString);
     }
 
-    public function getReviews()
+    /**
+     * Get all reviews
+     *
+     * @return object
+     */
+    public function getReviews(): object
     {
         return Review::all()->sortByDesc('created_at');
+    }
+
+    /**
+     * Get all orders
+     *
+     * @return object
+     */
+    public function getAllOrders(array $filter): object
+    {
+        $ordersQuery = Order::query();
+        if (!empty($filter)) {
+            $this->filterOrdersByAdminRequest($ordersQuery, $filter);
+        }
+        return $ordersQuery->orderBy('created_at', 'DESC')->simplePaginate(20);
+    }
+
+    private function filterOrdersByAdminRequest($ordersQuery, $filter)
+    {
+        if (!empty($filter['orderNumber'])) {
+            $number = $filter['orderNumber'];
+            $ordersQuery->where('number', 'like', "%{$number}%");
+        }
+
+        if (!empty($filter['fromDate'])) {
+            $date = Helpers::getCleanBirthDate($filter['fromDate']);
+            $ordersQuery->where('created_at', '>', $date);
+        }
+
+        if (!empty($filter['toDate'])) {
+            $date = Helpers::getCleanBirthDate($filter['toDate']);
+            $ordersQuery->where('created_at', '<', $date);
+        }
+
+        if (!empty($filter['status'])) {
+            $statusId = $filter['status'];
+            $ordersQuery->whereHas('status', function ($q) use ($statusId) {
+                $q->where('id', $statusId);
+            });
+        }
+    }
+
+    /**
+     * Get all products by filter
+     *
+     * @param array $filter
+     * @param string|null $requestQueryString
+     * @return object
+     */
+    public function getAllProducts(array $filter, ?string $requestQueryString): object
+    {
+        $productsQuery = Product::query();
+        if (!empty($filter)) {
+            $this->filterProductsByAdminRequest($productsQuery, $filter);
+        }
+        return $productsQuery->orderBy('created_at', 'DESC')->paginate(100)->withPath('?' . $requestQueryString);
+    }
+
+    /**
+     * Filter products
+     *
+     * @param object $productsQuery
+     * @param array $filter
+     */
+    private function filterProductsByAdminRequest(object $productsQuery, array $filter): void
+    {
+        if (!empty($filter['name'])) {
+            $name = $filter['name'];
+            $productsQuery->where('name', 'like', "%{$name}%");
+        }
+        if (!empty($filter['category'])) {
+            $categoryId = $filter['category'];
+            $productsQuery->whereHas('category', function ($q) use ($categoryId) {
+                $q->where('id', $categoryId);
+            });
+
+        }
+        if (!empty($filter['priceFrom'])) {
+            $productsQuery->where('discount_price', '>', $filter['priceFrom']);
+        }
+
+        if (!empty($filter['priceTo'])) {
+            $productsQuery->where('discount_price', '<', $filter['priceTo']);
+        }
+
+        if (isset($filter['isActive']) && strlen($filter['isActive'])) {
+            $productsQuery->where('is_active', $filter['isActive']);
+        }
+    }
+
+    /**
+     * Get all statuses
+     *
+     * @return object
+     */
+    public function getAllStatuses(): object
+    {
+        return OrderStatus::all();
+    }
+
+    public function getOrderById(int $orderId): object
+    {
+        return Order::find($orderId);
+    }
+
+    public function updateOrder(object $order, array $changeFields): void
+    {
+        foreach ($changeFields as $key => $value) {
+            if($value !== false){
+                $order->update([$key => $value]);
+            }
+        }
+    }
+
+    public function deleteProductInOrder(object $orderProduct )
+    {
+        $orderProduct->delete();
     }
 }

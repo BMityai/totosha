@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
 
@@ -14,12 +12,22 @@ class SearchControllerService
      */
     private $dbRepository;
 
+    /**
+     * SearchControllerService constructor.
+     * @param MainEloquentRepositoryInterface $mainEloquentRepository
+     */
     public function __construct( MainEloquentRepositoryInterface $mainEloquentRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
     }
 
-    public function getSearchOptions($searchKey)
+    /**
+     * Get products by search key
+     *
+     * @param string $searchKey
+     * @return object
+     */
+    public function getSearchOptions(string $searchKey): object
     {
         $result = collect([]);
         $keys = explode(' ', $searchKey);

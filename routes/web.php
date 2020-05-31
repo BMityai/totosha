@@ -16,7 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 
-Route::get('/request_form', 'HomeController@getPreorderForm')->name('getRequestForm');
+Route::get('/admin', 'AdminPanel\AdminController@index')->name('admin.home');
+Route::get('/admin/orders', 'AdminPanel\AdminController@getOrders')->name('admin.orders');
+Route::get('/admin/order/{orderId}', 'AdminPanel\AdminController@getOrder')->name('admin.order');
+Route::post('/admin/order/edit/{orderId}', 'AdminPanel\AdminController@editOrder')->name('admin.editOrder');
+Route::get('/admin/products', 'AdminPanel\AdminController@getProducts')->name('admin.products');
+
+
+Route::get('/preorder_form', 'HomeController@getPreorderForm')->name('getRequestForm');
 Route::post('/create_preorder', 'HomeController@createPreorder')->name('createPreorder');
 Route::post('/create_comment', 'HomeController@createComment')->name('createComment');
 Route::get('/coming_soon', 'HomeController@getComingSoonProducts')->name('getComingSoonProducts');

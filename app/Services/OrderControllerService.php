@@ -18,6 +18,10 @@ class OrderControllerService
      */
     private $basketControllerService;
 
+    /**
+     * OrderControllerService constructor.
+     * @param MainEloquentRepository $mainEloquentRepository
+     */
     public function __construct(MainEloquentRepository $mainEloquentRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
@@ -56,6 +60,11 @@ class OrderControllerService
         }
     }
 
+    /**
+     * Update user bonus after create order
+     *
+     * @param int $spentBonus
+     */
     private function updateUserBonus(int $spentBonus): void
     {
         $this->dbRepository->updateUserBonusAfterCreateOrder($spentBonus);

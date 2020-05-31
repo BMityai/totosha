@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class BonusCalcHelper
 {
-    public function getBonusCoefficient()
+    /**
+     * Get bonus date
+     *
+     * @return float
+     */
+    public function getBonusCoefficient(): float
     {
         if (Auth::check()){
             return $this->calculateBonusCoefficient();
@@ -17,7 +22,12 @@ class BonusCalcHelper
         }
     }
 
-    private function calculateBonusCoefficient()
+    /**
+     * Calculate bonus coefficient by birth date
+     *
+     * @return float
+     */
+    private function calculateBonusCoefficient(): float
     {
         $user = Auth::user();
         $bonusPercent = config('app.bonusPercent');

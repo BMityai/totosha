@@ -27,10 +27,12 @@ class Order extends Model
         'spent_bonus',
         'is_paid',
         'total_sum',
-        'delivery_price'
+        'delivery_price',
+        'admin_comment',
+        'system_comment',
     ];
 
-    protected $with = ['status', 'region', 'deliveryType', 'paymentForm'];
+    protected $with = ['status', 'region', 'deliveryType', 'paymentForm', 'products'];
 
     public function status()
     {

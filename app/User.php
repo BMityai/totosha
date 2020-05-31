@@ -37,7 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    protected $with = ['WishListProducts'];
+    protected $with = ['WishListProducts', 'BasketProducts', 'Orders'];
 
     public function Orders()
     {
