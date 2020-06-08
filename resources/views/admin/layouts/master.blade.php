@@ -8,10 +8,14 @@
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
 
-    <script src="{{ asset('js/tiny.js') }}" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'textarea'});</script>
+    <script src="https://cdn.tiny.cloud/1/0x3kmmt9qvj5aq28ky7uxekbttk5mkp7lihh8tnbb8vhzt9i/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
     <style>
         .bg-black-alt {
@@ -197,11 +201,10 @@
         }
         return false;
     }
-
-
     $(document).ready(function () {
         $('#fromDate').inputmask({"mask": "99/99/9999"});  //static mask
         $('#toDate').inputmask({"mask": "99/99/9999"});  //static mask
+        $('#phone').inputmask({"mask": "+7 (999) 999-99-99"}); //specifying options
     });
 </script>
 

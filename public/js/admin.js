@@ -10,3 +10,11 @@ function getOrdersFilterForm(event) {
     form.classList.toggle('hidden')
 }
 
+function editReview() {
+    let adminCommentContent = document.getElementById('managerCommentBlock');
+    let textareContent = document.getElementById('mytextarea').parentNode.children[3];
+    textareContent.style = "display:flex!important; height:300px;"
+    adminCommentContent.classList.add('hidden');
+    // adminCommentContent.classList.remove('hidden');
+
+}

@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
          $this->call(PaymentFormSeeder::class);
          $this->call(DeliveryTypeSeeder::class);
          $this->call(KazPostTarifSeeder::class);
+         $this->call(AgeSeeder::class);
+         $this->call(ManufacturerSeeder::class);
     }
 }

@@ -101,7 +101,24 @@ class AdminControllerService
         $result['street']          = $order->street != $data['deliveryStreet'] ? $data['deliveryStreet'] : false;
         $result['building']        = $order->building != $data['deliveryBuilding'] ? $data['deliveryBuilding'] : false;
         $result['apartment']       = $order->apartment != $data['deliveryApartment'] ? $data['deliveryApartment'] : false;
-        $result['admin_comment']   = $order->admin_comment != $data['adminComment'] ? $data['adminComment'] : false;
+        if (isset($data['adminComment'])){
+            $result['admin_comment']   = $order->admin_comment != $data['adminComment'] ? $data['adminComment'] : false;
+        }
         return $result;
+    }
+
+    public function getAges():object
+    {
+        return $this->dbRepository->getAges();
+    }
+
+    public function getManufacturers():object
+    {
+        return $this->dbRepository->getManufacturers();
+    }
+
+    public function getMaterials():object
+    {
+        return $this->dbRepository->getMaterials();
     }
 }

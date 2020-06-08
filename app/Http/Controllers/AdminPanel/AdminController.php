@@ -52,4 +52,18 @@ class AdminController extends Controller
         $this->service->updateOrder($orderId, $request->all());
         return redirect()->back();
     }
+
+    public function addProduct()
+    {
+        $ages = $this->service->getAges();
+        $manufacturers = $this->service->getManufacturers();
+        $categories = $this->service->getAllActiveCategories();
+        $materials = $this->service->getMaterials();
+        return view('admin.addProduct', [
+            'ages' => $ages,
+            'manufacturers' => $manufacturers,
+            'categories' => $categories,
+            'materials' => $materials,
+        ]);
+    }
 }

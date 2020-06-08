@@ -6,10 +6,10 @@
 
     <form action="{{ route('admin.editOrder', $order->id) }}" method="POST" class="container text-white mt-24 sm:mt-16 lg:mt-32 m-auto mb-32">
         @csrf
-        <div class="flex justify-between mt-2 p-2">
+        <div class="flex justify-between mt-2 p-2 flex-wrap md:flex-no-wrap">
             <h1 class="text-xl">Заказ №{{ $order->number }}</h1>
 
-            <select id="orderStatus" type="text" name="orderStatus" class="bg-red-700 p-1 w-2/3 bg-transparent border border-white rounded">
+            <select id="orderStatus" type="text" name="orderStatus" class="bg-red-700 p-1 w-full md:w-2/3 bg-transparent border border-white rounded">
                 @foreach($statuses as $status)
                     <option value="{{ $status->id }}"
                             @if($status->id == $order->order_status_id)
@@ -20,8 +20,8 @@
             </select>
         </div>
         <div>
-            <div class="flex w-full">
-                <div class="w-1/2 p-2">
+            <div class="flex w-full flex-wrap md:flex-no-wrap">
+                <div class="w-full md:w-1/2 p-2">
                     <div class="flex mt-2">
                         <span class="w-1/3 self-center">Имя</span>
                         <input type="text" name="customerName" value="{{ $order->name }}"
@@ -29,12 +29,15 @@
                     </div>
                     <div class="flex mt-2">
                         <span class="w-1/3 self-center">Телефон</span>
-                        <input type="text" name="customerPhone" value="{{ $order->phone }}"
+                        <input name="customerPhone"
+                               id="phone"
+                               type="tel"
+                               value="{{ $order->phone }}"
                                class="p-1 w-2/3 bg-transparent border border-white rounded">
                     </div>
                     <div class="flex mt-2">
                         <span class="w-1/3 self-center">Email</span>
-                        <input type="text" name="customerEmail" value="{{ $order->email }}"
+                        <input type="email" name="customerEmail" value="{{ $order->email }}"
                                class="p-1 w-2/3 bg-transparent border border-white rounded">
                     </div>
                     <div class="flex mt-2">
@@ -70,7 +73,7 @@
                     </div>
 
                 </div>
-                <div class="w-1/2 p-2">
+                <div class="w-full md:w-1/2 p-2">
 
                     <div id="deliveryRegionAdmin" class="flex mt-2">
                         <span class="w-1/3 self-center">Область</span>
@@ -135,9 +138,10 @@
 
             <div class="p-2">
                 <p>Комментарий менеджера</p>
-                <textarea name="adminComment" class="w-full bg-transparent text-white h-32 border border-white rounded">{{ $order->admin_comment }}</textarea>
-            </div>
+                <div id="managerCommentBlock" class="border rounded border-white p-2" onclick="editReview()">{!! $order->admin_comment !!}</div>
 
+                <textarea id="mytextarea" name="adminComment" class="hidden editor w-full bg-transparent h-32 border border-white rounded">{{ $order->admin_comment }}</textarea>
+            </div>
 
             <h1 class="text-xl text-center mt-4">Товары в заказе</h1>
 
@@ -167,11 +171,13 @@
             @foreach($order->products as $product)
                 @include('admin.layouts.orderProduct', $product)
             @endforeach
-            <div class="flex justify-between">
-                <a href="{{ url()->previous() }}" class="w-1/2 mr-1 py-2 text-center hover:bg-orange-700 bg-orange-500 rounded">
+            <div class="flex justify-between flex-wrap sm:flex-no-wrap">
+
+                <a href="{{ route('admin.orders') }}" class="w-full sm:w-1/2 m-1 sm:m-0 sm:mr-1 py-2 text-center hover:bg-orange-700 bg-orange-500 rounded">
                     Назад
                 </a>
-                <button class="w-1/2 ml-1 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+
+                <button class="w-full sm:w-1/2 m-1 sm:m-0 bg-green-500 hover:bg-green-700 text-white font-bold px-4 py-2 rounded">
                     Сохранить
                 </button>
             </div>
@@ -190,7 +196,6 @@
         #orderStatus option {
             background-color: #191919;
         }
-
     </style>
 
 @endsection

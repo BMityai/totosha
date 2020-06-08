@@ -21,6 +21,7 @@ Route::get('/admin/orders', 'AdminPanel\AdminController@getOrders')->name('admin
 Route::get('/admin/order/{orderId}', 'AdminPanel\AdminController@getOrder')->name('admin.order');
 Route::post('/admin/order/edit/{orderId}', 'AdminPanel\AdminController@editOrder')->name('admin.editOrder');
 Route::get('/admin/products', 'AdminPanel\AdminController@getProducts')->name('admin.products');
+Route::get('/admin/add_product', 'AdminPanel\AdminController@addProduct')->name('admin.addProduct');
 
 
 Route::get('/preorder_form', 'HomeController@getPreorderForm')->name('getRequestForm');

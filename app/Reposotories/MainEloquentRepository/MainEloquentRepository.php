@@ -2,11 +2,14 @@
 
 namespace App\Reposotories\MainEloquentRepository;
 
+use App\Age;
 use App\Basket;
 use App\Category;
 use App\DeliveryType;
 use App\Helpers\Helpers;
 use App\KazPostTarif;
+use App\Manufacturer;
+use App\Material;
 use App\Order;
 use App\OrderProduct;
 use App\OrderStatus;
@@ -510,5 +513,20 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function deleteProductInOrder(object $orderProduct )
     {
         $orderProduct->delete();
+    }
+
+    public function getAges(): object
+    {
+        return Age::all();
+    }
+
+    public function getManufacturers(): object
+    {
+        return Manufacturer::all();
+    }
+
+    public function getMaterials(): object
+    {
+        return Material::all();
     }
 }

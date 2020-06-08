@@ -1,0 +1,20 @@
+.ck p{
+    color: black!important;
+}
+
+.tox-notifications-container {
+    display: none !important;
+}
+
+.tox-tinymce{
+    display: none !important;
+}
+
+#managerCommentBlock{
+    min-height: 80px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 50px #191919; /* цвет вашего фона */
+    -webkit-text-fill-color: white; /* цвет текста */
+}

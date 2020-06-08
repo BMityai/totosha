@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="flex items-center justify-center">
-        <div class="container mt-16 sm:mt-24">
+        <div class="container mt-16 lg:mt-24 p-2">
             <div>
                 <a href="" onclick="getOrdersFilterForm(event)" class="bg-blue-700 p-3 rounded hover:bg-blue-600">Фильтр</a>
             </div>
