@@ -6,6 +6,7 @@ namespace App\Services;
 use App\Helpers\Helpers;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 
 class AdminControllerService
@@ -140,9 +141,13 @@ class AdminControllerService
         foreach ($images as $image){
             $isMain = $this->checkIsMain($image->getClientOriginalName());
             $title = $slug . '-' . $i;
+            $img = Image::make($image);
+            $img->insert(public_path('watermark.png'), 'bottom-right', 10, 10);
 
-            $image->move(public_path().'/123/', $title);
-            dd($image);
+            $img->save(public_path('/1234/'), 'ytr');
+
+//            $img->move(public_path().'/123/', $title);
+            dd($img);
             dump($isMain);
             dd($title);
 
