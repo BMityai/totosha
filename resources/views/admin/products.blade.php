@@ -8,7 +8,7 @@
         <div class="container mt-16 lg:mt-24 p-2">
             <div>
             <a href="{{ route('admin.products') }}" onclick="getProductsFilterForm(event)" class="bg-blue-700 p-3 rounded hover:bg-blue-600">Фильтр</a>
-            <a href="{{ route('admin.addProduct') }}" class="bg-blue-700 p-3 rounded hover:bg-blue-600">+ добавить</a>
+            <a href="{{ route('admin.getAddProductForm') }}" class="bg-blue-700 p-3 rounded hover:bg-blue-600">+ добавить</a>
             </div>
             <form id="productsFilterForm" action="{{ route('admin.products') }}" class="@if(stripos(request()->getRequestUri(), 'name')) block @else hidden @endif">
                 <table class="w-full m-auto text-white rounded-lg overflow-hidden sm:shadow-lg my-5">

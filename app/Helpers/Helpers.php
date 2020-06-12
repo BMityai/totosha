@@ -62,4 +62,32 @@ class Helpers
         $endPart = $orderDate - $startDate->getTimestamp();
         return $prefix . $suffix . $endPart . mt_rand(0, 9);
     }
+
+    public static function getDiscountPrice(int $price, int $discount): int
+    {
+        return round($price - $price * $discount / 100);
+    }
+
+    public static function getProductArtNo(int $categoryId, int $manufacturer, int $material, int $productId): string
+    {   $firstPart = $categoryId;
+        if(strlen($firstPart) < 2){
+            $firstPart = '0' . $firstPart;
+        }
+
+        $secondPart = $manufacturer;
+        if(strlen($secondPart) < 2){
+            $secondPart = '0' . $secondPart;
+        }
+
+        $thirdPart = $material;
+        if(strlen($thirdPart) < 2){
+            $thirdPart = '0' . $thirdPart;
+        }
+
+        $fourthPart = $productId;
+        if(strlen($fourthPart) < 4){
+            $fourthPart = '0' . $fourthPart;
+        }
+        return $firstPart . $secondPart . $thirdPart . $fourthPart;
+    }
 }

@@ -28,9 +28,9 @@ class Product extends Model
         'height',
         'width',
         'depth',
-        'material',
-        'manufacturer',
-        'age'
+        'material_id',
+        'manufacturer_id',
+        'age_id'
     ];
 
     protected $with = ['category', 'getIfInTheBasket', 'getIfInTheWishList'];
@@ -69,6 +69,21 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class)->orderBy('created_at', 'DESC');
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class);
+    }
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
+
+    public function age()
+    {
+        return $this->belongsTo(Age::class);
     }
 
 }

@@ -53,7 +53,7 @@
                             Возраст
                         </div>
                         <div class="pl-1 w-2/3">
-                            {{ $product->age }}
+                            {{ $product->age->age     }}
                         </div>
                     </div>
                 @endif
@@ -64,7 +64,7 @@
                             Производитель
                         </div>
                         <div class="pl-1 w-2/3">
-                            {{ $product->manufacturer }}
+                            {{ $product->manufacturer->country }}
                         </div>
                     </div>
                 @endif
@@ -86,7 +86,7 @@
                             Материал
                         </div>
                         <div class="pl-1 w-2/3">
-                            {{ $product->material }}
+                            {{ $product->material->name }}
                         </div>
                     </div>
                 @endif
@@ -269,7 +269,7 @@
                 Описание
             </div>
             <div class="text-base md:text-xl">
-                {{$product->description}}
+                {!! $product->description !!}
             </div>
         </div>
 

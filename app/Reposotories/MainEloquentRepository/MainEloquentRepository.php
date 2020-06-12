@@ -432,9 +432,12 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
 
         if (!empty($filter['status'])) {
             $statusId = $filter['status'];
-            $ordersQuery->whereHas('status', function ($q) use ($statusId) {
-                $q->where('id', $statusId);
-            });
+            $ordersQuery->whereHas(
+                'status',
+                function ($q) use ($statusId) {
+                    $q->where('id', $statusId);
+                }
+            );
         }
     }
 
@@ -468,10 +471,12 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         }
         if (!empty($filter['category'])) {
             $categoryId = $filter['category'];
-            $productsQuery->whereHas('category', function ($q) use ($categoryId) {
-                $q->where('id', $categoryId);
-            });
-
+            $productsQuery->whereHas(
+                'category',
+                function ($q) use ($categoryId) {
+                    $q->where('id', $categoryId);
+                }
+            );
         }
         if (!empty($filter['priceFrom'])) {
             $productsQuery->where('discount_price', '>', $filter['priceFrom']);
@@ -504,13 +509,13 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function updateOrder(object $order, array $changeFields): void
     {
         foreach ($changeFields as $key => $value) {
-            if($value !== false){
+            if ($value !== false) {
                 $order->update([$key => $value]);
             }
         }
     }
 
-    public function deleteProductInOrder(object $orderProduct )
+    public function deleteProductInOrder(object $orderProduct)
     {
         $orderProduct->delete();
     }
@@ -528,5 +533,36 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function getMaterials(): object
     {
         return Material::all();
+    }
+
+    public function saveProduct(array $productData): int
+    {
+        $product = Product::create(
+            [
+                'name'            => $productData['name'],
+                'slug'            => $productData['slug'],
+                'cost_price'      => $productData['costPrice'],
+                'price'           => $productData['price'],
+                'discount'        => $productData['discount'],
+                'discount_price'  => $productData['priceWithDiscount'],
+                'category_id'     => $productData['category'],
+                'count'           => $productData['count'],
+                'weight'          => $productData['weight'],
+                'note'            => $productData['note'],
+                'description'     => $productData['description'],
+                'recommended'     => $productData['recommended'],
+                'new'             => $productData['new'],
+                'coming_soon'     => $productData['comingSoon'],
+                'height'          => $productData['height'],
+                'width'           => $productData['width'],
+                'depth'           => $productData['depth'],
+                'material_id'     => $productData['material'],
+                'manufacturer_id' => $productData['manufacturer'],
+                'age_id'          => $productData['age'],
+            ]
+        );
+        $artNo = Helpers::getProductArtNo($productData['category'], $productData['manufacturer'], $productData['material'], $product->id);
+        $product->update(['art_no' => $artNo]);
+        return $product->id;
     }
 }

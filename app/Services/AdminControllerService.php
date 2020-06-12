@@ -3,7 +3,9 @@
 
 namespace App\Services;
 
+use App\Helpers\Helpers;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
+use Illuminate\Support\Str;
 
 
 class AdminControllerService
@@ -120,5 +122,40 @@ class AdminControllerService
     public function getMaterials():object
     {
         return $this->dbRepository->getMaterials();
+    }
+
+    public function createNewProduct($data):void
+    {
+        $discountPrice = Helpers::getDiscountPrice($data['price'], $data['discount']);
+        $slug = Str::slug($data['name']);
+        $data['priceWithDiscount'] = $discountPrice;
+        $data['slug'] = $slug;
+        $productId = $this->dbRepository->saveProduct($data);
+        $this->saveImages( $productId, $slug, $data['img']);
+    }
+
+    private function saveImages( int $productId, string $slug, array $images)
+    {
+        $i = 0;
+        foreach ($images as $image){
+            $isMain = $this->checkIsMain($image->getClientOriginalName());
+            $title = $slug . '-' . $i;
+
+            $image->move(public_path().'/123/', $title);
+            dd($image);
+            dump($isMain);
+            dd($title);
+
+            dd($title);
+        }
+    }
+
+    private function checkIsMain(string $productName): bool
+    {
+        if(stristr($productName, 'main_', true) !== false)
+        {
+            return true;
+        };
+        return false;
     }
 }

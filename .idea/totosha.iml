@@ -112,5 +112,8 @@
     <orderEntry type="library" name="quill.core" level="application" />
     <orderEntry type="library" name="quill.snow" level="application" />
     <orderEntry type="library" name="all" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="jquery-3.3.1" level="application" />
+    <orderEntry type="library" name="bootstrap.bundle" level="application" />
   </component>
 </module>

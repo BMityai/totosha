@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminPanel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AddProductRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use App\Services\AdminControllerService;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,17 +54,25 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function addProduct()
+    public function getAddProductForm(Request $request)
     {
         $ages = $this->service->getAges();
         $manufacturers = $this->service->getManufacturers();
         $categories = $this->service->getAllActiveCategories();
         $materials = $this->service->getMaterials();
-        return view('admin.addProduct', [
+        return view('admin.addProductForm', [
             'ages' => $ages,
             'manufacturers' => $manufacturers,
             'categories' => $categories,
             'materials' => $materials,
         ]);
     }
+
+    public function addProduct(AddProductRequest $request)
+    {
+        $this->service->createNewProduct($request->all());
+    }
+
+
+
 }

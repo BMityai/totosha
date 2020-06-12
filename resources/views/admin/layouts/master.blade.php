@@ -140,11 +140,12 @@
 
 @yield('content')
 
+</body>
+
+
 <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
-
-
 
 <script>
     var userMenuDiv = document.getElementById("userMenu");
@@ -208,5 +209,7 @@
     });
 </script>
 
-</body>
+
+
+
 </html>

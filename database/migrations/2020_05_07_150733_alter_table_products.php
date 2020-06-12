@@ -18,9 +18,9 @@ class AlterTableProducts extends Migration
             $table->integer('height')->nullable();
             $table->integer('width')->nullable();
             $table->integer('depth')->nullable();
-            $table->string('material')->nullable();
-            $table->string('manufacturer')->nullable();
-            $table->string('age')->nullable();
+            $table->string('material_id')->nullable();
+            $table->string('manufacturer_id')->nullable();
+            $table->string('age_id')->nullable();
         });
     }
 

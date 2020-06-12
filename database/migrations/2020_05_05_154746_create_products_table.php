@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->integer('discount_price')->nullable();
             $table->integer('category_id');
             $table->integer('subcategory_id')->nullable();
-            $table->integer('art_no')->nullable();
+            $table->string('art_no')->nullable();
             $table->integer('count');
             $table->integer('sales_count')->default(0);
             $table->text('description');
