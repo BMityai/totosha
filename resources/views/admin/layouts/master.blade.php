@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Mimishka.kz @yield('title') </title>
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
@@ -99,34 +100,40 @@
                 <li class="mr-6 my-2 md:my-0">
                     <a href="{{ route('admin.home') }}"
                        class="@if(request()->route()->uri == 'admin') border-b-2 border-blue-400 text-blue-400 @endif   block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline border-b-2 border-gray-900 hover:border-blue-400 hover:text-blue-400">
-                        <i class="fas fa-home fa-fw mr-3 @if(request()->route()->uri == 'admin')text-blue-400 @endif"></i><span
+                        <i class="fas fa-home fa-fw w-8 @if(request()->route()->uri == 'admin')text-blue-400 @endif"></i><span
                             class="pb-1 md:pb-0 text-sm"> Главная</span>
                     </a>
                 </li>
                 <li class="mr-6 my-2 md:my-0">
                     <a href="{{ route('admin.orders') }}"
                        class="@if(stripos(request()->route()->uri, 'order')) border-b-2 border-blue-400 text-blue-400 @endif   block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline border-b-2 border-gray-900 hover:border-blue-400 hover:text-blue-400">
-                        <i class="fas fa-coins mr-3  @if(request()->route()->uri == 'admin/orders')text-blue-400 @endif"></i><span
+                        <i class="fas fa-coins w-8 @if(request()->route()->uri == 'admin/orders')text-blue-400 @endif"></i><span
                             class="pb-1 md:pb-0 text-sm">Заказы</span>
                     </a>
                 </li>
                 <li class="mr-6 my-2 md:my-0">
                     <a href="{{ route('admin.products') }}"
                        class="@if(stripos(request()->route()->uri, 'product')) border-b-2 border-blue-400 text-blue-400 @endif   block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline border-b-2 border-gray-900 hover:border-blue-400 hover:text-blue-400">
-                        <i class="fas fa-fighter-jet mr-3 @if(request()->route()->uri == 'admin/products')text-blue-400 @endif"></i><span
+                        <i class="fas fa-fighter-jet w-8 @if(request()->route()->uri == 'admin/products')text-blue-400 @endif"></i><span
                             class="pb-1 md:pb-0 text-sm">Продукция</span>
                     </a>
                 </li>
                 <li class="mr-6 my-2 md:my-0">
-                    <a href="#"
-                       class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-100 border-b-2 border-gray-900  hover:border-green-400">
-                        <i class="fas fa-list-ol mr-3"></i><span class="pb-1 md:pb-0 text-sm">Категории</span>
+                    <a href="{{ route('admin.categories') }}"
+                       class="@if(stripos(request()->route()->uri, 'categor')) border-b-2 border-blue-400 text-blue-400 @endif block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-blue-400 border-b-2 border-gray-900  hover:border-blue-400">
+                        <i class="fas fa-list-ol w-8"></i><span class="pb-1 md:pb-0 text-sm">Категории</span>
+                    </a>
+                </li>
+                <li class="mr-6 my-2 md:my-0">
+                    <a href="{{ route('admin.customers') }}"
+                       class="@if(stripos(request()->route()->uri, 'customer')) border-b-2 border-blue-400 text-blue-400 @endif block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-blue-400 border-b-2 border-gray-900  hover:border-blue-400">
+                        <i class="fa fa-users w-8"></i><span class="pb-1 md:pb-0 text-sm">Пользователи</span>
                     </a>
                 </li>
                 <li class="mr-6 my-2 md:my-0">
                     <a href="#"
-                       class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-100 border-b-2 border-gray-900  hover:border-red-400">
-                        <i class="fa fa-users mr-3"></i><span class="pb-1 md:pb-0 text-sm">Пользователи</span>
+                       class="@if(stripos(request()->route()->uri, 'setting')) border-b-2 border-blue-400 text-blue-400 @endif block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-blue-400 border-b-2 border-gray-900  hover:border-blue-400">
+                        <i class="fas fa-cogs w-8"></i><span class="pb-1 md:pb-0 text-sm">Настройки</span>
                     </a>
                 </li>
             </ul>
@@ -142,7 +149,7 @@
 
 </body>
 
-
+<script src="{{ asset('js/axios.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="{{ asset('js/jquery.inputmask.js') }}"></script>

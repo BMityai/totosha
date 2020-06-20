@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Helpers\Helpers;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 
@@ -28,11 +29,12 @@ class AdminControllerService
      * Get all orders
      *
      * @param array $filter
+     * @param string $requestQueryString
      * @return object
      */
-    public function getAllOrders(array $filter): object
+    public function getAllOrders(array $filter, ?string $requestQueryString): object
     {
-        return $this->dbRepository->getAllOrders($filter);
+        return $this->dbRepository->getAllOrders($filter, $requestQueryString);
     }
 
     /**
@@ -103,59 +105,164 @@ class AdminControllerService
         $result['street']          = $order->street != $data['deliveryStreet'] ? $data['deliveryStreet'] : false;
         $result['building']        = $order->building != $data['deliveryBuilding'] ? $data['deliveryBuilding'] : false;
         $result['apartment']       = $order->apartment != $data['deliveryApartment'] ? $data['deliveryApartment'] : false;
-        if (isset($data['adminComment'])){
-            $result['admin_comment']   = $order->admin_comment != $data['adminComment'] ? $data['adminComment'] : false;
+        if (isset($data['adminComment'])) {
+            $result['admin_comment'] = $order->admin_comment != $data['adminComment'] ? $data['adminComment'] : false;
         }
         return $result;
     }
 
-    public function getAges():object
+    public function getAges(): object
     {
         return $this->dbRepository->getAges();
     }
 
-    public function getManufacturers():object
+    public function getManufacturers(): object
     {
         return $this->dbRepository->getManufacturers();
     }
 
-    public function getMaterials():object
+    public function getMaterials(): object
     {
         return $this->dbRepository->getMaterials();
     }
 
-    public function createNewProduct($data):void
+    public function createNewProduct($data): void
     {
-        $discountPrice = Helpers::getDiscountPrice($data['price'], $data['discount']);
-        $slug = Str::slug($data['name']);
+        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);
+        $productSlug               = Str::slug($data['name']);
         $data['priceWithDiscount'] = $discountPrice;
-        $data['slug'] = $slug;
-        $productId = $this->dbRepository->saveProduct($data);
-        $this->saveImages( $productId, $slug, $data['img']);
+        $data['slug']              = $productSlug;
+        $product                   = $this->dbRepository->saveProduct($data);
+        $categorySlug              = Str::slug($product->category->name);
+        $this->saveProductImages($product->id, $productSlug, $categorySlug, $data['img']);
     }
 
-    private function saveImages( int $productId, string $slug, array $images)
-    {
-        $i = 0;
-        foreach ($images as $image){
+    private function saveProductImages(
+        int $productId,
+        string $productSlug,
+        string $categorySlug,
+        array $images,
+        int $i = 0
+    ) {
+        foreach ($images as $image) {
+            $format = $image->getClientOriginalExtension();
+            $path   = '/catalog/products/' . $categorySlug . '/' . $productId;
             $isMain = $this->checkIsMain($image->getClientOriginalName());
-            $title = $slug . '-' . $i;
-
-            $image->move(public_path().'/123/', $title);
-            dd($image);
-            dump($isMain);
-            dd($title);
-
-            dd($title);
+            $title  = $productSlug . '__' . $i;
+            $image->move(public_path() . $path . '/', $title . '.' . $format);
+            $path = $path . '/' . $title . '.' . $format;
+            $this->dbRepository->saveProductImage($productId, $title, $path, $isMain);
+            $i++;
         }
     }
 
     private function checkIsMain(string $productName): bool
     {
-        if(stristr($productName, 'main_', true) !== false)
-        {
+        if (stristr($productName, 'main_', true) !== false) {
             return true;
         };
         return false;
+    }
+
+    public function getProductById(int $productId): object
+    {
+        return $this->dbRepository->getProductById($productId);
+    }
+
+    public function deleteImage(int $imageId): void
+    {
+        $image = $this->dbRepository->getImageById($imageId);
+        if (File::exists(public_path($image->path))) {
+            File::delete(public_path($image->path));
+        }
+        $image->delete();
+    }
+
+    public function changeMainImage(int $imageId): ?int
+    {
+        $image        = $this->dbRepository->getImageById($imageId);
+        $product      = $this->dbRepository->getProductById($image->product_id);
+        $oldMainImgId = $this->skipMainImage($product);
+        $this->dbRepository->setMainImage($image);
+        return $oldMainImgId;
+    }
+
+    private function skipMainImage(object $product): ?int
+    {
+        $onMainImgId = null;
+        foreach ($product->images as $image) {
+            if ($image->on_main) {
+                $this->dbRepository->skipMainImage($image);
+                $onMainImgId = $image->id;
+            }
+        }
+        return $onMainImgId;
+    }
+
+    public function updateProduct(int $productId, array $data)
+    {
+        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);
+        $productSlug               = Str::slug($data['name']);
+        $data['priceWithDiscount'] = $discountPrice;
+        $data['slug']              = $productSlug;
+        $product                   = $this->dbRepository->updateProduct($productId, $data);
+        $categorySlug              = Str::slug($product->category->name);
+        $i                         = $this->getImageUniqueNumber($product);
+        if (!empty($data['img'])) {
+            $this->saveProductImages($product->id, $productSlug, $categorySlug, $data['img'], $i);
+        }
+    }
+
+    public function getImageUniqueNumber(object $product): int
+    {
+        $lastImage = $product->images->last();
+        $number    = strrchr($lastImage->title, '__');
+        return substr($number, 1, strlen($number));
+    }
+
+    public function getAllCategories(): ?object
+    {
+        return $this->dbRepository->getAllCategories();
+    }
+
+    public function getCategoryById(int $categoryId): object
+    {
+        return $this->dbRepository->getCategoryById($categoryId);
+    }
+
+    public function createNewCategory(array $data): void
+    {
+        $data['slug']      = Str::slug($data['name']);
+        $data['imagePath'] = $this->getCategoryImagePath($data);
+        $this->dbRepository->createCategory($data);
+    }
+
+    private function getCategoryImagePath(array $categoryData)
+    {
+        $format = $categoryData['img']->getClientOriginalExtension();
+        $path   = '/catalog/categories/' . $categoryData['slug'];
+        $categoryData['img']->move(public_path() . $path . '/', $categoryData['slug'] . '.' . $format);
+        return $path . '/' . $categoryData['slug'] . '.' . $format;
+    }
+
+    public function updateCategory(int $categoryId, array $categoryData)
+    {
+        $categoryData['slug']      = Str::slug($categoryData['name']);
+        if (empty($categoryData['img'])){
+            $categoryData['imagePath'] = null;
+        } else {
+            $categoryData['imagePath'] = $this->getCategoryImagePath($categoryData);
+        }
+        $this->dbRepository->updateCategory($categoryId, $categoryData);
+    }
+
+    public function getAllCustomers(array $filter, ?string $requestQueryString)
+    {
+        return $this->dbRepository->getAllCustomers($filter, $requestQueryString);
+    }
+
+    public function getCustomer(int $customerId)
+    {
+        return $this->dbRepository->getCustomer($customerId);
     }
 }

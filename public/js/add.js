@@ -579,11 +579,10 @@ function checkLocation(event) {
         deliveryOptions[2].disabled = true;
         deliveryOptions[3].disabled = true;
     } else {
-        console.log(2)
         deliveryOptions[1].disabled = true;
         deliveryOptions[2].selected = true;
         deliveryOptions[2].disabled = false;
-        deliveryOptions[3].disabled = false;
+        deliveryOptions[3].disabled = true;
     }
     getDeliveryPrice()
 }

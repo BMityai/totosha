@@ -110,7 +110,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/3 sm:hidden">Активн.: </span> @if($product->is_active == 1) Активен @else Отключен @endif </td>
                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
-                            <a href="">Открыть</a>
+                            <a href="{{ route('admin.editProductForm', $product->id) }}">Открыть</a>
                         </td>
                     </tr>
 

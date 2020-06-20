@@ -27,13 +27,14 @@ class Product extends Model
         'is_active',
         'height',
         'width',
+        'weight',
         'depth',
         'material_id',
         'manufacturer_id',
         'age_id'
     ];
 
-    protected $with = ['category', 'getIfInTheBasket', 'getIfInTheWishList'];
+    protected $with = ['category', 'getIfInTheBasket', 'getIfInTheWishList', 'images'];
 
     public function category()
     {
@@ -86,4 +87,18 @@ class Product extends Model
         return $this->belongsTo(Age::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function getMainImage()
+    {
+        foreach ($this->images as $image) {
+            if ($image->on_main){
+                return $image;
+            };
+        }
+        return $this->images->first();
+    }
 }

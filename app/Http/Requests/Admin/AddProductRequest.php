@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AddProductRequest extends FormRequest
 {
@@ -23,27 +24,33 @@ class AddProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-//            'name'              => 'required|string',
-//            'category'          => 'required|numeric',
-//            'manufacturer'      => 'required|numeric',
-//            'age'               => 'required|numeric',
-//            'height'            => 'required|numeric',
-//            'width'             => 'required|numeric',
-//            'depth'             => 'required|numeric',
-//            'weight'            => 'required|numeric',
-//            'img.*'             => 'image|mimes:jpeg,jpg,png,gif',
-//            'material'          => 'required',
-//            'costPrice'         => 'required',
-//            'price'             => 'required',
-//            'discount'          => 'required',
-//            'priceWithDiscount' => 'required',
-//            'count'             => 'required',
-//            'recommended'       => 'required',
-//            'new'               => 'required',
-//            'comingSoon'        => 'required',
-//            'note'              => 'required',
-//            'description'       => 'required',
+        $rules = [
+            'name'         => 'required|string|unique:products,name',
+            'category'     => 'required|numeric',
+            'manufacturer' => 'required|numeric',
+            'age'          => 'required|numeric',
+            'height'       => 'required|numeric',
+            'width'        => 'required|numeric',
+            'depth'        => 'required|numeric',
+            'weight'       => 'required|numeric',
+            'img'          => 'required',
+            'img.*'        => 'image|mimes:jpeg,jpg,png,gif',
+            'material'     => 'required|numeric',
+            'costPrice'    => 'required|numeric',
+            'price'        => 'required|numeric',
+            'discount'     => 'numeric',
+            'count'        => 'required|numeric',
+            'recommended'  => 'required|numeric',
+            'new'          => 'required|numeric',
+            'comingSoon'   => 'required|numeric',
+            'note'         => 'string',
+            'description'  => 'required',
         ];
+
+        if($this->route()->named('admin.editProduct')){
+            $rules['name'] .= ',' . $this->productId;
+            unset($rules['img']);
+        }
+        return $rules;
     }
 }

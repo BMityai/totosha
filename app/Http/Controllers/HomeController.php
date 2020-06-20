@@ -50,6 +50,9 @@ class HomeController extends Controller
     public function getProductPage($category, $product)
     {
         $product = $this->service->getActiveProductBySlug($product);
+        if (is_null($product)){
+            abort('404');
+        }
         return view('product', ['product' => $product]);
     }
 

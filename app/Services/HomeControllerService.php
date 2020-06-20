@@ -59,7 +59,7 @@ class HomeControllerService
      * @param string $slug
      * @return object
      */
-    public function getActiveProductBySlug(string $slug): object
+    public function getActiveProductBySlug(string $slug): ?object
     {
         return $this->dbRepository->getActiveProductBySlug($slug);
     }

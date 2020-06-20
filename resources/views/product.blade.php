@@ -15,19 +15,18 @@
         </div>
         <h1 class="productName text-center text-xl mt-2  block sm:hidden">{{ $product->name }}</h1>
 
-        <div class="productContent block    sm:flex">
+        <div class="productContent block sm:flex">
             <div class="productImg mt-4 w-full sm:w-2/5 md:w-1/3">
                 <div class="productSlickCarousel">
+                    @if(count($product->images) > 0)
+                    @foreach($product->images as $image)
                     <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
-                         src="http://placehold.it/800x700" alt="">
+                         src="{{ asset($image->path) }}" alt="">
+                    @endforeach
+                    @else
                     <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
-                         src="http://placehold.it/800x700" alt="">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
-                         src="http://placehold.it/800x700" alt="">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
-                         src="http://placehold.it/800x700" alt="">
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
-                         src="http://placehold.it/800x700" alt="">
+                         src="{{ asset('/images/default.png') }}" alt="">
+                    @endif
                 </div>
 
             </div>
@@ -210,7 +209,7 @@
                             Возраст
                         </div>
                         <div class="pl-1 w-2/3">
-                            {{ $product->age }}
+                            {{ $product->age->age }}
                         </div>
                     </div>
                 @endif
@@ -221,7 +220,7 @@
                             Производитель
                         </div>
                         <div class="pl-1 w-2/3">
-                            {{ $product->manufacturer }}
+                            {{ $product->manufacturer->country }}
                         </div>
                     </div>
                 @endif
@@ -243,7 +242,7 @@
                             Материал
                         </div>
                         <div class="pl-1 w-2/3">
-                            {{ $product->material }}
+                            {{ $product->material->name }}
                         </div>
                     </div>
                 @endif

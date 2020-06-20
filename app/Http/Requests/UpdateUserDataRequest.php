@@ -27,7 +27,7 @@ class UpdateUserDataRequest extends FormRequest
         $rules = [
             'name'     => ['required', 'string', 'max:20', 'min:2'],
             'phone'    => ['required', 'string', 'max:18', 'min:18', 'unique:users'],
-            'email' => 'required|email|max:255|unique:users,email',
+            'email'    => 'required|email|max:255|unique:users,email'
         ];
 
         if($this->route()->named('updateUserData')){
