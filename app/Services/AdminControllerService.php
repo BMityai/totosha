@@ -265,4 +265,14 @@ class AdminControllerService
     {
         return $this->dbRepository->getCustomer($customerId);
     }
+
+    public function updateUserData(array $data, int $userId):void
+    {
+        $this->dbRepository->updateUserDataFromAdminPanel($data, $userId);
+    }
+
+    public function getCustomerById(int $customerId): object
+    {
+        return $this->dbRepository->getCustomer($customerId);
+    }
 }

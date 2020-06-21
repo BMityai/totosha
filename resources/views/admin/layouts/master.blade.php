@@ -212,6 +212,7 @@
     $(document).ready(function () {
         $('#fromDate').inputmask({"mask": "99/99/9999"});  //static mask
         $('#toDate').inputmask({"mask": "99/99/9999"});  //static mask
+        $('#birthDate').inputmask({"mask": "9999/99/99"});  //static mask
         $('#phone').inputmask({"mask": "+7 (999) 999-99-99"}); //specifying options
     });
 </script>

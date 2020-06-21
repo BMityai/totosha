@@ -64,6 +64,12 @@ Route::group(
         Route::get('/customer/{id}', 'AdminPanel\AdminController@getCustomer')->name(
             'admin.customer'
         );
+        Route::post('/customer/{id}', 'AdminPanel\AdminController@updateCustomer')->name(
+            'admin.updateCustomer'
+        );
+        Route::get('/customer_orders/{customerId}', 'AdminPanel\AdminController@getCustomerOrders')->name(
+            'admin.customerOrders'
+        );
     }
 );
 

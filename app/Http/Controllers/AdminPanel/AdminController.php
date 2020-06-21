@@ -28,10 +28,9 @@ class AdminController extends Controller
 
     public function getOrders(Request $request)
     {
-
         $requestQueryString = $request->getQueryString();
-        $orders   = $this->service->getAllOrders($request->all(), $requestQueryString);
-        $statuses = $this->service->getAllStatuses();
+        $orders             = $this->service->getAllOrders($request->all(), $requestQueryString);
+        $statuses           = $this->service->getAllStatuses();
         return view('admin.orders', ['orders' => $orders, 'statuses' => $statuses]);
     }
 
@@ -150,7 +149,7 @@ class AdminController extends Controller
     public function getCustomers(Request $request)
     {
         $requestQueryString = $request->getQueryString();
-        $customers = $this->service->getAllCustomers($request->all(), $requestQueryString);
+        $customers          = $this->service->getAllCustomers($request->all(), $requestQueryString);
         return view('admin.customers', ['customers' => $customers]);
     }
 
@@ -158,5 +157,18 @@ class AdminController extends Controller
     {
         $customer = $this->service->getCustomer($customerId);
         return view('admin.customer', ['customer' => $customer]);
+    }
+
+    public function updateCustomer(Request $request, int $customerId)
+    {
+        $this->service->updateUserData($request->all(), $customerId);
+        return redirect()->back();
+    }
+
+    public function getCustomerOrders(int $customerId)
+    {
+        $customer = $this->service->getCustomerById($customerId);
+        $orders   = $customer->orders->sortByDesc('created_at');
+        return view('admin.customerOrders', ['orders' => $orders]);
     }
 }

@@ -715,4 +715,25 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             );
         }
     }
+
+    public function getCustomer(int $customerId): object
+    {
+        return User::find($customerId);
+    }
+
+    public function updateUserDataFromAdminPanel(array $data, int $customerId)
+    {
+        $user = User::find($customerId);
+        $user->update(
+            [
+                'name'       => $data['name'],
+                'phone'      => $data['phone'],
+                'email'      => $data['email'],
+                'bonus'      => $data['bonus'],
+                'birth_date' => $data['birth_date'],
+                'is_active'  => $data['is_active']
+            ]
+        );
+    }
+
 }

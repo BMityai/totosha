@@ -28,7 +28,7 @@
                             <span class="w-1/3 text-sm self-center">Отображать</span>
                             <div class="w-2/3">
                                 <select type="text" name="is_active"
-                                        class="p-2 w-full bg-transparent border @error('recommended') border-red-700 @else border-white text-white @enderror rounded">
+                                        class="p-2 w-full bg-transparent border @error('is_active') border-red-700 @else border-white text-white @enderror rounded">
                                     <option value selected disabled> Выбрать </option>
                                     <option value="1"
                                             @if($category->is_active === 1)
@@ -47,7 +47,7 @@
                                         @endif
                                     >Нет</option>
                                 </select>
-                                @error('recommended')
+                                @error('is_active')
                                 <p class="text-center text-red-700 text-sm">{{ $message }}</p>
                                 @enderror
                             </div>

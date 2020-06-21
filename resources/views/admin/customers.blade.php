@@ -25,6 +25,7 @@
 
                         <th class="p-3 text-left w-full sm:w-1/5">
                             <input name="phone" value="{{ request()->phone }}"
+                                   id="phone"
                                    class="w-full  appearance-none rounded bg-white border-white text-gray-700 mr-3 p-1 leading-tight focus:outline-none"
                                    type="tel" placeholder="Телефон" aria-label="Phone">
                         </th>
@@ -64,7 +65,7 @@
                         class="w-1/2 mr-2 bg-teal-700 hover:bg-gray-300 hover:text-teal-700 text-white font-semibold hover:text-white py-1 px-2 rounded">
                         Применить
                     </button>
-                    <a href="{{ route('admin.products') }}"
+                    <a href="{{ route('admin.customers') }}"
                        class="w-1/2 bg-red-500 text-white text-center rounded p-2 hover:bg-gray-300 hover:text-red-500">
                         Сбросить
                     </a>
