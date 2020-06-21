@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckIsAdmin;
+use App\Http\Middleware\CreateDoubleOrderOnUpdatePage;
 use App\Http\Middleware\ShowLoginForm;
 use App\Http\Middleware\UserVerification;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -67,6 +68,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'emailVerify' => UserVerification::class,
         'showLoginForm' => ShowLoginForm::class,
-        'isAdmin' => CheckIsAdmin::class
+        'isAdmin' => CheckIsAdmin::class,
+        'checkOnCreateDoubleOrder' => CreateDoubleOrderOnUpdatePage::class,
     ];
 }

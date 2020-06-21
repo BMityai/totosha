@@ -46,11 +46,23 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class=" mt-2">
-                            <input id="kv-explorer" name="img" type="file">
-                            @error('img')
-                            <p class="text-center text-red-700 text-sm">{{ $message }}</p>
-                            @enderror
+                        <div class="flex mt-2">
+                            <span class="w-1/3 text-sm">Laptop img</span>
+                            <div class="w-2/3">
+                                <input id="kv-explorer" name="img" type="file" class="text-xs">
+                                @error('img')
+                                <p class="text-center text-red-700 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="flex mt-2">
+                            <span class="w-1/3 text-sm">Mobile img</span>
+                            <div class="w-2/3">
+                                <input id="kv-explorer" name="mobile_img" type="file" class="text-xs">
+                                @error('mobile_img')
+                                <p class="text-center text-red-700 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                 </div>

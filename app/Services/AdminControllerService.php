@@ -234,15 +234,24 @@ class AdminControllerService
     {
         $data['slug']      = Str::slug($data['name']);
         $data['imagePath'] = $this->getCategoryImagePath($data);
+        $data['mobileImagePath'] = $this->getCategoryMobileImagePath($data);
         $this->dbRepository->createCategory($data);
     }
 
-    private function getCategoryImagePath(array $categoryData)
+    private function getCategoryImagePath(array $categoryData): string
     {
         $format = $categoryData['img']->getClientOriginalExtension();
         $path   = '/catalog/categories/' . $categoryData['slug'];
         $categoryData['img']->move(public_path() . $path . '/', $categoryData['slug'] . '.' . $format);
         return $path . '/' . $categoryData['slug'] . '.' . $format;
+    }
+
+    private function getCategoryMobileImagePath(array $categoryData): string
+    {
+        $format = $categoryData['mobile_img']->getClientOriginalExtension();
+        $path   = '/catalog/categories/' . $categoryData['slug'];
+        $categoryData['mobile_img']->move(public_path() . $path . '/', $categoryData['slug'] . '_mobile.' . $format);
+        return $path . '/' . $categoryData['slug'] . '_mobile.' . $format;
     }
 
     public function updateCategory(int $categoryId, array $categoryData)
@@ -252,6 +261,11 @@ class AdminControllerService
             $categoryData['imagePath'] = null;
         } else {
             $categoryData['imagePath'] = $this->getCategoryImagePath($categoryData);
+        }
+        if (empty($categoryData['mobile_img'])){
+            $categoryData['imagePath'] = null;
+        } else {
+            $categoryData['mobileImagePath'] = $this->getCategoryMobileImagePath($categoryData);
         }
         $this->dbRepository->updateCategory($categoryId, $categoryData);
     }

@@ -655,26 +655,29 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     {
         return Category::create(
             [
-                'name'        => $categoryData['name'],
-                'slug'        => $categoryData['slug'],
-                'image'       => $categoryData['imagePath'],
-                'is_active'   => $categoryData['is_active'],
-                'description' => $categoryData['description']
+                'name'         => $categoryData['name'],
+                'slug'         => $categoryData['slug'],
+                'image'        => $categoryData['imagePath'],
+                'mobile_image' => $categoryData['mobileImagePath'],
+                'is_active'    => $categoryData['is_active'],
+                'description'  => $categoryData['description']
             ]
         );
     }
 
     public function updateCategory(int $categoryId, array $categoryData): void
     {
-        $category = Category::find($categoryId);
-        $imgPath  = $categoryData['imagePath'] ?? $category->image;
+        $category      = Category::find($categoryId);
+        $imgPath       = $categoryData['imagePath'] ?? $category->image;
+        $mobileImgPath = $categoryData['mobileImagePath'] ?? $category->mobile_image;
         $category->update(
             [
-                'name'        => $categoryData['name'],
-                'slug'        => $categoryData['slug'],
-                'image'       => $imgPath,
-                'is_active'   => $categoryData['is_active'],
-                'description' => $categoryData['description']
+                'name'         => $categoryData['name'],
+                'slug'         => $categoryData['slug'],
+                'image'        => $imgPath,
+                'mobile_image' => $mobileImgPath,
+                'is_active'    => $categoryData['is_active'],
+                'description'  => $categoryData['description']
             ]
         );
     }

@@ -121,6 +121,6 @@ Route::post('/change_count', 'BasketController@changeCount')->name('changeCount'
 
 Route::post('/get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
 
-Route::post('/create_order', 'OrderController@createOrder')->name('createOrder');
+Route::post('/create_order', 'OrderController@createOrder')->middleware('checkOnCreateDoubleOrder')->name('createOrder');
 Route::post('/add_to_wishlist', 'WishListController@addOrDelete')->name('addToWishList');
 
