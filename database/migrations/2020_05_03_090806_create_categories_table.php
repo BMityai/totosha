@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
+            $table->string('mobile_image');
             $table->string('slug');
             $table->text('description');
             $table->boolean('is_active')->default(true);
