@@ -33,9 +33,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $categories = $this->service->getAllActiveCategories();
         $newProducts = $this->service->getActiveNewProducts();
 
-        return view('home', ['newProducts' => $newProducts]);
+        return view('home', ['newProducts' => $newProducts, 'categories' => $categories]);
     }
 
     public function getCategoryProducts(FilterRequest $request, $slug)

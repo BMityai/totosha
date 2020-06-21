@@ -234,6 +234,19 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         );
     }
 
+    public function updateProductCountInStock(int $productId, int $productCount): void
+    {
+        $product      = Product::find($productId);
+        $countInStock = $product->count;
+        $salesCount    = $product->sales_count;
+        $product->update(
+            [
+                'count'       => $countInStock - $productCount,
+                'sales_count' => $salesCount + $productCount
+            ]
+        );
+    }
+
     public function updateUserBonusAfterCreateOrder(int $spentBonus): void
     {
         Auth::user()->bonus -= $spentBonus;

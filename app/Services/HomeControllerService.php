@@ -129,5 +129,10 @@ class HomeControllerService
         return $this->dbRepository->getReviews();
     }
 
+    public function getAllActiveCategories():object
+    {
+        return $this->dbRepository->getAllActiveCategories();
+    }
+
 
 }
