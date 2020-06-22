@@ -181,4 +181,16 @@ class AdminController extends Controller
     {
         return view('admin.settings.content');
     }
+
+    public function getBanner(string $position)
+    {
+        $banner = $this->service->getBanners($position);
+        return view('admin.settings.banner', ['banner' => $banner]);
+    }
+
+    public function updateBanner(Request $request, string $position)
+    {
+        $this->service->updateBanner($position, $request->all());
+        return redirect()->back();
+    }
 }

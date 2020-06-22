@@ -289,4 +289,42 @@ class AdminControllerService
     {
         return $this->dbRepository->getCustomer($customerId);
     }
+
+    public function getBanners(string $position)
+    {
+        return $this->dbRepository->getBanners($position);
+    }
+
+    public function updateBanner(string $position, array $data): void
+    {
+        if (empty($data['img'])){
+            $data['mainImagePath'] = null;
+        } else {
+            $data['mainImagePath'] = $this->getBannerMainImagePath($position, $data);
+        }
+
+        if (empty($data['content_image'])){
+            $data['contentImagePath'] = null;
+        } else {
+            $data['contentImagePath'] = $this->getBannerContentImagePath($position, $data);
+        }
+
+        $this->dbRepository->updateBanner($position, $data);
+    }
+
+    private function getBannerMainImagePath(string $position, array $bannerData): string
+    {
+        $format = $bannerData['img']->getClientOriginalExtension();
+        $path   = '/catalog/banner/' . $position;
+        $bannerData['img']->move(public_path() . $path . '/', 'banner_top_main.' . $format);
+        return $path . '/' . 'banner_top_main.' . $format;
+    }
+
+    private function getBannerContentImagePath(string $position, array $bannerData): string
+    {
+        $format = $bannerData['content_image']->getClientOriginalExtension();
+        $path   = '/catalog/banner/' . $position;
+        $bannerData['content_image']->move(public_path() . $path . '/', 'banner_top_content.' . $format);
+        return $path . '/' . 'banner_top_content.' . $format;
+    }
 }

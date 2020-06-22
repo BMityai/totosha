@@ -76,15 +76,20 @@ Route::group(
             Route::get('', 'AdminPanel\AdminController@showSettings')->name(
                 'admin.settings'
             );
-            Route::get('/content', 'AdminPanel\AdminController@showSettingsContent')->name(
-                'admin.settings.content'
-            );
-            Route::get('/content/banner_top', 'AdminPanel\AdminController@getBannerTopForm')->name(
-                'admin.settings.bannertop'
-            );
-            Route::get('/content/banner_bottom', 'AdminPanel\AdminController@getBannerBottomForm')->name(
-                'admin.settings.bannerbottom'
-            );
+
+            //content
+            Route::group(['prefix' => '/content'], function (){
+                Route::get('', 'AdminPanel\AdminController@showSettingsContent')->name(
+                    'admin.settings.content'
+                );
+                Route::get('/banner/{position}', 'AdminPanel\AdminController@getBanner')->name(
+                    'admin.settings.banner'
+                );
+                Route::post('/banner/{position}', 'AdminPanel\AdminController@updateBanner')->name(
+                    'admin.settings.updateBanner'
+                );
+            });
+
         });
     }
 );

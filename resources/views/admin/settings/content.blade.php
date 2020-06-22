@@ -19,7 +19,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/3 sm:hidden">Параметр: </span>Banner top</td>
                          <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
-                            <a href="{{ route('admin.settings.bannertop') }}">Редактировать</a>
+                            <a href="{{ route('admin.settings.banner', 'top') }}">Редактировать</a>
                         </td>
                     </tr>
 
@@ -29,7 +29,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/3 sm:hidden">Параметр: </span>Banner bottom</td>
                          <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
-                            <a href="{{ route('admin.settings.bannerbottom') }}">Редактировать</a>
+                            <a href="{{ route('admin.settings.banner', 'bottom') }}">Редактировать</a>
                         </td>
                     </tr>
                 </tbody>

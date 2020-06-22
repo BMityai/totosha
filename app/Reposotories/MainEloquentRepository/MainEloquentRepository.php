@@ -3,6 +3,7 @@
 namespace App\Reposotories\MainEloquentRepository;
 
 use App\Age;
+use App\Banner;
 use App\Basket;
 use App\Category;
 use App\CategoryImage;
@@ -238,7 +239,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     {
         $product      = Product::find($productId);
         $countInStock = $product->count;
-        $salesCount    = $product->sales_count;
+        $salesCount   = $product->sales_count;
         $product->update(
             [
                 'count'       => $countInStock - $productCount,
@@ -748,6 +749,28 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'bonus'      => $data['bonus'],
                 'birth_date' => $data['birth_date'],
                 'is_active'  => $data['is_active']
+            ]
+        );
+    }
+
+    public function getBanners(string $position): ?object
+    {
+        return Banner::where('position', $position)->first();
+    }
+
+    public function updateBanner(string $position, array $data): void
+    {
+        $banner         = $this->getBanners($position);
+        $mainImgPath    = $data['mainImagePath'] ?? $banner->main_image;
+        $contentImgPath = $data['contentImagePath'] ?? $banner->content_image;
+
+        $banner->update(
+            [
+                'position'      => $position,
+                'title'         => $data['title'],
+                'main_image'    => $mainImgPath,
+                'content_image' => $contentImgPath,
+                'content'       => $data['content']
             ]
         );
     }
