@@ -171,4 +171,14 @@ class AdminController extends Controller
         $orders   = $customer->orders->sortByDesc('created_at');
         return view('admin.customerOrders', ['orders' => $orders]);
     }
+
+    public function showSettings()
+    {
+        return view('admin.settings.home');
+    }
+
+    public function showSettingsContent()
+    {
+        return view('admin.settings.content');
+    }
 }

@@ -131,7 +131,7 @@
                     </a>
                 </li>
                 <li class="mr-6 my-2 md:my-0">
-                    <a href="#"
+                    <a href="{{ route('admin.settings') }}"
                        class="@if(stripos(request()->route()->uri, 'setting')) border-b-2 border-blue-400 text-blue-400 @endif block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-blue-400 border-b-2 border-gray-900  hover:border-blue-400">
                         <i class="fas fa-cogs w-8"></i><span class="pb-1 md:pb-0 text-sm">Настройки</span>
                     </a>

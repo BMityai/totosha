@@ -56,7 +56,6 @@
                 <img class="mobileImg" src="{{ asset($category->mobile_image) }}" alt="">
             </a>
             @endforeach
-
         </div>
     </div>
 

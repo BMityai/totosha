@@ -70,6 +70,22 @@ Route::group(
         Route::get('/customer_orders/{customerId}', 'AdminPanel\AdminController@getCustomerOrders')->name(
             'admin.customerOrders'
         );
+
+        //settings
+        Route::group(['prefix' => '/settings'], function (){
+            Route::get('', 'AdminPanel\AdminController@showSettings')->name(
+                'admin.settings'
+            );
+            Route::get('/content', 'AdminPanel\AdminController@showSettingsContent')->name(
+                'admin.settings.content'
+            );
+            Route::get('/content/banner_top', 'AdminPanel\AdminController@getBannerTopForm')->name(
+                'admin.settings.bannertop'
+            );
+            Route::get('/content/banner_bottom', 'AdminPanel\AdminController@getBannerBottomForm')->name(
+                'admin.settings.bannerbottom'
+            );
+        });
     }
 );
 
@@ -121,6 +137,6 @@ Route::post('/change_count', 'BasketController@changeCount')->name('changeCount'
 
 Route::post('/get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
 
-Route::post('/create_order', 'OrderController@createOrder')->middleware('checkOnCreateDoubleOrder')->name('createOrder');
+Route::post('/create_order', 'OrderController@createOrder')->middleware(['checkOnCreateDoubleOrder', 'inStock'])->name('createOrder');
 Route::post('/add_to_wishlist', 'WishListController@addOrDelete')->name('addToWishList');
 
