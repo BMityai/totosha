@@ -56,6 +56,7 @@ class OrderControllerService
         $basketProducts = $this->dbRepository->getCartInfo();
         foreach ($basketProducts as $basketProduct){
             $this->dbRepository->createOrderProduct($orderId, $basketProduct->product, $basketProduct->count);
+            $this->dbRepository->updateProductCountInStock($basketProduct->product_id, $basketProduct->count);
             $this->dbRepository->deleteBasketProduct($basketProduct);
         }
     }

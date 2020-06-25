@@ -50,36 +50,12 @@
     <div class="container mt-6">
         <h2 class="text-xl">Категории</h2>
         <div class="categories flex flex-wrap justify-between">
-
+            @foreach($categories as $category)
             <a class="" href="">
-                <img class="largeImg" src="{{ asset('images/categories/toys_800x700.png') }}" alt="">
-                <img class="mobileImg" src="{{ asset('images/categories/toys_800x250.png') }}" alt="">
+                <img class="largeImg" src="{{ asset($category->image) }}" alt="">
+                <img class="mobileImg" src="{{ asset($category->mobile_image) }}" alt="">
             </a>
-
-            <a class="" href="">
-                <img class="largeImg" src="{{ asset('images/categories/safety_800x700.png') }}" alt="">
-                <img class="mobileImg" src="{{ asset('images/categories/safety_800x250.png') }}" alt="">
-            </a>
-
-            <a class="" href="">
-                <img class="largeImg" src="{{ asset('images/categories/tableware_800x700.png') }}" alt="">
-                <img class="mobileImg" src="{{ asset('images/categories/tableware_800x250.png') }}" alt="">
-            </a>
-
-            <a class="" href="">
-                <img class="largeImg" src="{{ asset('images/categories/storage_800x700.png') }}" alt="">
-                <img class="mobileImg" src="{{ asset('images/categories/storage_800x250.png') }}" alt="">
-            </a>
-
-            <a class="" href="">
-                <img class="largeImg" src="{{ asset('images/categories/hygiene_800x700.png') }}" alt="">
-                <img class="mobileImg" src="{{ asset('images/categories/hygiene_800x250.png') }}" alt="">
-            </a>
-
-            <a class="" href="">
-                <img class="largeImg" src="{{ asset('images/categories/underwear_800x700.png') }}" alt="">
-                <img class="mobileImg" src="{{ asset('images/categories/underwear_800x250.png') }}" alt="">
-            </a>
+            @endforeach
         </div>
     </div>
 

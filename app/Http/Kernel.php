@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckIsAdmin;
 use App\Http\Middleware\CreateDoubleOrderOnUpdatePage;
+use App\Http\Middleware\InStock;
 use App\Http\Middleware\ShowLoginForm;
 use App\Http\Middleware\UserVerification;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'showLoginForm' => ShowLoginForm::class,
         'isAdmin' => CheckIsAdmin::class,
         'checkOnCreateDoubleOrder' => CreateDoubleOrderOnUpdatePage::class,
+        'inStock' => InStock::class,
     ];
 }
