@@ -223,7 +223,7 @@
                 </a>
             </div>
             <div class="rightElements text-right p-2 z-10 flex w-40 justify-around">
-                <div class="wishList h-full inline-block">
+                <div class="wishList h-full inline-block w-1/3">
                     <a href="{{ route('wishList') }}" class="h-full inline-block relative">
                         <img class="h-full opacity-75 hover:opacity-100"
                              src="{{ asset('images/ico/header/wish_list.png') }}" alt="">
@@ -232,7 +232,7 @@
                     </a>
                 </div>
 
-                <div id="cartId" class="basket h-full inline-block" onclick="cartShow()">
+                <div id="cartId" class="basket h-full inline-block w-1/3" onclick="cartShow()">
                     <div class="h-full inline-block relative">
                         <img class="h-full opacity-75 hover:opacity-100 cursor-pointer"
                              src="{{ asset('images/ico/header/shopping-bag.png') }}" alt="">
@@ -242,7 +242,7 @@
                               class="info cursor-pointer absolute bg-white text-white @if($cartInfo->count() < 1)hidden @else block @endif">6</span>
                     </div>
                 </div>
-                <div id="cabinetId" class="cabinet relative h-full inline-block" onclick="cabinetMenuShow()">
+                <div id="cabinetId" class="cabinet relative h-full inline-block w-1/3" onclick="cabinetMenuShow()">
                     <img class="h-full opacity-75 hover:opacity-100 cursor-pointer"
                          src="{{ asset('images/ico/header/login.png') }}" alt="">
                     @auth
