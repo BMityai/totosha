@@ -1,0 +1,26 @@
+<div class="footer-block-title">Корпоративный блок</div>
+<ul>
+<li><a class="text-main-black" href="{{config path="web/unsecure/base_url"}}contacts-for-press">Контакты для прессы</a></li>
+<li><a class="text-main-black" href="{{config path="web/unsecure/base_url"}}social-responsibility">Социальная ответственность</a></li>
+<li><a class="text-main-black" href="{{config path="web/unsecure/base_url"}}arenda-pomeschenij">Аренда помещений</a></li>
+<li><a class="text-main-black" href="https://supplier.marwin.kz/" target="_blank">Как стать поставщиком?</a></li>
+</ul>
+<div class="whatsapp bottom-link"><a class="text-main-black" href="https://api.whatsapp.com/send?phone=77015706938" target="_blank" rel="nofollow"> <span class="message inline-middle">Написать нам</span> <span class="message inline-middle hover">8 701 570 69 38</span> <span class="whatsapp-logo inline-middle">{{block class="Magento\Framework\View\Element\Template" svg_id="icon-whatsapp" template="Magento_Theme::html/svg-wrapper.phtml"}} {{block class="Magento\Framework\View\Element\Template" svg_id="icon-whatsappActive" template="Magento_Theme::html/svg-wrapper.phtml"}}<span>WhatsApp</span></span> </a></div>
+<style xml="space"><!--
+.footer-block-title {
+    line-height: 16px;
+    position: relative;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+@media (min-width: 1024px), print {
+.footer-block-title {
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 0!important;
+    cursor: default;
+}
+}
+--></style>
