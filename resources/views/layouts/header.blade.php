@@ -222,7 +222,7 @@
                          class="logoSmallImg h-full opacity-75 hover:opacity-100">
                 </a>
             </div>
-            <div class="rightElements text-right p-2 z-10 flex w-40 justify-around">
+            <div class="rightElements p-2 z-10 flex w-40 justify-around">
                 <div class="wishList h-full inline-block w-1/3">
                     <a href="{{ route('wishList') }}" class="h-full inline-block relative">
                         <img class="h-full opacity-75 hover:opacity-100"
