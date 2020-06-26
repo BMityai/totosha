@@ -242,7 +242,7 @@
                               class="info cursor-pointer absolute bg-white text-white @if($cartInfo->count() < 1)hidden @else block @endif">6</span>
                     </div>
                 </div>
-                <div id="cabinetId" class="cabinet relative h-full inline-block w-1/3" onclick="cabinetMenuShow()">
+                <div id="cabinetId" class="cabinet relative h-full inline-block" onclick="cabinetMenuShow()">
                     <img class="h-full opacity-75 hover:opacity-100 cursor-pointer"
                          src="{{ asset('images/ico/header/login.png') }}" alt="">
                     @auth
