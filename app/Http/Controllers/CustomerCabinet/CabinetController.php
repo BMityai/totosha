@@ -56,6 +56,7 @@ class CabinetController extends Controller
      public function changeUserPassword(ChangePasswordRequest $request)
      {
          $this->service->changeUserPassword($request->get('newPassword'));
+         session()->flash('updateData', 'Пароль успешно изменен');
          return redirect()->back();
      }
 }
