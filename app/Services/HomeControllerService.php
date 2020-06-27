@@ -134,5 +134,19 @@ class HomeControllerService
         return $this->dbRepository->getAllActiveCategories();
     }
 
+    public function getAboutUsContent(): object
+    {
+        return $this->dbRepository->getAboutUsContent();
+    }
+
+    public function getPaymentAndDelivery(): object
+    {
+        return $this->dbRepository->getPaymentAndDelivery();
+    }
+
+    public function getPurchaseReturns(): object
+    {
+        return $this->dbRepository->getPurchaseReturns();
+    }
 
 }

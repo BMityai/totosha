@@ -82,12 +82,39 @@ Route::group(
                 Route::get('', 'AdminPanel\AdminController@showSettingsContent')->name(
                     'admin.settings.content'
                 );
+
+                //banners
                 Route::get('/banner/{position}', 'AdminPanel\AdminController@getBanner')->name(
                     'admin.settings.banner'
                 );
                 Route::post('/banner/{position}', 'AdminPanel\AdminController@updateBanner')->name(
                     'admin.settings.updateBanner'
                 );
+
+                //about us
+                Route::get('/about_us', 'AdminPanel\AdminController@getAboutUsForm')->name(
+                    'admin.settings.aboutUs'
+                );
+                Route::post('/about_us', 'AdminPanel\AdminController@updateAboutUsContent')->name(
+                    'admin.settings.updateAboutUsContent'
+                );
+
+                //payment and delivery
+                Route::get('/payment_and_delivery', 'AdminPanel\AdminController@getPaymentAndDeliveryForm')->name(
+                    'admin.settings.deliveryAndPayment'
+                );
+                Route::post('/payment_and_delivery', 'AdminPanel\AdminController@updatePaymentAndDeliveryContent')->name(
+                    'admin.settings.updatePaymentAndDeliveryContent'
+                );
+
+                //purchase returns
+                Route::get('/purchase_returns', 'AdminPanel\AdminController@getPurchaseReturnsForm')->name(
+                    'admin.settings.purchaseReturns'
+                );
+                Route::post('/purchase_returns', 'AdminPanel\AdminController@updatePurchaseReturnsContent')->name(
+                    'admin.settings.updatePurchaseReturns'
+                );
+
             });
 
         });
@@ -121,6 +148,12 @@ Route::group(
 Route::post('/search', 'SearchController@search')->name('search');
 
 Route::get('wishlist', 'WishListController@get')->name('wishList');
+
+Route::get('about_us', 'HomeController@getAboutUs')->name('aboutUs');
+
+Route::get('payment_and_delivery', 'HomeController@getPaymentAndDelivery')->name('paymentAndDelivery');
+
+Route::get('purchase_returns', 'HomeController@getPurchaseReturns')->name('purchaseReturns');
 
 Route::get('basket', 'BasketController@getBasket')->name('basket');
 

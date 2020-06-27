@@ -193,4 +193,40 @@ class AdminController extends Controller
         $this->service->updateBanner($position, $request->all());
         return redirect()->back();
     }
+
+    public function getAboutUsForm()
+    {
+        $aboutUs = $this->service->getAboutUsContent();
+        return view('admin.settings.aboutUs', ['aboutUs' => $aboutUs]);
+    }
+
+    public function updateAboutUsContent(Request $request)
+    {
+        $this->service->updateAboutUsContent($request->all());
+        return redirect()->back();
+    }
+
+    public function getPaymentAndDeliveryForm()
+    {
+        $paymentAndDeliveryForm = $this->service->getPaymentAndDeliveryForm();
+        return view('admin.settings.paymentsAndDelivery', ['paymentAndDeliveryForm' => $paymentAndDeliveryForm]);
+    }
+
+    public function updatePaymentAndDeliveryContent(Request $request)
+    {
+        $this->service->updatePaymentAndDeliveryContent($request->all());
+        return redirect()->back();
+    }
+
+    public function getPurchaseReturnsForm()
+    {
+        $purchaseReturn = $this->service->getPurchaseReturnsForm();
+        return view('admin.settings.purchaseReturns', ['purchaseReturn' => $purchaseReturn]);
+    }
+
+    public function updatePurchaseReturnsContent(Request $request)
+    {
+        $this->service->updatePurchaseReturnsContent($request->all());
+        return redirect()->back();
+    }
 }

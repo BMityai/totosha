@@ -61,6 +61,11 @@ h6 {
     display: none;
 }
 
+.productsContent p{
+    text-indent: 30px;
+}
+
+
 @media (max-width: 450px) {
 
     .logoSmallImg{

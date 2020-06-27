@@ -95,4 +95,23 @@ class HomeController extends Controller
         return view('reviews', ['reviews' => $reviews]);
     }
 
+    public function getAboutUs()
+    {
+        $aboutUs = $this->service->getAboutUsContent();
+        return view('aboutUs', ['aboutUs' => $aboutUs]);
+    }
+
+    public function getPaymentAndDelivery()
+    {
+        $paymentAndDelivery = $this->service->getPaymentAndDelivery();
+        return view('paymentAndDelivery', ['paymentAndDelivery' => $paymentAndDelivery]);
+    }
+
+    public function getPurchaseReturns()
+    {
+        $purchaseReturns = $this->service->getPurchaseReturns();
+        return view('purchaseReturns', ['purchaseReturns' => $purchaseReturns]);
+    }
+
+
 }

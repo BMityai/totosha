@@ -327,4 +327,34 @@ class AdminControllerService
         $bannerData['content_image']->move(public_path() . $path . '/', 'banner_top_content.' . $format);
         return $path . '/' . 'banner_top_content.' . $format;
     }
+
+    public function getAboutUsContent():object
+    {
+        return $this->dbRepository->getAboutUsContent();
+    }
+
+    public function updateAboutUsContent(array $data): void
+    {
+        $this->dbRepository->updateAboutUsContent($data);
+    }
+
+    public function getPaymentAndDeliveryForm(): object
+    {
+        return $this->dbRepository->getPaymentAndDelivery();
+    }
+
+    public function updatePaymentAndDeliveryContent(array $data): void
+    {
+        $this->dbRepository->updatePaymentAndDeliveryContent($data);
+    }
+
+    public function getPurchaseReturnsForm(): object
+    {
+        return $this->dbRepository->getPurchaseReturns();
+    }
+
+    public function updatePurchaseReturnsContent(array $data): void
+    {
+        $this->dbRepository->updatePurchaseReturnsContent($data);
+    }
 }

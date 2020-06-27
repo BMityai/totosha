@@ -32,6 +32,80 @@
                             <a href="{{ route('admin.settings.banner', 'bottom') }}">Редактировать</a>
                         </td>
                     </tr>
+
+                <!--About us-->
+                    <tr class="flex sm:hover:bg-teal-700 flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+
+                        <td class="p-1 sm:p-3 flex sm:table-cell"><span
+                                class="w-1/3 sm:hidden">Параметр: </span>О нас</td>
+                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
+                            <a href="{{ route('admin.settings.aboutUs') }}">Редактировать</a>
+                        </td>
+                    </tr>
+
+                <!--Payment and delivery-->
+                    <tr class="flex sm:hover:bg-teal-700 flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+
+                        <td class="p-1 sm:p-3 flex sm:table-cell"><span
+                                class="w-1/3 sm:hidden">Параметр: </span>Оплата и доставка</td>
+                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
+                            <a href="{{ route('admin.settings.deliveryAndPayment') }}">Редактировать</a>
+                        </td>
+                    </tr>
+
+                <!--Purchase returns-->
+                    <tr class="flex sm:hover:bg-teal-700 flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+
+                        <td class="p-1 sm:p-3 flex sm:table-cell"><span
+                                class="w-1/3 sm:hidden">Параметр: </span>Возврат товара</td>
+                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
+                            <a href="{{ route('admin.settings.purchaseReturns') }}">Редактировать</a>
+                        </td>
+                    </tr>
+
+                <!--how to place an order-->
+                    <tr class="flex sm:hover:bg-teal-700 flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+
+                        <td class="p-1 sm:p-3 flex sm:table-cell"><span
+                                class="w-1/3 sm:hidden">Параметр: </span>Как оформить заказ?</td>
+                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
+                            <a href="{{ route('admin.settings.banner', 'bottom') }}">Редактировать</a>
+                        </td>
+                    </tr>
+
+                <!--Loyalty-->
+                    <tr class="flex sm:hover:bg-teal-700 flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+
+                        <td class="p-1 sm:p-3 flex sm:table-cell"><span
+                                class="w-1/3 sm:hidden">Параметр: </span>Бонусная программа</td>
+                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
+                            <a href="{{ route('admin.settings.banner', 'bottom') }}">Редактировать</a>
+                        </td>
+                    </tr>
+
+                <!--Contacts-->
+                    <tr class="flex sm:hover:bg-teal-700 flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+
+                        <td class="p-1 sm:p-3 flex sm:table-cell"><span
+                                class="w-1/3 sm:hidden">Параметр: </span>Контакты</td>
+                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
+                            <a href="{{ route('admin.settings.banner', 'bottom') }}">Редактировать</a>
+                        </td>
+                    </tr>
+
+                <!--Wholesale-->
+                    <tr class="flex sm:hover:bg-teal-700 flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+
+                        <td class="p-1 sm:p-3 flex sm:table-cell"><span
+                                class="w-1/3 sm:hidden">Параметр: </span>Оптовые продажи</td>
+                         <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
+                            <a href="{{ route('admin.settings.banner', 'bottom') }}">Редактировать</a>
+                        </td>
+                    </tr>
+
+
+
+
                 </tbody>
             </table>
         </div>

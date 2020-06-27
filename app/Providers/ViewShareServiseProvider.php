@@ -32,30 +32,45 @@ class ViewShareServiseProvider extends ServiceProvider
 
     private function GetCategories()
     {
-        View::composer(['layouts.header', 'category', 'searchResult', 'comingSoon', 'sales'], function ($view)
-        {
-            $mainDbRepository = new MainEloquentRepository();
-            $view->with('categories', $mainDbRepository->getAllActiveCategories());
-        });
+        View::composer(
+            [
+                'layouts.header',
+                'category',
+                'searchResult',
+                'comingSoon',
+                'sales',
+                'aboutUs',
+                'paymentAndDelivery',
+                'purchaseReturns'
+            ],
+            function ($view) {
+                $mainDbRepository = new MainEloquentRepository();
+                $view->with('categories', $mainDbRepository->getAllActiveCategories());
+            }
+        );
     }
 
     private function GetRecommendProducts()
     {
-        View::composer(['home'], function ($view)
-        {
-            $mainDbRepository = new MainEloquentRepository();
-            $view->with('recommendedProducts', $mainDbRepository->getActiveRecommendedProducts());
-        });
+        View::composer(
+            ['home'],
+            function ($view) {
+                $mainDbRepository = new MainEloquentRepository();
+                $view->with('recommendedProducts', $mainDbRepository->getActiveRecommendedProducts());
+            }
+        );
     }
 
     private function getCartInfo()
     {
-        View::composer(['layouts.header'], function ($view)
-        {
-            $mainDbRepository = new MainEloquentRepository();
-            $view->with('cartInfo', $mainDbRepository->getCartInfo());
-            $view->with('basket', $mainDbRepository->getCartInfo());
-            $view->with('wishListInfo', count($mainDbRepository->getWishList()));
-        });
+        View::composer(
+            ['layouts.header'],
+            function ($view) {
+                $mainDbRepository = new MainEloquentRepository();
+                $view->with('cartInfo', $mainDbRepository->getCartInfo());
+                $view->with('basket', $mainDbRepository->getCartInfo());
+                $view->with('wishListInfo', count($mainDbRepository->getWishList()));
+            }
+        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Reposotories\MainEloquentRepository;
 
+use App\AboutUs;
 use App\Age;
 use App\Banner;
 use App\Basket;
@@ -15,10 +16,12 @@ use App\Material;
 use App\Order;
 use App\OrderProduct;
 use App\OrderStatus;
+use App\PaymentAndDelivery;
 use App\PaymentForm;
 use App\Preorder;
 use App\Product;
 use App\ProductImage;
+use App\PurchaseReturns;
 use App\Region;
 use App\Review;
 use App\User;
@@ -775,4 +778,47 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         );
     }
 
+    public function getAboutUsContent(): object
+    {
+        return AboutUs::first();
+    }
+
+    public function updateAboutUsContent(array $data): void
+    {
+        $aboutUs = AboutUs::first();
+        $aboutUs->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getPaymentAndDelivery(): object
+    {
+        return PaymentAndDelivery::first();
+    }
+
+    public function updatePaymentAndDeliveryContent(array $data): void
+    {
+        $paymentAndDelivery = PaymentAndDelivery::first();
+        $paymentAndDelivery->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getPurchaseReturns(): object
+    {
+        return PurchaseReturns::first();
+    }
+
+    public function updatePurchaseReturnsContent(array $data): void
+    {
+        $purchaseReturns = PurchaseReturns::first();
+        $purchaseReturns->update(
+            [
+                'content' => $data['content']
+            ]
+        );    }
 }

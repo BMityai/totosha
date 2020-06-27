@@ -18,3 +18,7 @@ input:-webkit-autofill {
     -webkit-box-shadow: inset 0 0 0 50px #191919; /* цвет вашего фона */
     -webkit-text-fill-color: white; /* цвет текста */
 }
+
+.aboutUsContent p{
+    text-indent: 30px;
+}
