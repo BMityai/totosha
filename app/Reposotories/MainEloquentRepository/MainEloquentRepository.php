@@ -2,26 +2,33 @@
 
 namespace App\Reposotories\MainEloquentRepository;
 
+use App\AboutUs;
 use App\Age;
 use App\Banner;
 use App\Basket;
 use App\Category;
 use App\CategoryImage;
+use App\Contact;
 use App\DeliveryType;
 use App\Helpers\Helpers;
+use App\HowToMakeAnOrder;
 use App\KazPostTarif;
+use App\LoyaltyProgram;
 use App\Manufacturer;
 use App\Material;
 use App\Order;
 use App\OrderProduct;
 use App\OrderStatus;
+use App\PaymentAndDelivery;
 use App\PaymentForm;
 use App\Preorder;
 use App\Product;
 use App\ProductImage;
+use App\PurchaseReturns;
 use App\Region;
 use App\Review;
 use App\User;
+use App\Wholesale;
 use App\WishList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -775,4 +782,108 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         );
     }
 
+    public function getAboutUsContent(): object
+    {
+        return AboutUs::first();
+    }
+
+    public function updateAboutUsContent(array $data): void
+    {
+        $aboutUs = AboutUs::first();
+        $aboutUs->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getPaymentAndDelivery(): object
+    {
+        return PaymentAndDelivery::first();
+    }
+
+    public function updatePaymentAndDeliveryContent(array $data): void
+    {
+        $paymentAndDelivery = PaymentAndDelivery::first();
+        $paymentAndDelivery->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getPurchaseReturns(): object
+    {
+        return PurchaseReturns::first();
+    }
+
+    public function updatePurchaseReturnsContent(array $data): void
+    {
+        $purchaseReturns = PurchaseReturns::first();
+        $purchaseReturns->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getHowToMakeAnOrder(): object
+    {
+        return HowToMakeAnOrder::first();
+    }
+
+    public function updateHowToMakeAnOrderContent(array $data)
+    {
+        $howToMakeAnOrderBlock = HowToMakeAnOrder::first();
+        $howToMakeAnOrderBlock->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getLoyaltyProgram()
+    {
+        return LoyaltyProgram::first();
+    }
+
+    public function updateLoyaltyProgramContent(array $data): void
+    {
+        $loyaltyProgramBlock = LoyaltyProgram::first();
+        $loyaltyProgramBlock->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getContacts()
+    {
+        return Contact::first();
+    }
+
+    public function updateContactsContent(array $data): void
+    {
+        $contactsBlock = Contact::first();
+        $contactsBlock->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getWholesales(): object
+    {
+        return Wholesale::first();
+    }
+
+    public function updateWholesalesContent(array $data): void
+    {
+        $wholesalesBlock = Wholesale::first();
+        $wholesalesBlock->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
 }

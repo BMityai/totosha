@@ -587,6 +587,12 @@ function checkLocation(event) {
     getDeliveryPrice()
 }
 
+window.onload = function() {
+    if(window.location.href.includes("/basket")){
+        getDeliveryPrice();
+    }
+};
+
 function getDeliveryPrice() {
     let deliveryPriceEl = document.getElementById('deliveryPrice');
     if (deliveryPriceEl) {

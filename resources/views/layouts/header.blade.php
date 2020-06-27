@@ -19,15 +19,14 @@
                 <div class="menuInfoContent w-full sm:w-2/5 mt-10 sm:mt-0">
                     <h2 class="uppercase">Инфо</h2>
                     <hr>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">О нас</p></a>
+                    <a href="{{ route('aboutUs') }}"><p class="opacity-75 hover:opacity-100 mt-4">О нас</p></a>
                     <a href="{{ route('getReviews') }}"><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Контакты</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Принимаем заказы</p></a>
+                    <a href="{{ route('paymentAndDelivery') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>
+                    <a href="{{ route('purchaseReturns') }}"><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>
+                    <a href="{{ route('howToMakeAnOrder') }}"><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>
+                    <a href="{{ route('loyaltyProgram') }}"><p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p></a>
+                    <a href="{{ route('contacts') }}"><p class="opacity-75 hover:opacity-100 mt-4">Контакты</p></a>
+                    <a href="{{ route('wholesales') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p></a>
                 </div>
             </div>
         </div>
@@ -242,7 +241,7 @@
                               class="info cursor-pointer absolute bg-white text-white @if($cartInfo->count() < 1)hidden @else block @endif">6</span>
                     </div>
                 </div>
-                <div id="cabinetId" class="cabinet relative h-full inline-block w-1/3" onclick="cabinetMenuShow()">
+                <div id="cabinetId" class="cabinet relative h-full inline-block" onclick="cabinetMenuShow()">
                     <img class="h-full opacity-75 hover:opacity-100 cursor-pointer"
                          src="{{ asset('images/ico/header/login.png') }}" alt="">
                     @auth

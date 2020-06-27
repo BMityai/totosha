@@ -12,7 +12,7 @@
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
-Для подтверждения email адреса нажмите на кнопку:
+{{ $line }}
 
 @endforeach
 
@@ -29,13 +29,13 @@
     }
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])
-Подтвердить
+{{ $actionText }}
 @endcomponent
 @endisset
 
 {{-- Outro Lines --}}
 @foreach ($outroLines as $line)
-Если Вы не регистрировались на сайте MIMISHKA.KZ, просим оставить это письмо без внимания
+{{ $line }}
 
 @endforeach
 
@@ -51,8 +51,8 @@
 @isset($actionText)
 @slot('subcopy')
 @lang(
-    "В случае возникновения проблем с нажатием на вышеуказанную кнопку, скопируйте эту ссылку \n".
-    "и вставьте в адресную строку Вашего браузера:" . "\n",
+    "В случае возникновения проблем с нажатием на кнопку \":actionText\", скопируйте эту ссылку\n".
+    'в адресную строку браузера:',
     [
         'actionText' => $actionText,
     ]
