@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', ': WishList')
+@section('title', ': Возврат товара')
 
 @section('content')
     <div class="container mt-16 ">

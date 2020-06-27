@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', ': О нас')
+@section('title', ': Как сделать заказ?')
 
 @section('content')
     <div class="container mt-16 ">
@@ -26,7 +26,7 @@
 
             <div class="productsContent flex-wrap mt-4 text-xl">
 
-                {!! $aboutUs->content !!}
+                {!! $howToMakeAnOrderBlock->content !!}
             </div>
         </div>
     </div>

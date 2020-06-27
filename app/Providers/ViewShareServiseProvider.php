@@ -41,7 +41,11 @@ class ViewShareServiseProvider extends ServiceProvider
                 'sales',
                 'aboutUs',
                 'paymentAndDelivery',
-                'purchaseReturns'
+                'purchaseReturns',
+                'howToMakeAnOrder',
+                'loyaltyProgram',
+                'contacts',
+                'wholesales',
             ],
             function ($view) {
                 $mainDbRepository = new MainEloquentRepository();

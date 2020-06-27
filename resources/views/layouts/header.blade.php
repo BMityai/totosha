@@ -23,10 +23,10 @@
                     <a href="{{ route('getReviews') }}"><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>
                     <a href="{{ route('paymentAndDelivery') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>
                     <a href="{{ route('purchaseReturns') }}"><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Контакты</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p></a>
+                    <a href="{{ route('howToMakeAnOrder') }}"><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>
+                    <a href="{{ route('loyaltyProgram') }}"><p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p></a>
+                    <a href="{{ route('contacts') }}"><p class="opacity-75 hover:opacity-100 mt-4">Контакты</p></a>
+                    <a href="{{ route('wholesales') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p></a>
                 </div>
             </div>
         </div>

@@ -229,4 +229,52 @@ class AdminController extends Controller
         $this->service->updatePurchaseReturnsContent($request->all());
         return redirect()->back();
     }
+
+    public function getHowToMakeAnOrderForm()
+    {
+        $howToMakeAnOrderBlock = $this->service->getHowToMakeAnOrder();
+        return view('admin.settings.howToMakeAnOrder', ['howToMakeAnOrderBlock' => $howToMakeAnOrderBlock]);
+    }
+
+    public function updateHowToMakeAnOrderContent(Request $request)
+    {
+        $this->service->updateHowToMakeAnOrderContent($request->all());
+        return redirect()->back();
+    }
+
+    public function getLoyaltyProgramForm()
+    {
+        $loyaltyProgramBlock = $this->service->getLoyaltyProgram();
+        return view('admin.settings.loyaltyProgram', ['loyaltyProgramBlock' => $loyaltyProgramBlock]);
+    }
+
+    public function updateLoyaltyProgramContent(Request $request)
+    {
+        $this->service->updateLoyaltyProgramContent($request->all());
+        return redirect()->back();
+    }
+
+    public function getContactsForm()
+    {
+        $contactsBlock = $this->service->getContacts();
+        return view('admin.settings.contacts', ['contactsBlock' => $contactsBlock]);
+    }
+
+    public function updateContactsContent(Request $request)
+    {
+        $this->service->updateContactsContent($request->all());
+        return redirect()->back();
+    }
+
+    public function getWholesalesForm()
+    {
+        $wholesalesBlock = $this->service->getWholesales();
+        return view('admin.settings.wholesales', ['wholesalesBlock' => $wholesalesBlock]);
+    }
+
+    public function updateWholesalesContent(Request $request)
+    {
+        $this->service->updateWholesalesContent($request->all());
+        return redirect()->back();
+    }
 }

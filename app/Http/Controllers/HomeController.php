@@ -103,15 +103,37 @@ class HomeController extends Controller
 
     public function getPaymentAndDelivery()
     {
-        $paymentAndDelivery = $this->service->getPaymentAndDelivery();
-        return view('paymentAndDelivery', ['paymentAndDelivery' => $paymentAndDelivery]);
+        $paymentAndDeliveryBlock = $this->service->getPaymentAndDelivery();
+        return view('paymentAndDelivery', ['paymentAndDelivery' => $paymentAndDeliveryBlock]);
     }
 
     public function getPurchaseReturns()
     {
-        $purchaseReturns = $this->service->getPurchaseReturns();
-        return view('purchaseReturns', ['purchaseReturns' => $purchaseReturns]);
+        $purchaseReturnBlock = $this->service->getPurchaseReturns();
+        return view('purchaseReturns', ['purchaseReturns' => $purchaseReturnBlock]);
     }
 
+    public function getHowToMakeAnOrder()
+    {
+        $howToMakeAnOrderBlock = $this->service->getHowToMakeAnOrder();
+        return view('howToMakeAnOrder', ['howToMakeAnOrderBlock' => $howToMakeAnOrderBlock]);
+    }
 
+    public function getLoyaltyProgram()
+    {
+        $loyaltyProgramBlock = $this->service->getLoyaltyProgram();
+        return view('loyaltyProgram', ['loyaltyProgramBlock' => $loyaltyProgramBlock]);
+    }
+
+    public function getContacts()
+    {
+        $contactsBlock = $this->service->getContacts();
+        return view('contacts', ['contactsBlock' => $contactsBlock]);
+    }
+
+    public function getWholesales()
+    {
+        $wholesalesBlock = $this->service->getWholesales();
+        return view('wholesales', ['wholesalesBlock' => $wholesalesBlock]);
+    }
 }

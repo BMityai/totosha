@@ -149,4 +149,23 @@ class HomeControllerService
         return $this->dbRepository->getPurchaseReturns();
     }
 
+    public function getHowToMakeAnOrder(): object
+    {
+        return $this->dbRepository->getHowToMakeAnOrder();
+    }
+
+    public function getLoyaltyProgram(): object
+    {
+        return $this->dbRepository->getLoyaltyProgram();
+    }
+
+    public function getContacts(): object
+    {
+        return $this->dbRepository->getContacts();
+    }
+
+    public function getWholesales():object
+    {
+        return $this->dbRepository->getWholesales();
+    }
 }

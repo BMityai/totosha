@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', ': О нас')
+@section('title', ': Бонусная прграмма')
 
 @section('content')
     <div class="container mt-16 ">
@@ -25,8 +25,7 @@
             </div>
 
             <div class="productsContent flex-wrap mt-4 text-xl">
-
-                {!! $aboutUs->content !!}
+                {!! $loyaltyProgramBlock->content !!}
             </div>
         </div>
     </div>

@@ -115,6 +115,38 @@ Route::group(
                     'admin.settings.updatePurchaseReturns'
                 );
 
+                //howToMakeAnOrder
+                Route::get('/how_to_make_an_order', 'AdminPanel\AdminController@getHowToMakeAnOrderForm')->name(
+                    'admin.settings.howToMakeAnOrder'
+                );
+                Route::post('/how_to_make_an_order', 'AdminPanel\AdminController@updateHowToMakeAnOrderContent')->name(
+                    'admin.settings.updateHowToMakeAnOrder'
+                );
+
+                //loyalty program
+                Route::get('/loyalty_program', 'AdminPanel\AdminController@getLoyaltyProgramForm')->name(
+                    'admin.settings.loyaltyProgram'
+                );
+                Route::post('/loyalty_program', 'AdminPanel\AdminController@updateLoyaltyProgramContent')->name(
+                    'admin.settings.updateLoyaltyProgram'
+                );
+
+                //contacts
+                Route::get('/contacts', 'AdminPanel\AdminController@getContactsForm')->name(
+                    'admin.settings.contacts'
+                );
+                Route::post('/contacts', 'AdminPanel\AdminController@updateContactsContent')->name(
+                    'admin.settings.updateContacts'
+                );
+
+                //wholesales
+                Route::get('/wholesales', 'AdminPanel\AdminController@getWholesalesForm')->name(
+                    'admin.settings.wholesales'
+                );
+                Route::post('/wholesales', 'AdminPanel\AdminController@updateWholesalesContent')->name(
+                    'admin.settings.updateWholesales'
+                );
+
             });
 
         });
@@ -155,9 +187,18 @@ Route::get('payment_and_delivery', 'HomeController@getPaymentAndDelivery')->name
 
 Route::get('purchase_returns', 'HomeController@getPurchaseReturns')->name('purchaseReturns');
 
+Route::get('how_to_make_an_order', 'HomeController@getHowToMakeAnOrder')->name('howToMakeAnOrder');
+
+Route::get('loyalty_program', 'HomeController@getLoyaltyProgram')->name('loyaltyProgram');
+
+Route::get('contacts', 'HomeController@getContacts')->name('contacts');
+
+Route::get('wholesales', 'HomeController@getWholesales')->name('wholesales');
+
 Route::get('basket', 'BasketController@getBasket')->name('basket');
 
 Route::get('/login', 'HomeController@index')->name('login')->middleware('showLoginForm');
+
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -166,15 +207,18 @@ Route::group(
     ['prefix' => '{category}'],
     function () {
         Route::get('/', 'HomeController@getCategoryProducts')->name('category');
+
         Route::get('/{product}', 'HomeController@getProductPage')->name('product');
     }
 );
 
 Route::post('/add_to_basket', 'BasketController@addOrDelete')->name('addToBasket');
+
 Route::post('/change_count', 'BasketController@changeCount')->name('changeCount');
 
 Route::post('/get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
 
 Route::post('/create_order', 'OrderController@createOrder')->middleware(['checkOnCreateDoubleOrder', 'inStock'])->name('createOrder');
+
 Route::post('/add_to_wishlist', 'WishListController@addOrDelete')->name('addToWishList');
 

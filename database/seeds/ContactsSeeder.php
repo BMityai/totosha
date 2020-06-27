@@ -3,9 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AboutUsSeeder extends Seeder
+class ContactsSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -13,7 +12,7 @@ class AboutUsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('about_us')->insert(
+        DB::table('contacts')->insert(
             ['content' => 'test']
         );
     }
