@@ -1,27 +1,27 @@
 @extends('admin.layouts.master')
-@section('title', ': Бонусная прграмма')
+@section('title', ': ' . $storeInfo->title)
 
 @section('content')
 
-    <form action="{{ route('admin.settings.updateLoyaltyProgram') }}" method="POST" enctype="multipart/form-data"
+    <form action="{{ route('admin.settings.updateStoreInfo', $storeInfo->slug) }}" method="POST" enctype="multipart/form-data"
           class="container text-white mt-24 sm:mt-16 m-auto lg:mt-32 mb-32">
         @csrf
 
         <div class="flex justify-between mt-2 p-2 flex-wrap md:flex-no-wrap">
-            <h1 class="text-xl">Настройка контента "Бонусная программа"</h1>
+            <h1 class="text-xl">Настройка контента "{{ $storeInfo->title }}"</h1>
         </div>
         <div>
             <div class="p-2">
                 <p>Content</p>
                 <div id="managerCommentBlock"
                      class="aboutUsContent border rounded @error('content') border-red-700 text-red-700 @else border-white text-white @enderror p-2"
-                     onclick="editReview()">{!! !empty(old('content')) ? old('content') : $loyaltyProgramBlock->content !!} </div>
+                     onclick="editReview()">{!! !empty(old('content')) ? old('content') : $storeInfo->content !!} </div>
                 @error('content')
                 <p class="text-center text-red-700 text-sm">{{ $message }}</p>
                 @enderror
 
                 <textarea id="mytextarea" name="content"
-                          class="hidden editor w-full bg-transparent border border-white rounded">{{ !empty(old('description')) ? old('description') : $loyaltyProgramBlock->content }}</textarea>
+                          class="hidden editor w-full bg-transparent border border-white rounded">{{ !empty(old('description')) ? old('description') : $storeInfo->content }}</textarea>
             </div>
 
 

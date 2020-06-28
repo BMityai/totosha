@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', ': Контакты')
+@section('title', ': ' . $storeInfo->title)
 
 @section('content')
     <div class="container mt-16 ">
@@ -10,7 +10,7 @@
         <div class="breadCrumbs">
             <a href="{{ route('home') }}">Главная</a>
             <span> / </span>
-            <span> Контакты </span>
+            <span> {{ $storeInfo->title }} </span>
         </div>
 
         <div class="categoryInner flex">
@@ -25,7 +25,8 @@
             </div>
 
             <div class="productsContent flex-wrap mt-4 text-xl">
-                {!! $contactsBlock->content !!}
+
+                {!! $storeInfo->content !!}
             </div>
         </div>
     </div>

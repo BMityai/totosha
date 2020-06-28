@@ -9,6 +9,7 @@ use App\Basket;
 use App\Category;
 use App\CategoryImage;
 use App\Contact;
+use App\ContentSetting;
 use App\DeliveryType;
 use App\Helpers\Helpers;
 use App\HowToMakeAnOrder;
@@ -881,6 +882,27 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     {
         $wholesalesBlock = Wholesale::first();
         $wholesalesBlock->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+
+    public function getStoreInfo(): object
+    {
+        return ContentSetting::all();
+    }
+
+    public function getStoreInfoBySlug(string $slug): object
+    {
+        return ContentSetting::where('slug', $slug)->first();
+    }
+
+    public function updateStoreInfo(array $data, string $slug): void
+    {
+        $storeInfo = $this->getStoreInfoBySlug($slug);
+        $storeInfo->update(
             [
                 'content' => $data['content']
             ]

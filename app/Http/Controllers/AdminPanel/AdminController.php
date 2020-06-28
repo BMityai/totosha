@@ -179,7 +179,8 @@ class AdminController extends Controller
 
     public function showSettingsContent()
     {
-        return view('admin.settings.content');
+        $storeInfo = $this->service->getStoreInfo();
+        return view('admin.settings.content', ['storeInfo' => $storeInfo]);
     }
 
     public function getBanner(string $position)
@@ -194,87 +195,100 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function getAboutUsForm()
+    public function getStoreInfoForm($slug)
     {
-        $aboutUs = $this->service->getAboutUsContent();
-        return view('admin.settings.aboutUs', ['aboutUs' => $aboutUs]);
+        $storeInfo = $this->service->getStoreInfoBySlug($slug);
+        return view('admin.settings.storeInfo', ['storeInfo' => $storeInfo]);
     }
 
-    public function updateAboutUsContent(Request $request)
+    public function updateStoreInfo(Request $request, $slug)
     {
-        $this->service->updateAboutUsContent($request->all());
+        $this->service->updateStoreInfo($request->all(), $slug);
         return redirect()->back();
     }
 
-    public function getPaymentAndDeliveryForm()
-    {
-        $paymentAndDeliveryForm = $this->service->getPaymentAndDeliveryForm();
-        return view('admin.settings.paymentsAndDelivery', ['paymentAndDeliveryForm' => $paymentAndDeliveryForm]);
-    }
 
-    public function updatePaymentAndDeliveryContent(Request $request)
-    {
-        $this->service->updatePaymentAndDeliveryContent($request->all());
-        return redirect()->back();
-    }
-
-    public function getPurchaseReturnsForm()
-    {
-        $purchaseReturn = $this->service->getPurchaseReturnsForm();
-        return view('admin.settings.purchaseReturns', ['purchaseReturn' => $purchaseReturn]);
-    }
-
-    public function updatePurchaseReturnsContent(Request $request)
-    {
-        $this->service->updatePurchaseReturnsContent($request->all());
-        return redirect()->back();
-    }
-
-    public function getHowToMakeAnOrderForm()
-    {
-        $howToMakeAnOrderBlock = $this->service->getHowToMakeAnOrder();
-        return view('admin.settings.howToMakeAnOrder', ['howToMakeAnOrderBlock' => $howToMakeAnOrderBlock]);
-    }
-
-    public function updateHowToMakeAnOrderContent(Request $request)
-    {
-        $this->service->updateHowToMakeAnOrderContent($request->all());
-        return redirect()->back();
-    }
-
-    public function getLoyaltyProgramForm()
-    {
-        $loyaltyProgramBlock = $this->service->getLoyaltyProgram();
-        return view('admin.settings.loyaltyProgram', ['loyaltyProgramBlock' => $loyaltyProgramBlock]);
-    }
-
-    public function updateLoyaltyProgramContent(Request $request)
-    {
-        $this->service->updateLoyaltyProgramContent($request->all());
-        return redirect()->back();
-    }
-
-    public function getContactsForm()
-    {
-        $contactsBlock = $this->service->getContacts();
-        return view('admin.settings.contacts', ['contactsBlock' => $contactsBlock]);
-    }
-
-    public function updateContactsContent(Request $request)
-    {
-        $this->service->updateContactsContent($request->all());
-        return redirect()->back();
-    }
-
-    public function getWholesalesForm()
-    {
-        $wholesalesBlock = $this->service->getWholesales();
-        return view('admin.settings.wholesales', ['wholesalesBlock' => $wholesalesBlock]);
-    }
-
-    public function updateWholesalesContent(Request $request)
-    {
-        $this->service->updateWholesalesContent($request->all());
-        return redirect()->back();
-    }
+//    public function getAboutUsForm()
+//    {
+//        $aboutUs = $this->service->getAboutUsContent();
+//        return view('admin.settings.aboutUs', ['aboutUs' => $aboutUs]);
+//    }
+//
+//    public function updateAboutUsContent(Request $request)
+//    {
+//        $this->service->updateAboutUsContent($request->all());
+//        return redirect()->back();
+//    }
+//
+//    public function getPaymentAndDeliveryForm()
+//    {
+//        $paymentAndDeliveryForm = $this->service->getPaymentAndDeliveryForm();
+//        return view('admin.settings.paymentsAndDelivery', ['paymentAndDeliveryForm' => $paymentAndDeliveryForm]);
+//    }
+//
+//    public function updatePaymentAndDeliveryContent(Request $request)
+//    {
+//        $this->service->updatePaymentAndDeliveryContent($request->all());
+//        return redirect()->back();
+//    }
+//
+//    public function getPurchaseReturnsForm()
+//    {
+//        $purchaseReturn = $this->service->getPurchaseReturnsForm();
+//        return view('admin.settings.purchaseReturns', ['purchaseReturn' => $purchaseReturn]);
+//    }
+//
+//    public function updatePurchaseReturnsContent(Request $request)
+//    {
+//        $this->service->updatePurchaseReturnsContent($request->all());
+//        return redirect()->back();
+//    }
+//
+//    public function getHowToMakeAnOrderForm()
+//    {
+//        $howToMakeAnOrderBlock = $this->service->getHowToMakeAnOrder();
+//        return view('admin.settings.howToMakeAnOrder', ['howToMakeAnOrderBlock' => $howToMakeAnOrderBlock]);
+//    }
+//
+//    public function updateHowToMakeAnOrderContent(Request $request)
+//    {
+//        $this->service->updateHowToMakeAnOrderContent($request->all());
+//        return redirect()->back();
+//    }
+//
+//    public function getLoyaltyProgramForm()
+//    {
+//        $loyaltyProgramBlock = $this->service->getLoyaltyProgram();
+//        return view('admin.settings.loyaltyProgram', ['loyaltyProgramBlock' => $loyaltyProgramBlock]);
+//    }
+//
+//    public function updateLoyaltyProgramContent(Request $request)
+//    {
+//        $this->service->updateLoyaltyProgramContent($request->all());
+//        return redirect()->back();
+//    }
+//
+//    public function getContactsForm()
+//    {
+//        $contactsBlock = $this->service->getContacts();
+//        return view('admin.settings.contacts', ['contactsBlock' => $contactsBlock]);
+//    }
+//
+//    public function updateContactsContent(Request $request)
+//    {
+//        $this->service->updateContactsContent($request->all());
+//        return redirect()->back();
+//    }
+//
+//    public function getWholesalesForm()
+//    {
+//        $wholesalesBlock = $this->service->getWholesales();
+//        return view('admin.settings.wholesales', ['wholesalesBlock' => $wholesalesBlock]);
+//    }
+//
+//    public function updateWholesalesContent(Request $request)
+//    {
+//        $this->service->updateWholesalesContent($request->all());
+//        return redirect()->back();
+//    }
 }

@@ -328,73 +328,88 @@ class AdminControllerService
         return $path . '/' . 'banner_top_content.' . $format;
     }
 
-    public function getAboutUsContent():object
+    public function getStoreInfo(): object
     {
-        return $this->dbRepository->getAboutUsContent();
+        return $this->dbRepository->getStoreInfo();
     }
 
-    public function updateAboutUsContent(array $data): void
+    public function getStoreInfoBySlug(string $slug):object
     {
-        $this->dbRepository->updateAboutUsContent($data);
+        return $this->dbRepository->getStoreInfoBySlug($slug);
     }
 
-    public function getPaymentAndDeliveryForm(): object
+    public function updateStoreInfo(array $data, string $slug): void
     {
-        return $this->dbRepository->getPaymentAndDelivery();
+        $this->dbRepository->updateStoreInfo($data, $slug);
     }
-
-    public function updatePaymentAndDeliveryContent(array $data): void
-    {
-        $this->dbRepository->updatePaymentAndDeliveryContent($data);
-    }
-
-    public function getPurchaseReturnsForm(): object
-    {
-        return $this->dbRepository->getPurchaseReturns();
-    }
-
-    public function updatePurchaseReturnsContent(array $data): void
-    {
-        $this->dbRepository->updatePurchaseReturnsContent($data);
-    }
-
-    public function getHowToMakeAnOrder(): object
-    {
-        return $this->dbRepository->getHowToMakeAnOrder();
-    }
-
-    public function updateHowToMakeAnOrderContent(array $data): void
-    {
-        $this->dbRepository->updateHowToMakeAnOrderContent($data);
-    }
-
-    public function getLoyaltyProgram(): object
-    {
-        return $this->dbRepository->getLoyaltyProgram();
-    }
-
-    public function updateLoyaltyProgramContent(array $data): void
-    {
-        $this->dbRepository->updateLoyaltyProgramContent($data);
-    }
-
-    public function getContacts(): object
-    {
-        return $this->dbRepository->getContacts();
-    }
-
-    public function updateContactsContent(array $data): void
-    {
-        $this->dbRepository->updateContactsContent($data);
-    }
-
-    public function getWholesales(): object
-    {
-        return $this->dbRepository->getWholesales();
-    }
-
-    public function updateWholesalesContent(array $data): void
-    {
-        $this->dbRepository->updateWholesalesContent($data);
-    }
+//
+//    public function getAboutUsContent():object
+//    {
+//        return $this->dbRepository->getAboutUsContent();
+//    }
+//
+//    public function updateAboutUsContent(array $data): void
+//    {
+//        $this->dbRepository->updateAboutUsContent($data);
+//    }
+//
+//    public function getPaymentAndDeliveryForm(): object
+//    {
+//        return $this->dbRepository->getPaymentAndDelivery();
+//    }
+//
+//    public function updatePaymentAndDeliveryContent(array $data): void
+//    {
+//        $this->dbRepository->updatePaymentAndDeliveryContent($data);
+//    }
+//
+//    public function getPurchaseReturnsForm(): object
+//    {
+//        return $this->dbRepository->getPurchaseReturns();
+//    }
+//
+//    public function updatePurchaseReturnsContent(array $data): void
+//    {
+//        $this->dbRepository->updatePurchaseReturnsContent($data);
+//    }
+//
+//    public function getHowToMakeAnOrder(): object
+//    {
+//        return $this->dbRepository->getHowToMakeAnOrder();
+//    }
+//
+//    public function updateHowToMakeAnOrderContent(array $data): void
+//    {
+//        $this->dbRepository->updateHowToMakeAnOrderContent($data);
+//    }
+//
+//    public function getLoyaltyProgram(): object
+//    {
+//        return $this->dbRepository->getLoyaltyProgram();
+//    }
+//
+//    public function updateLoyaltyProgramContent(array $data): void
+//    {
+//        $this->dbRepository->updateLoyaltyProgramContent($data);
+//    }
+//
+//    public function getContacts(): object
+//    {
+//        return $this->dbRepository->getContacts();
+//    }
+//
+//    public function updateContactsContent(array $data): void
+//    {
+//        $this->dbRepository->updateContactsContent($data);
+//    }
+//
+//    public function getWholesales(): object
+//    {
+//        return $this->dbRepository->getWholesales();
+//    }
+//
+//    public function updateWholesalesContent(array $data): void
+//    {
+//        $this->dbRepository->updateWholesalesContent($data);
+//    }
 }
