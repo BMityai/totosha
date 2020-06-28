@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container mt-16 ">
-        <div class="cartIco w-5/6 mx-auto">
+        <div class="cartIco w-2/3 mx-auto">
             <img src="{{ asset('images/logos/info_logo.png') }}" alt="">
         </div>
 

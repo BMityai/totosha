@@ -189,7 +189,9 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
      * Create order
      *
      * @param array $params
-     * @param int $orderNumber
+     * @param string $orderNumber
+     * @param int $totalPrice
+     * @param int $deliveryPrice
      * @return object
      */
     public function createOrder(array $params, string $orderNumber, int $totalPrice, int $deliveryPrice): object
@@ -908,4 +910,22 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             ]
         );
     }
+
+    public function getDeliveryTypeBySlug(string $slug): object
+    {
+        return DeliveryType::where('code', $slug)->first();
+    }
+
+    public function updateDeliveryType(array $data, string $slug): void
+    {
+        $deliveryType = $this->getDeliveryTypeBySlug($slug);
+        foreach ($deliveryType->getTarif as $type) {
+            $type->update(
+                [
+                    'price' => $data['price'][$type->id]
+                ]
+            );
+        }
+    }
+
 }

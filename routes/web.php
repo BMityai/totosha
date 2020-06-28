@@ -72,41 +72,67 @@ Route::group(
         );
 
         //settings
-        Route::group(['prefix' => '/settings'], function (){
-            Route::get('', 'AdminPanel\AdminController@showSettings')->name(
-                'admin.settings'
-            );
-
-            //delivery
-            Route::get('/delivery', 'AdminPanel\AdminController@getDeliveryForm')->name(
-                'admin.settings.delivery'
-            );
-
-            //content
-            Route::group(['prefix' => '/content'], function (){
-                Route::get('', 'AdminPanel\AdminController@showSettingsContent')->name(
-                    'admin.settings.content'
+        Route::group(
+            ['prefix' => '/settings'],
+            function () {
+                Route::get('', 'AdminPanel\AdminController@showSettings')->name(
+                    'admin.settings'
                 );
 
-                //banners
-                Route::get('/banner/{position}', 'AdminPanel\AdminController@getBanner')->name(
-                    'admin.settings.banner'
-                );
-                Route::post('/banner/{position}', 'AdminPanel\AdminController@updateBanner')->name(
-                    'admin.settings.updateBanner'
+                //delivery
+                Route::get('/delivery', 'AdminPanel\AdminController@getDeliveryTypes')->name(
+                    'admin.settings.deliveryTypes'
                 );
 
-                //store info content
-                Route::get('/{slug}', 'AdminPanel\AdminController@getStoreInfoForm')->name(
-                    'admin.settings.storeInfo'
-                );
-                Route::post('/{slug}', 'AdminPanel\AdminController@updateStoreInfo')->name(
-                    'admin.settings.updateStoreInfo'
+                Route::get('/delivery/{slug}', 'AdminPanel\AdminController@getDeliveryType')->name(
+                    'admin.settings.deliveryType'
                 );
 
-            });
+                Route::post('/delivery/{slug}', 'AdminPanel\AdminController@updateDeliveryType')->name(
+                    'admin.settings.updateDeliveryType'
+                );
 
-        });
+
+                //manufacturer
+                Route::get('/manufacturers', 'AdminPanel\AdminController@getManufacturers')->name(
+                    'admin.settings.manufacturers'
+                );
+
+//                Route::get('/delivery/{slug}', 'AdminPanel\AdminController@getDeliveryType')->name(
+//                    'admin.settings.deliveryType'
+//                );
+//
+//                Route::post('/delivery/{slug}', 'AdminPanel\AdminController@updateDeliveryType')->name(
+//                    'admin.settings.updateDeliveryType'
+//                );
+
+                //content
+                Route::group(
+                    ['prefix' => '/content'],
+                    function () {
+                        Route::get('', 'AdminPanel\AdminController@showSettingsContent')->name(
+                            'admin.settings.content'
+                        );
+
+                        //banners
+                        Route::get('/banner/{position}', 'AdminPanel\AdminController@getBanner')->name(
+                            'admin.settings.banner'
+                        );
+                        Route::post('/banner/{position}', 'AdminPanel\AdminController@updateBanner')->name(
+                            'admin.settings.updateBanner'
+                        );
+
+                        //store info content
+                        Route::get('/{slug}', 'AdminPanel\AdminController@getStoreInfoForm')->name(
+                            'admin.settings.storeInfo'
+                        );
+                        Route::post('/{slug}', 'AdminPanel\AdminController@updateStoreInfo')->name(
+                            'admin.settings.updateStoreInfo'
+                        );
+                    }
+                );
+            }
+        );
     }
 );
 
@@ -163,7 +189,9 @@ Route::post('/change_count', 'BasketController@changeCount')->name('changeCount'
 
 Route::post('/get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
 
-Route::post('/create_order', 'OrderController@createOrder')->middleware(['checkOnCreateDoubleOrder', 'inStock'])->name('createOrder');
+Route::post('/create_order', 'OrderController@createOrder')->middleware(['checkOnCreateDoubleOrder', 'inStock'])->name(
+    'createOrder'
+);
 
 Route::post('/add_to_wishlist', 'WishListController@addOrDelete')->name('addToWishList');
 

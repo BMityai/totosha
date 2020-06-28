@@ -207,88 +207,22 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function getDeliveryTypes()
+    {
+        $deliveryTypes = $this->service->getDeliveryTypes();
+        return view('admin.settings.deliveryTypes', ['deliveryTypes' => $deliveryTypes]);
+    }
 
-//    public function getAboutUsForm()
-//    {
-//        $aboutUs = $this->service->getAboutUsContent();
-//        return view('admin.settings.aboutUs', ['aboutUs' => $aboutUs]);
-//    }
-//
-//    public function updateAboutUsContent(Request $request)
-//    {
-//        $this->service->updateAboutUsContent($request->all());
-//        return redirect()->back();
-//    }
-//
-//    public function getPaymentAndDeliveryForm()
-//    {
-//        $paymentAndDeliveryForm = $this->service->getPaymentAndDeliveryForm();
-//        return view('admin.settings.paymentsAndDelivery', ['paymentAndDeliveryForm' => $paymentAndDeliveryForm]);
-//    }
-//
-//    public function updatePaymentAndDeliveryContent(Request $request)
-//    {
-//        $this->service->updatePaymentAndDeliveryContent($request->all());
-//        return redirect()->back();
-//    }
-//
-//    public function getPurchaseReturnsForm()
-//    {
-//        $purchaseReturn = $this->service->getPurchaseReturnsForm();
-//        return view('admin.settings.purchaseReturns', ['purchaseReturn' => $purchaseReturn]);
-//    }
-//
-//    public function updatePurchaseReturnsContent(Request $request)
-//    {
-//        $this->service->updatePurchaseReturnsContent($request->all());
-//        return redirect()->back();
-//    }
-//
-//    public function getHowToMakeAnOrderForm()
-//    {
-//        $howToMakeAnOrderBlock = $this->service->getHowToMakeAnOrder();
-//        return view('admin.settings.howToMakeAnOrder', ['howToMakeAnOrderBlock' => $howToMakeAnOrderBlock]);
-//    }
-//
-//    public function updateHowToMakeAnOrderContent(Request $request)
-//    {
-//        $this->service->updateHowToMakeAnOrderContent($request->all());
-//        return redirect()->back();
-//    }
-//
-//    public function getLoyaltyProgramForm()
-//    {
-//        $loyaltyProgramBlock = $this->service->getLoyaltyProgram();
-//        return view('admin.settings.loyaltyProgram', ['loyaltyProgramBlock' => $loyaltyProgramBlock]);
-//    }
-//
-//    public function updateLoyaltyProgramContent(Request $request)
-//    {
-//        $this->service->updateLoyaltyProgramContent($request->all());
-//        return redirect()->back();
-//    }
-//
-//    public function getContactsForm()
-//    {
-//        $contactsBlock = $this->service->getContacts();
-//        return view('admin.settings.contacts', ['contactsBlock' => $contactsBlock]);
-//    }
-//
-//    public function updateContactsContent(Request $request)
-//    {
-//        $this->service->updateContactsContent($request->all());
-//        return redirect()->back();
-//    }
-//
-//    public function getWholesalesForm()
-//    {
-//        $wholesalesBlock = $this->service->getWholesales();
-//        return view('admin.settings.wholesales', ['wholesalesBlock' => $wholesalesBlock]);
-//    }
-//
-//    public function updateWholesalesContent(Request $request)
-//    {
-//        $this->service->updateWholesalesContent($request->all());
-//        return redirect()->back();
-//    }
+    public function getDeliveryType($slug)
+    {
+        $deliveryType = $this->service->getDeliveryTypeBySlug($slug);
+        return view('admin.settings.deliveryType', ['deliveryType' => $deliveryType]);
+    }
+
+    public function updateDeliveryType(Request $request, $slug)
+    {
+        $this->service->updateDeliveryType($request->all(), $slug);
+        return redirect()->back();
+    }
+
 }
