@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
          $this->call(ManufacturerSeeder::class);
          $this->call(MaterialSeeder::class);
          $this->call(BannerSeeder::class);
-        $this->call(ContentSettingsSeeder::class);
+         $this->call(ContentSettingsSeeder::class);
     }
 }

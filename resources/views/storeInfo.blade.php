@@ -4,7 +4,7 @@
 @section('content')
     <div class="container mt-16 ">
         <div class="cartIco w-5/6 mx-auto">
-            <img src="{{ asset('images/about_us/about_us.png') }}" alt="">
+            <img src="{{ asset('images/logos/info_logo.png') }}" alt="">
         </div>
 
         <div class="breadCrumbs">

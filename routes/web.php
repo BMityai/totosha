@@ -104,62 +104,6 @@ Route::group(
                     'admin.settings.updateStoreInfo'
                 );
 
-//                //about us
-//                Route::get('/about_us', 'AdminPanel\AdminController@getAboutUsForm')->name(
-//                    'admin.settings.aboutUs'
-//                );
-//                Route::post('/about_us', 'AdminPanel\AdminController@updateAboutUsContent')->name(
-//                    'admin.settings.updateAboutUsContent'
-//                );
-//
-//                //payment and delivery
-//                Route::get('/payment_and_delivery', 'AdminPanel\AdminController@getPaymentAndDeliveryForm')->name(
-//                    'admin.settings.deliveryAndPayment'
-//                );
-//                Route::post('/payment_and_delivery', 'AdminPanel\AdminController@updatePaymentAndDeliveryContent')->name(
-//                    'admin.settings.updatePaymentAndDeliveryContent'
-//                );
-//
-//                //purchase returns
-//                Route::get('/purchase_returns', 'AdminPanel\AdminController@getPurchaseReturnsForm')->name(
-//                    'admin.settings.purchaseReturns'
-//                );
-//                Route::post('/purchase_returns', 'AdminPanel\AdminController@updatePurchaseReturnsContent')->name(
-//                    'admin.settings.updatePurchaseReturns'
-//                );
-//
-//                //howToMakeAnOrder
-//                Route::get('/how_to_make_an_order', 'AdminPanel\AdminController@getHowToMakeAnOrderForm')->name(
-//                    'admin.settings.howToMakeAnOrder'
-//                );
-//                Route::post('/how_to_make_an_order', 'AdminPanel\AdminController@updateHowToMakeAnOrderContent')->name(
-//                    'admin.settings.updateHowToMakeAnOrder'
-//                );
-//
-//                //loyalty program
-//                Route::get('/loyalty_program', 'AdminPanel\AdminController@getLoyaltyProgramForm')->name(
-//                    'admin.settings.loyaltyProgram'
-//                );
-//                Route::post('/loyalty_program', 'AdminPanel\AdminController@updateLoyaltyProgramContent')->name(
-//                    'admin.settings.updateLoyaltyProgram'
-//                );
-//
-//                //contacts
-//                Route::get('/contacts', 'AdminPanel\AdminController@getContactsForm')->name(
-//                    'admin.settings.contacts'
-//                );
-//                Route::post('/contacts', 'AdminPanel\AdminController@updateContactsContent')->name(
-//                    'admin.settings.updateContacts'
-//                );
-//
-//                //wholesales
-//                Route::get('/wholesales', 'AdminPanel\AdminController@getWholesalesForm')->name(
-//                    'admin.settings.wholesales'
-//                );
-//                Route::post('/wholesales', 'AdminPanel\AdminController@updateWholesalesContent')->name(
-//                    'admin.settings.updateWholesales'
-//                );
-
             });
 
         });
@@ -194,21 +138,7 @@ Route::post('/search', 'SearchController@search')->name('search');
 
 Route::get('wishlist', 'WishListController@get')->name('wishList');
 
-Route::get('/{slug}', 'HomeController@getStoreInfo')->name('getStoreInfo');
-
-//Route::get('about_us', 'HomeController@getAboutUs')->name('aboutUs');
-//
-//Route::get('payment_and_delivery', 'HomeController@getPaymentAndDelivery')->name('paymentAndDelivery');
-//
-//Route::get('purchase_returns', 'HomeController@getPurchaseReturns')->name('purchaseReturns');
-//
-//Route::get('how_to_make_an_order', 'HomeController@getHowToMakeAnOrder')->name('howToMakeAnOrder');
-//
-//Route::get('loyalty_program', 'HomeController@getLoyaltyProgram')->name('loyaltyProgram');
-//
-//Route::get('contacts', 'HomeController@getContacts')->name('contacts');
-//
-//Route::get('wholesales', 'HomeController@getWholesales')->name('wholesales');
+Route::get('/info/{slug}', 'HomeController@getStoreInfo')->name('getStoreInfo');
 
 Route::get('basket', 'BasketController@getBasket')->name('basket');
 
