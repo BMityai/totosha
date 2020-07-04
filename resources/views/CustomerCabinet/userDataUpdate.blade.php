@@ -43,11 +43,11 @@
                         <p class="mt-4">email</p>
                         <input
                             type="email"
-                            class="block border @error('email') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
-                            name="email" value="{{ old('email') ?? auth()->user()->email }}"
+                            class="block border @error('mail') border-red-400 @else border-gray-300 @enderror w-full p-1 text-xl rounded"
+                            name="email" value="{{ old('mail') ?? auth()->user()->email }}"
                             placeholder="Email"/>
 
-                        @error('email')
+                        @error('mail')
                         <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
                         @enderror
 

@@ -98,13 +98,86 @@ Route::group(
                     'admin.settings.manufacturers'
                 );
 
-//                Route::get('/delivery/{slug}', 'AdminPanel\AdminController@getDeliveryType')->name(
-//                    'admin.settings.deliveryType'
-//                );
-//
-//                Route::post('/delivery/{slug}', 'AdminPanel\AdminController@updateDeliveryType')->name(
-//                    'admin.settings.updateDeliveryType'
-//                );
+                Route::get('/manufacturer/{id}', 'AdminPanel\AdminController@getManufacturer')->name(
+                    'admin.settings.manufacturer'
+                );
+
+                Route::post('/manufacturer/{id}', 'AdminPanel\AdminController@updateManufacturer')->name(
+                    'admin.settings.updateManufacturer'
+                );
+
+                Route::get('/add_manufacturer', 'AdminPanel\AdminController@getAddManufacturerForm')->name(
+                    'admin.settings.getAddManufacturerForm'
+                );
+
+                Route::post('/add_manufacturer', 'AdminPanel\AdminController@addManufacturer')->name(
+                    'admin.settings.addManufacturer'
+                );
+
+                //material
+                Route::get('/materials', 'AdminPanel\AdminController@getMaterials')->name(
+                    'admin.settings.materials'
+                );
+
+                Route::get('/material/{id}', 'AdminPanel\AdminController@getMaterial')->name(
+                    'admin.settings.material'
+                );
+
+                Route::post('/material/{id}', 'AdminPanel\AdminController@updateMaterial')->name(
+                    'admin.settings.updateMaterial'
+                );
+
+                Route::get('/add_material', 'AdminPanel\AdminController@getMaterialForm')->name(
+                    'admin.settings.getAddMaterialForm'
+                );
+
+                Route::post('/add_material', 'AdminPanel\AdminController@addMaterial')->name(
+                    'admin.settings.addMaterial'
+                );
+
+                //region
+                Route::get('/regions', 'AdminPanel\AdminController@getRegions')->name(
+                    'admin.settings.regions'
+                );
+
+                Route::get('/region/{id}', 'AdminPanel\AdminController@getRegion')->name(
+                    'admin.settings.region'
+                );
+
+                Route::post('/region/{id}', 'AdminPanel\AdminController@updateRegion')->name(
+                    'admin.settings.updateRegion'
+                );
+
+                Route::get('/add_region', 'AdminPanel\AdminController@getRegionForm')->name(
+                    'admin.settings.getAddRegionForm'
+                );
+
+                Route::post('/add_region', 'AdminPanel\AdminController@addRegion')->name(
+                    'admin.settings.addRegion'
+                );
+
+
+                //age
+                Route::get('/ages', 'AdminPanel\AdminController@getAges')->name(
+                    'admin.settings.ages'
+                );
+
+                Route::get('/age/{id}', 'AdminPanel\AdminController@getAge')->name(
+                    'admin.settings.age'
+                );
+
+                Route::post('/age/{id}', 'AdminPanel\AdminController@updateAge')->name(
+                    'admin.settings.updateAge'
+                );
+
+                Route::get('/add_age', 'AdminPanel\AdminController@getAgeForm')->name(
+                    'admin.settings.getAddAgeForm'
+                );
+
+                Route::post('/add_age', 'AdminPanel\AdminController@addAge')->name(
+                    'admin.settings.addAge'
+                );
+
 
                 //content
                 Route::group(

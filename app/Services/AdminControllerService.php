@@ -98,7 +98,7 @@ class AdminControllerService
         $result['order_status_id'] = $order->order_status_id != $data['orderStatus'] ? $data['orderStatus'] : false;
         $result['name']            = $order->name != $data['customerName'] ? $data['customerName'] : false;
         $result['phone']           = $order->phone != $data['customerPhone'] ? $data['customerPhone'] : false;
-        $result['email']           = $order->email != $data['customerEmail'] ? $data['customerEmail'] : false;
+        $result['mail']           = $order->email != $data['customerEmail'] ? $data['customerEmail'] : false;
         $result['region_id']       = $order->region_id != $data['deliveryRegion'] ? $data['deliveryRegion'] : false;
         $result['district']        = $order->district != $data['deliveryDistrict'] ? $data['deliveryDistrict'] : false;
         $result['city']            = $order->city != $data['deliveryCity'] ? $data['deliveryCity'] : false;
@@ -358,4 +358,63 @@ class AdminControllerService
         $this->dbRepository->updateDeliveryType($data, $slug);
     }
 
+    public function getManufacturer(int $id): object
+    {
+        return $this->dbRepository->getManufacturerById($id);
+    }
+
+    public function updateManufacturer(array $data, int $id): void
+    {
+        $this->dbRepository->updateManufacturer($data, $id);
+    }
+
+    public function createManufacturer(array $data):void
+    {
+        $this->dbRepository->createManufacturer($data);
+    }
+
+    public function getMaterialById(int $id): object
+    {
+        return $this->dbRepository->getMaterialById($id);
+    }
+
+    public function updateMaterial(array $data, int $id): void
+    {
+        $this->dbRepository->updateMaterial($data, $id);
+    }
+
+    public function createMaterial(array $data): void
+    {
+        $this->dbRepository->createMaterial($data);
+    }
+
+    public function getRegion(int $id): object
+    {
+        return $this->dbRepository->getRegion($id);
+    }
+
+    public function updateRegion(array $data, int $id): void
+    {
+        $this->dbRepository->updateRegion($data, $id);
+    }
+
+    public function addRegion(array $data): void
+    {
+        $this->dbRepository->addRegion($data);
+    }
+
+    public function getAge(int $id)
+    {
+        return $this->dbRepository->getAge($id);
+    }
+
+    public function updateAge(array $data, int $id): void
+    {
+        $this->dbRepository->updateAge($data, $id);
+    }
+
+    public function createAge(array $data):void
+    {
+        $this->dbRepository->createAge($data);
+    }
 }

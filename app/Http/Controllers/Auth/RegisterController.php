@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'email/verify';
+    protected $redirectTo = 'mail/verify';
 
     /**
      * Create a new controller instance.
@@ -81,9 +81,9 @@ class RegisterController extends Controller
             'required'           => 'Обязательное поле для заполнения',
             'name.string'        => 'Поле имя должно содержать только буквы',
             'correct_birth_date' => 'Неверная дата рождения',
-            'email'              => 'Введите корректный email',
+            'mail'              => 'Введите корректный mail',
             'confirmed'          => 'Пароли не совпадают',
-            'email.unique'       => 'Пользователь с таким email зарегистрирован',
+            'mail.unique'       => 'Пользователь с таким mail зарегистрирован',
             'phone.unique'       => 'Пользователь с таким номером зарегистрирован',
             'phone.max'          => 'Неверный номер телефона',
             'phone.min'          => 'Неверный номер телефона',
@@ -97,7 +97,7 @@ class RegisterController extends Controller
                 'name'      => ['required', 'string', 'max:20', 'min:2'],
                 'birthDate' => ['required', 'string', 'max:10', 'correctBirthDate'],
                 'phone'     => ['required', 'string', 'max:18', 'min:18', 'unique:users'],
-                'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'mail'     => ['required', 'string', 'mail', 'max:255', 'unique:users'],
                 'password'  => ['required', 'string', 'min:8', 'confirmed'],
             ],
             $messages
@@ -117,7 +117,7 @@ class RegisterController extends Controller
             [
                 'name'       => $data['name'],
                 'phone'      => $data['phone'],
-                'email'      => $data['email'],
+                'mail'      => $data['mail'],
                 'birth_date' => $birthDate,
                 'password'   => Hash::make($data['password']),
             ]

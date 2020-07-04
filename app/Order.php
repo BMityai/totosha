@@ -12,7 +12,7 @@ class Order extends Model
         'name',
         'surname',
         'phone',
-        'email',
+        'mail',
         'region_id',
         'district',
         'city',

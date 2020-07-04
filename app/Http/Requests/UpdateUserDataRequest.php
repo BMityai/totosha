@@ -27,11 +27,11 @@ class UpdateUserDataRequest extends FormRequest
         $rules = [
             'name'     => ['required', 'string', 'max:20', 'min:2'],
             'phone'    => ['required', 'string', 'max:18', 'min:18', 'unique:users'],
-            'email'    => 'required|email|max:255|unique:users,email'
+            'mail'    => 'required|mail|max:255|unique:users,mail'
         ];
 
         if($this->route()->named('updateUserData')){
-            $rules['email'] .= ',' . Auth::user()->id;
+            $rules['mail'] .= ',' . Auth::user()->id;
         }
 
         return $rules;
@@ -42,8 +42,8 @@ class UpdateUserDataRequest extends FormRequest
         return [
             'required'           => 'Обязательное поле для заполнения',
             'name.string'        => 'Поле имя должно содержать только буквы',
-            'email'              => 'Введите корректный email',
-            'email.unique'       => 'Пользователь с таким email зарегистрирован',
+            'mail'              => 'Введите корректный mail',
+            'mail.unique'       => 'Пользователь с таким mail зарегистрирован',
             'phone.unique'       => 'Пользователь с таким номером зарегистрирован',
             'phone.max'          => 'Неверный номер телефона',
             'phone.min'          => 'Неверный номер телефона',

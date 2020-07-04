@@ -23,8 +23,7 @@
                     @foreach($storeInfo as $info)
                     <a href="{{ route('getStoreInfo', $info->slug) }}"><p class="opacity-75 hover:opacity-100 mt-4">{{ $info->title }}</p></a>
                     @endforeach
-{{--                    <a href="{{ route('aboutUs') }}"><p class="opacity-75 hover:opacity-100 mt-4">О нас</p></a>--}}
-{{--                    <a href="{{ route('getReviews') }}"><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>--}}
+                    <a href="{{ route('getReviews') }}"><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>
 {{--                    <a href="{{ route('paymentAndDelivery') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>--}}
 {{--                    <a href="{{ route('purchaseReturns') }}"><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>--}}
 {{--                    <a href="{{ route('howToMakeAnOrder') }}"><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>--}}
@@ -109,9 +108,9 @@
                             Email
                         </label>
                         <input
-                            class="shadow appearance-none border @error('email') border-red-500 @enderror rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="emailForm" name="email" type="text" placeholder="Email" value="{{old('email')}}">
-                        @error('email')
+                            class="shadow appearance-none border @error('mail') border-red-500 @enderror rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="emailForm" name="email" type="text" placeholder="Email" value="{{old('mail')}}">
+                        @error('mail')
                         <span class="text-red-700 font-bold text-base italic" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -185,7 +184,7 @@
         Ошибка авторизации
     </div>
     <div
-        class="loginErrorMsg text-lg shadow-md rounded pt-12 bg-red-700 fixed z-10 text-white w-full text-center text-bold @error('email') block @else hidden @enderror">
+        class="loginErrorMsg text-lg shadow-md rounded pt-12 bg-red-700 fixed z-10 text-white w-full text-center text-bold @error('mail') block @else hidden @enderror">
         Ошибка авторизации
     </div>
     <div

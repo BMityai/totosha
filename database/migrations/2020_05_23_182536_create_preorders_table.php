@@ -16,7 +16,7 @@ class CreatePreordersTable extends Migration
         Schema::create('preorders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->nullable();
+            $table->string('mail')->nullable();
             $table->string('phone')->nullable();
             $table->string('product_name');
             $table->string('product_link')->nullable();

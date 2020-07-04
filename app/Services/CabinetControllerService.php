@@ -39,7 +39,7 @@ class CabinetControllerService
      */
     public function updateUserData(array $data): bool
     {
-        $isNotChangeEmail = $this->checkIsNotChangeEmail($data['email']);
+        $isNotChangeEmail = $this->checkIsNotChangeEmail($data['mail']);
         $this->dbRepository->updateUserData($data, $isNotChangeEmail);
         return $isNotChangeEmail;
     }

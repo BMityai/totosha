@@ -204,7 +204,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'user_id'          => $userId,
                 'name'             => $params['name'],
                 'phone'            => $params['phone'],
-                'email'            => $params['customerEmail'],
+                'mail'            => $params['customerEmail'],
                 'region_id'        => (int)$params['region'],
                 'district'         => $params['district'],
                 'city'             => $params['city'],
@@ -338,7 +338,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'  => $data['name'],
                 'phone' => Helpers::getCleanPhone($data['phone']),
-                'email' => $data['email'],
+                'mail' => $data['mail'],
 
             ]
         );
@@ -367,7 +367,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'                => $data['name'],
                 'phone'               => $data['phone'],
-                'email'               => $data['customerEmail'],
+                'mail'               => $data['customerEmail'],
                 'product_name'        => $data['productName'],
                 'product_link'        => $data['productLink'],
                 'product_description' => $data['productDescription'],
@@ -375,16 +375,16 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         );
     }
 
-    public function createReview(array $data): void
+    public function createReview(array $data): object
     {
         if (Auth::check()) {
             $userId = Auth::user()->id;
         } else {
             $userId = null;
         }
-        $productId = isset($data['productId']) ?? null;
+        $productId = $data['productId'] ?? null;
 
-        Review::create(
+        return Review::create(
             [
                 'name'       => $data['name'],
                 'product_id' => $productId,
@@ -727,9 +727,9 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             $customersQuery->where('phone', 'like', "%{$phone}%");
         }
 
-        if (!empty($filter['email'])) {
-            $email = $filter['email'];
-            $customersQuery->where('email', 'like', "%{$email}%");
+        if (!empty($filter['mail'])) {
+            $email = $filter['mail'];
+            $customersQuery->where('mail', 'like', "%{$email}%");
         }
 
         if (!empty($filter['status'])) {
@@ -755,7 +755,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'       => $data['name'],
                 'phone'      => $data['phone'],
-                'email'      => $data['email'],
+                'mail'      => $data['mail'],
                 'bonus'      => $data['bonus'],
                 'birth_date' => $data['birth_date'],
                 'is_active'  => $data['is_active']
@@ -928,4 +928,104 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         }
     }
 
+    public function getManufacturerById(int $id): object
+    {
+        return Manufacturer::find($id);
+    }
+
+    public function updateManufacturer(array $data, int $id): void
+    {
+        $manufacturer = $this->getManufacturerById($id);
+        $manufacturer->update(
+            [
+                'country' => $data['country']
+            ]
+        );
+    }
+
+    public function createManufacturer(array $data): void
+    {
+        Manufacturer::create(
+            [
+                'country' => $data['country']
+            ]
+        );
+    }
+
+    public function getMaterialById(int $id): object
+    {
+        return Material::find($id);
+    }
+
+    public function updateMaterial(array $data, int $id): void
+    {
+        $material = $this->getMaterialById($id);
+        $material->update(
+            [
+                'name' => $data['name']
+            ]
+        );
+    }
+
+    public function createMaterial(array $data): void
+    {
+        Material::create(
+            [
+                'name' => $data['name']
+            ]
+        );
+    }
+
+    public function getRegion(int $id)
+    {
+        return Region::find($id);
+    }
+
+    public function updateRegion(array $data, int $id): void
+    {
+        $region = $this->getRegion($id);
+        $region->update(
+            [
+                'region' => $data['name']
+            ]
+        );
+    }
+
+    public function addRegion(array $data): void
+    {
+        Region::create(
+            [
+                'region' => $data['name']
+            ]
+        );
+    }
+
+    public function getAge(int $id)
+    {
+        return Age::find($id);
+    }
+
+    public function updateAge(array $data, int $id): void
+    {
+        $age = $this->getAge($id);
+        $age->update(
+            [
+                'age' => $data['age']
+            ]
+        );
+    }
+
+    public function createAge(array $data): void
+    {
+        Age::create(
+            [
+                'age' => $data['age']
+            ]
+        );
+    }
+
+    public function getAdmins():object
+    {
+        return User::where('is_admin', true)->get();
+    }
 }

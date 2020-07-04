@@ -225,4 +225,119 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function getManufacturers()
+    {
+        $manufacturers = $this->service->getManufacturers();
+        return view('admin.settings.manufacturers', ['manufacturers' => $manufacturers]);
+    }
+
+    public function getManufacturer($id)
+    {
+        $manufacturer = $this->service->getManufacturer($id);
+        return view('admin.settings.manufacturer', ['manufacturer' => $manufacturer]);
+    }
+
+    public function updateManufacturer(Request $request, $id)
+    {
+        $this->service->updateManufacturer($request->all(), $id);
+        return redirect()->back();
+    }
+
+    public function getAddManufacturerForm()
+    {
+        return view('admin.settings.addManufacturerForm');
+    }
+
+    public function addManufacturer(Request $request)
+    {
+        $this->service->createManufacturer($request->all());
+        return redirect()->route('admin.settings.manufacturers');
+    }
+
+    public function getMaterials()
+    {
+        $materials = $this->service->getMaterials();
+        return view('admin.settings.materials', ['materials' => $materials]);
+    }
+
+    public function getMaterial($id)
+    {
+        $material = $this->service->getMaterialById($id);
+        return view('admin.settings.material', ['material' => $material]);
+    }
+
+    public function updateMaterial(Request $request, $id)
+    {
+        $this->service->updateMaterial($request->all(), $id);
+        return redirect()->back();
+    }
+
+    public function getMaterialForm()
+    {
+        return view('admin.settings.addMaterialForm');
+    }
+
+    public function addMaterial(Request $request)
+    {
+        $this->service->createMaterial($request->all());
+        return redirect()->back();
+    }
+
+    public function getRegions()
+    {
+        $regions = $this->service->getRegions();
+        return view('admin.settings.regions', ['regions' => $regions]);
+    }
+
+    public function getRegion(int $id)
+    {
+        $region = $this->service->getRegion($id);
+        return view('admin.settings.region', ['region' => $region]);
+    }
+
+    public function updateRegion(Request $request, int $id)
+    {
+        $this->service->updateRegion($request->all(), $id);
+    }
+
+    public function getRegionForm()
+    {
+        return view('admin.settings.addRegionForm');
+    }
+
+    public function addRegion(Request $request)
+    {
+        $this->service->addRegion($request->all());
+        return redirect()->back();
+    }
+
+    public function getAges()
+    {
+        $ages = $this->service->getAges();
+        return view('admin.settings.ages', ['ages' => $ages]);
+    }
+
+    public function getAge(int $id)
+    {
+        $age = $this->service->getAge($id);
+        return view('admin.settings.age', ['age' => $age]);
+    }
+
+    public function getAgeForm()
+    {
+        return view('admin.settings.addAgeForm');
+    }
+
+    public function updateAge(Request $request, int $id)
+    {
+        $this->service->updateAge($request->all(), $id);
+        return redirect()->back();
+    }
+
+    public function addAge(Request $request)
+    {
+        $this->service->createAge($request->all());
+        return redirect()->back();
+    }
+
 }

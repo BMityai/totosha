@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\SendEmailHelper;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
 
 class HomeControllerService
@@ -10,6 +11,10 @@ class HomeControllerService
      * @var MainEloquentRepositoryInterface
      */
     private $dbRepository;
+    /**
+     * @var SendEmailHelper
+     */
+    private $sendEmail;
 
     /**
      * HomeControllerService constructor.
@@ -18,6 +23,7 @@ class HomeControllerService
     public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
+        $this->sendEmail = new SendEmailHelper($this->dbRepository);
     }
 
     /**
@@ -92,7 +98,8 @@ class HomeControllerService
      */
     public function createReview(array $data): void
     {
-        $this->dbRepository->createReview($data);
+        $review = $this->dbRepository->createReview($data);
+        $this->sendEmail->sendEmailToAdmins('comment', $review);
     }
 
     /**
@@ -138,39 +145,4 @@ class HomeControllerService
     {
         return $this->dbRepository->getStoreInfoBySlug($slug);
     }
-
-//    public function getAboutUsContent(): object
-//    {
-//        return $this->dbRepository->getAboutUsContent();
-//    }
-//
-//    public function getPaymentAndDelivery(): object
-//    {
-//        return $this->dbRepository->getPaymentAndDelivery();
-//    }
-//
-//    public function getPurchaseReturns(): object
-//    {
-//        return $this->dbRepository->getPurchaseReturns();
-//    }
-//
-//    public function getHowToMakeAnOrder(): object
-//    {
-//        return $this->dbRepository->getHowToMakeAnOrder();
-//    }
-//
-//    public function getLoyaltyProgram(): object
-//    {
-//        return $this->dbRepository->getLoyaltyProgram();
-//    }
-//
-//    public function getContacts(): object
-//    {
-//        return $this->dbRepository->getContacts();
-//    }
-//
-//    public function getWholesales():object
-//    {
-//        return $this->dbRepository->getWholesales();
-//    }
 }

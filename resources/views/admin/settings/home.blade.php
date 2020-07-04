@@ -39,7 +39,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/3 sm:hidden">Параметр: </span>Производители</td>
                          <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
-                            <a href="">Редактировать</a>
+                            <a href="{{ route('admin.settings.manufacturers') }}">Редактировать</a>
                         </td>
                     </tr>
 
@@ -49,7 +49,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/3 sm:hidden">Параметр: </span>Материал</td>
                          <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
-                            <a href="">Редактировать</a>
+                            <a href="{{ route('admin.settings.materials') }}">Редактировать</a>
                         </td>
                     </tr>
                 <!--Regions-->
@@ -58,7 +58,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/3 sm:hidden">Параметр: </span>Регионы</td>
                          <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
-                            <a href="">Редактировать</a>
+                            <a href="{{ route('admin.settings.regions') }}">Редактировать</a>
                         </td>
                     </tr>
 
@@ -68,7 +68,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/3 sm:hidden">Параметр: </span>Возраст</td>
                          <td class="p-1 sm:p-3 text-center rounded sm:rounded-none bg-blue-700 sm:bg-transparent hover:font-medium cursor-pointer">
-                            <a href="">Редактировать</a>
+                            <a href="{{ route('admin.settings.ages') }}">Редактировать</a>
                         </td>
                     </tr>
 

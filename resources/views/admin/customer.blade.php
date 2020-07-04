@@ -40,9 +40,9 @@
                         <div class="flex mt-2">
                             <span class="w-1/3 text-sm self-center">Email</span>
                             <div class="w-2/3">
-                                <input type="text" name="email" value="{{ !empty(old('email')) ? old('email') : $customer->email }}"
-                                       class="p-1 w-full bg-transparent border @error('email') border-red-700 @else border-white text-white @enderror rounded">
-                                @error('email')
+                                <input type="text" name="email" value="{{ !empty(old('mail')) ? old('mail') : $customer->email }}"
+                                       class="p-1 w-full bg-transparent border @error('mail') border-red-700 @else border-white text-white @enderror rounded">
+                                @error('mail')
                                 <p class="text-center text-red-700 text-sm">{{ $message }}</p>
                                 @enderror
                             </div>
