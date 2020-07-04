@@ -8,11 +8,11 @@
 </head>
 <body>
 
-<header style="height: 100px; width: 100%; background-color: #2b6cb0">
-    <div class="logoMenu w-1/2 z-10 ml-auto mr-auto opacity-75 hover:opacity-100">
+<header style="height: 100px; width: 100%; background-color: #2b6cb0; border-radius: 10px">
+    <div style="height: 100%;text-align: center">
         <a href="{{ route('home') }}" class="inline-block">
             <img src="{{ asset('images/logos/logo_center_teddy.png') }}" alt=""
-                 class="opacity-75 hover:opacity-100">
+                 style="height: 100%">
         </a>
     </div>
 </header>
