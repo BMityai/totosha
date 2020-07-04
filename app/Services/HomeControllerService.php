@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Helpers\SendEmailHelper;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
+use App\Reposotories\TelegramApiRepository\TelegramApiRepositoryInterface;
 
 class HomeControllerService
 {
@@ -11,19 +12,26 @@ class HomeControllerService
      * @var MainEloquentRepositoryInterface
      */
     private $dbRepository;
+
     /**
      * @var SendEmailHelper
      */
     private $sendEmail;
 
     /**
+     * @var TelegramApiRepositoryInterface
+     */
+    private $telegramApiRepository;
+
+    /**
      * HomeControllerService constructor.
      * @param MainEloquentRepositoryInterface $mainEloquentRepository
+     * @param TelegramApiRepositoryInterface $telegramApiRepository
      */
-    public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
+    public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository, TelegramApiRepositoryInterface $telegramApiRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
-        $this->sendEmail = new SendEmailHelper($this->dbRepository);
+        $this->telegramApiRepository = $telegramApiRepository;
     }
 
     /**
@@ -99,7 +107,7 @@ class HomeControllerService
     public function createReview(array $data): void
     {
         $review = $this->dbRepository->createReview($data);
-        $this->sendEmail->sendEmailToAdmins('review', $review);
+        $this->telegramApiRepository->sendMessage('review', $review);
     }
 
     /**

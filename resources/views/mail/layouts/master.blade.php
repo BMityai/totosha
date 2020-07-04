@@ -9,13 +9,14 @@
 <body>
 
 <div style="height:100px; width:100%; max-width:600px; background-color: #2b6cb0; border-radius: 10px">
-    <div style="height: 100%;text-align: center">
+    <div style="height: 100%;text-align: center;padding: 10px">
         <a href="{{ route('home') }}" class="inline-block">
             <img src="{{ asset('images/logos/logo_center_teddy.png') }}" height="80" alt=""
                  style="height:80px">
         </a>
     </div>
 </div>
+
 <div style="padding: 5px">
 
 @yield('content')

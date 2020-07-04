@@ -6,6 +6,7 @@ use App\Http\Requests\FilterRequest;
 use App\Http\Requests\PreorderRequest;
 use App\Http\Requests\ProductReviewRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
+use App\Reposotories\TelegramApiRepository\TelegramApiRepository;
 use App\Services\HomeControllerService;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -23,7 +24,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->service = new HomeControllerService(new MainEloquentRepository());
+        $this->service = new HomeControllerService(new MainEloquentRepository(), new TelegramApiRepository());
     }
 
     /**

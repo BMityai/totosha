@@ -7,7 +7,6 @@ use App\Age;
 use App\Banner;
 use App\Basket;
 use App\Category;
-use App\CategoryImage;
 use App\Contact;
 use App\ContentSetting;
 use App\DeliveryType;
