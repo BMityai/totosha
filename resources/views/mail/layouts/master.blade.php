@@ -11,8 +11,8 @@
 <div style="height: 100px; width: 100%; background-color: #2b6cb0; border-radius: 10px">
     <div style="height: 100%;text-align: center">
         <a href="{{ route('home') }}" class="inline-block">
-            <code style="height: 80%;"><img src="{{ asset('images/logos/logo_center_teddy.png') }}" alt=""
-                 style="height: 80%"></code>
+            <code>height: 80%</code><img src="{{ asset('images/logos/logo_center_teddy.png') }}" alt=""
+                 style="height: 80%">
         </a>
     </div>
 </div>
