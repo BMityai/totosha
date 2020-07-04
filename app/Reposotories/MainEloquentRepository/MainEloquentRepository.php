@@ -197,14 +197,18 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function createOrder(array $params, string $orderNumber, int $totalPrice, int $deliveryPrice): object
     {
         $userId     = Auth::check() ? Auth::user()->id : null;
-        $spentBonus = $params['spentBonus'] ?? 0;
+        if (Auth::check()) {
+            $spentBonus = $params['spentBonus'] ?? 0;
+        } else {
+            $spentBonus = 0;
+        }
         return Order::create(
             [
                 'number'           => $orderNumber,
                 'user_id'          => $userId,
                 'name'             => $params['name'],
                 'phone'            => $params['phone'],
-                'mail'            => $params['customerEmail'],
+                'email'            => $params['customerEmail'],
                 'region_id'        => (int)$params['region'],
                 'district'         => $params['district'],
                 'city'             => $params['city'],

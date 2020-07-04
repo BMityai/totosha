@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Helpers\Helpers;
+use App\Helpers\SendEmailHelper;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
+use Illuminate\Support\Facades\Auth;
 
 class OrderControllerService
 {
@@ -17,6 +19,10 @@ class OrderControllerService
      * @var BasketControllerService
      */
     private $basketControllerService;
+    /**
+     * @var SendEmailHelper
+     */
+    private $sendEmail;
 
     /**
      * OrderControllerService constructor.
@@ -26,6 +32,7 @@ class OrderControllerService
     {
         $this->dbRepository = $mainEloquentRepository;
         $this->basketControllerService = new BasketControllerService(new MainEloquentRepository());
+        $this->sendEmail = new SendEmailHelper($this->dbRepository);
     }
 
     /**
@@ -42,6 +49,7 @@ class OrderControllerService
         $newOrder = $this->dbRepository->createOrder($params, $orderNumber, $totalPrice, $deliveryPrice);
         $this->createOrderProducts($newOrder->id);
         $this->updateUserBonus($newOrder->spent_bonus);
+        $this->sendEmail->sendEmailToCustomer('order', $newOrder);
         return $orderNumber;
     }
 
@@ -68,7 +76,9 @@ class OrderControllerService
      */
     private function updateUserBonus(int $spentBonus): void
     {
-        $this->dbRepository->updateUserBonusAfterCreateOrder($spentBonus);
+        if (Auth::check()){
+            $this->dbRepository->updateUserBonusAfterCreateOrder($spentBonus);
+        }
     }
 
 }

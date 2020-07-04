@@ -3,7 +3,8 @@
 
 namespace App\Helpers;
 
-use App\Mail\SendMail;
+use App\Mail\SendMailToAdmin;
+use App\Mail\SendMailToCustomer;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
 use Illuminate\Support\Facades\Mail;
@@ -24,13 +25,14 @@ class SendEmailHelper
     public function sendEmailToAdmins(string $event, object $data)
     {
         $adminEmails = $this->getAdminEmails();
-        $this->sendEmail($event, $data, $adminEmails);
+        foreach ($adminEmails as $email) {
+            Mail::to($email)->send(new SendMailToAdmin($event, $data));
+        };
     }
 
     public function sendEmailToCustomer(string $event, object $data)
     {
-        $emails = $data->email;
-        $this->sendEmail($event, $data, [$emails]);
+        Mail::to($data->email)->send(new SendMailToCustomer($event, $data));
     }
 
     private function getAdminEmails():array
@@ -41,12 +43,5 @@ class SendEmailHelper
             array_push($emails, $admin->email);
         }
         return $emails;
-    }
-
-    public function sendEmail(string $event, object $data, array $emailAddresses)
-    {
-        foreach ($emailAddresses as $email) {
-            Mail::to($email)->send(new SendMail($event, $data));
-        }
     }
 }

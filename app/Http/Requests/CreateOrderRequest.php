@@ -35,7 +35,7 @@ class CreateOrderRequest extends FormRequest
             'spentBonus'    => ['numeric', 'max:' . $totalPrice,  new SpentBonusCheckRule($this->request->get('spentBonus'))],
             'name'          => ['required', 'string', 'min:2', 'max:20'],
             'phone'         => ['required', 'string', 'min:18', 'max:18'],
-            'customerEmail' => ['required', 'mail'],
+            'customerEmail' => ['required', 'email'],
             'region'        => ['required', 'numeric', new DeliveryLocationRule($this->request->get('region'))],
             'district'      => ['string', 'min:2'],
             'city'          => ['string', 'min:2'],

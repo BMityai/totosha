@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class SendMailToCustomer extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -39,6 +39,22 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.toAdmin.newReview')->subject('Новый отзыв')->with(['review'=>$this->data]);
+        if ( $this->event == 'review') {
+            return $this->sendEmailAboutCreateNewReview();
+        }
+        if ( $this->event == 'order') {
+            return $this->sendEmailAboutCreateNewOrder();
+        }
+        return null;
+    }
+
+    private function sendEmailAboutCreateNewReview()
+    {
+        return $this->view('mail.toCustomer.newReview')->subject('Новый отзыв')->with(['review'=>$this->data]);
+    }
+
+    private function sendEmailAboutCreateNewOrder()
+    {
+        return $this->view('mail.toCustomer.newOrder')->subject('Новый заказ')->with(['order'=>$this->data]);
     }
 }

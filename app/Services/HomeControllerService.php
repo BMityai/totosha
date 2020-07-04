@@ -99,7 +99,7 @@ class HomeControllerService
     public function createReview(array $data): void
     {
         $review = $this->dbRepository->createReview($data);
-        $this->sendEmail->sendEmailToAdmins('comment', $review);
+        $this->sendEmail->sendEmailToAdmins('review', $review);
     }
 
     /**
