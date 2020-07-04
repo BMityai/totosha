@@ -1,21 +1,29 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
-
-<header style="height: 100px; width: 100%; background-color: #2b6cb0; border-radius: 10px">
-    <div style="height: 100%;text-align: center">
-        <a href="{{ route('home') }}" class="inline-block">
-            <img src="{{ asset('images/logos/logo_center_teddy.png') }}" alt=""
-                 style="height: 100%">
-        </a>
+@extends('mail.layouts.master')
+@section('content')
+    <h2>Шеф, поступил новый отзыв. Может стоить ответить?</h2>
+    <div style="display: flex">
+        <p style="font-weight: 600; width: 70px">Имя: </p>
+        <p>{{ $review->name }}</p>
     </div>
-</header>
 
-</body>
-</html>
+    <div style="display: flex">
+        <p style="font-weight: 600; width: 70px">Продукт: </p>
+        <p>
+            <a href="{{ !is_null($review->product_id) ? route('product', ['category' => $review->product->category->slug, 'product' => $review->product->slug]) : route('getReviews') }}">
+                {{ !is_null($review->product_id) ? $review->product->name : 'О магазине' }}
+            </a>
+        </p>
+    </div>
+
+    <div style="display: flex">
+        <p style="font-weight: 600; width: 70px">Создан: </p>
+        <p>{{ $review->created_at }}</p>
+    </div>
+
+    <div>
+        <p style="font-weight: 600">Отзыв: </p>
+        <p>{{ $review->review }}</p>
+    </div>
+
+@endsection
+
