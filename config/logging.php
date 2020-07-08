@@ -41,6 +41,17 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'sendmail' => [
+            'driver' => 'stack',
+            'channels' => ['sendmailfile', 'stdout'],
+            'ignore_exceptions' => false,
+        ],
+        'sendmailfile' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/sendmail.log'),
+            'level' => 'debug',
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

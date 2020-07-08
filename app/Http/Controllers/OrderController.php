@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateOrderRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
+use App\Reposotories\TelegramApiRepository\TelegramApiRepository;
 use App\Services\OrderControllerService;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class OrderController extends Controller
 
     public function __construct()
     {
-        $this->service = new OrderControllerService(new MainEloquentRepository());
+        $this->service = new OrderControllerService(new MainEloquentRepository(), new TelegramApiRepository());
     }
 
     public function createOrder(CreateOrderRequest $request)

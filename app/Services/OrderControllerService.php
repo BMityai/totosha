@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\Helpers;
 use App\Helpers\SendEmailHelper;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
+use App\Reposotories\TelegramApiRepository\TelegramApiRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
 class OrderControllerService
@@ -23,16 +24,22 @@ class OrderControllerService
      * @var SendEmailHelper
      */
     private $sendEmail;
+    /**
+     * @var TelegramApiRepositoryInterface
+     */
+    private $telegramApiRepository;
 
     /**
      * OrderControllerService constructor.
      * @param MainEloquentRepository $mainEloquentRepository
+     * @param TelegramApiRepositoryInterface $telegramApiRepository
      */
-    public function __construct(MainEloquentRepository $mainEloquentRepository)
+    public function __construct(MainEloquentRepository $mainEloquentRepository, TelegramApiRepositoryInterface $telegramApiRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
         $this->basketControllerService = new BasketControllerService(new MainEloquentRepository());
         $this->sendEmail = new SendEmailHelper($this->dbRepository);
+        $this->telegramApiRepository = $telegramApiRepository;
     }
 
     /**
@@ -49,6 +56,7 @@ class OrderControllerService
         $newOrder = $this->dbRepository->createOrder($params, $orderNumber, $totalPrice, $deliveryPrice);
         $this->createOrderProducts($newOrder->id);
         $this->updateUserBonus($newOrder->spent_bonus);
+        $this->telegramApiRepository->sendMessage('order', $newOrder);
         $this->sendEmail->sendEmailToCustomer('order', $newOrder);
         return $orderNumber;
     }

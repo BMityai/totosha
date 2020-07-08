@@ -82,6 +82,9 @@ class TelegramApiRepository implements TelegramApiRepositoryInterface
 
     private function getMessageAboutNewOrder(object $data): string
     {
-        return 'new order';
+        $region = $data->region->region;
+        $paymentForm = $data->paymentForm->name;
+        $totalSum = $data->total_sum + $data->delivery_price;
+        return "<b>Новый заказ</b> \n<b>Номер:</b> $data->number \n<b>Сумма:</b> $totalSum тг \n<b>Область:</b> $region \n<b>Форма оплаты:</b> $paymentForm \n<b>Создан:</b> $data->created_at \n<b>Комментарий:</b> \n$data->comment \n ";
     }
 }

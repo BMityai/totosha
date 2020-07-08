@@ -83,7 +83,7 @@
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/4 sm:hidden">Номер: </span>{{ $order->number }}</td>
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
-                                class="w-1/4 sm:hidden">Сумма: </span>{{ $order->total_sum }}<span
+                                class="w-1/4 sm:hidden">Сумма: </span>{{ $order->total_sum + $order->delivery_price }}<span
                                 class="text-sm"> ₸</span></td>
                         <td class="p-1 sm:p-3 flex sm:table-cell"><span
                                 class="w-1/4 sm:hidden">Дата: </span>{{ $order->created_at }}</td>

@@ -55,6 +55,6 @@ class SendMailToCustomer extends Mailable
 
     private function sendEmailAboutCreateNewOrder()
     {
-        return $this->view('mail.toCustomer.newOrder')->subject('Новый заказ')->with(['order'=>$this->data]);
+        return $this->view('mail.toCustomer.newOrder')->subject('Информация о заказе')->with(['order'=>$this->data]);
     }
 }
