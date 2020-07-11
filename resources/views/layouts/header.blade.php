@@ -108,9 +108,9 @@
                             Email
                         </label>
                         <input
-                            class="shadow appearance-none border @error('mail') border-red-500 @enderror rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="emailForm" name="email" type="text" placeholder="Email" value="{{old('mail')}}">
-                        @error('mail')
+                            class="shadow appearance-none border @error('email') border-red-500 @enderror rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="emailForm" name="email" type="text" placeholder="Email" value="{{old('email')}}">
+                        @error('email')
                         <span class="text-red-700 font-bold text-base italic" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -184,9 +184,10 @@
         Ошибка авторизации
     </div>
     <div
-        class="loginErrorMsg text-lg shadow-md rounded pt-12 bg-red-700 fixed z-10 text-white w-full text-center text-bold @error('mail') block @else hidden @enderror">
+        class="loginErrorMsg text-lg shadow-md rounded pt-12 bg-red-700 fixed z-10 text-white w-full text-center text-bold @error('email') block @else hidden @enderror">
         Ошибка авторизации
     </div>
+
     <div
         class="succesVerify text-lg shadow-md rounded pt-12 bg-green-500 fixed z-10 text-white w-full text-center text-bold @if(session('emailVerify')) block @else hidden @endif">
         Поздравляем. Верификация прошла успешно.
