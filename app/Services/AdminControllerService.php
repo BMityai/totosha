@@ -3,8 +3,10 @@
 
 namespace App\Services;
 
+use App\Helpers\BonusCalcHelper;
 use App\Helpers\Helpers;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -15,6 +17,10 @@ class AdminControllerService
      * @var MainEloquentRepositoryInterface
      */
     private $dbRepository;
+    /**
+     * @var BonusCalcHelper
+     */
+    private $bonusHelper;
 
     /**
      * AdminControllerService constructor.
@@ -23,6 +29,7 @@ class AdminControllerService
     public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
+        $this->bonusHelper = new BonusCalcHelper();
     }
 
     /**
@@ -88,8 +95,16 @@ class AdminControllerService
     {
         $order        = $this->dbRepository->getOrderById($orderId);
         $changeFields = $this->getOrderChangeFields($order, $data);
+        $this->updateCustomerBonuses($order, $changeFields);
         $this->dbRepository->updateOrder($order, $changeFields);
         return $order;
+    }
+
+    private function updateCustomerBonuses(object $order, array $changeFields): void
+    {
+        if ($changeFields['order_status_id'] == 4 && !is_null($order->user_id)) {
+            $this->dbRepository->updateCustomerBonuses($order->user_id, $order->received_bonus);
+        }
     }
 
     private function getOrderChangeFields(object $order, array $data): array

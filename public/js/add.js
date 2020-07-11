@@ -527,6 +527,7 @@ function totalPriceCalculate() {
     totalPriceElements.forEach((element) => {
         cartTotalPrice += parseInt(element.textContent.split(' ')[0]);
     })
+
     if (mainCartTotalPriceContent) {
         let mainCartAmountPrice = document.getElementById('mainCartAmountPrice')
         let deliveryPrice = document.getElementById('deliveryPrice').textContent;
@@ -540,7 +541,7 @@ function totalPriceCalculate() {
             let bonusValue = receivedBonus.dataset.bonus;
             let summ = cartTotalPrice + parseInt(deliveryPrice) - parseInt(spentBonusValue);
             mainCartAmountPrice.textContent = summ + ' ₸';
-            receivedBonus.textContent = '+ ' + Math.round(cartTotalPrice * parseInt(bonusValue) / 100) + ' ₸';
+            receivedBonus.textContent = '+ ' + Math.round((cartTotalPrice-parseInt(spentBonusValue)) * bonusValue / 100) + ' ₸';
         } else {
             mainCartAmountPrice.textContent = cartTotalPrice + parseInt(deliveryPrice) + ' ₸'
         }
@@ -610,10 +611,8 @@ function getDeliveryPrice() {
                 'X-CSRF-TOKEN': csrf_token
             }).then(response => {
                 if (response.status === 200) {
-                    console.log('ok')
                     let deliveryPrice = response.data;
                     deliveryPriceEl.textContent = deliveryPrice + ' ₸';
-                    console.log(deliveryPriceInForm);
                     deliveryPriceInForm.classList.remove('hidden');
                     deliveryPriceInForm.textContent = 'Стоимость доставки: ' + deliveryPrice + ' ₸';
                     totalPriceCalculate();

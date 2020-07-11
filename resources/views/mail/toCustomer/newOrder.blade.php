@@ -491,7 +491,7 @@
                                                         <tr style="border-collapse:collapse">
                                                             <td style="padding:0;Margin:0;text-align:right;font-size:18px;line-height:27px">
                                                                 <p style="Margin:0;font-size:18px;font-family:arial,'helvetica neue',helvetica,sans-serif;line-height:27px;color:#333333">
-                                                                    <strong>Оплачено бонусами:</strong></p>
+                                                                    <strong>Оплата бонусами:</strong></p>
                                                             </td>
                                                             <td style="padding:0;Margin:0;text-align:right;font-size:18px;line-height:27px;color:#008000">
                                                                 <p style="Margin:0;font-size:14px;font-family:arial,'helvetica neue',helvetica,sans-serif;line-height:21px;color:#333333">

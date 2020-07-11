@@ -53,12 +53,25 @@ class OrderControllerService
         $orderNumber = Helpers::generateOrderNumber((int)$params['region']);
         $totalPrice = $this->basketControllerService->getTotalPrice();
         $deliveryPrice = $this->basketControllerService->getDeliveryPrice($params['region'], $params['deliveryType']);
-        $newOrder = $this->dbRepository->createOrder($params, $orderNumber, $totalPrice, $deliveryPrice);
+        $receivedBonus = $this->getReceivedBonuses($params['spentBonus'], $totalPrice, $deliveryPrice);
+        $newOrder = $this->dbRepository->createOrder($params, $orderNumber, $totalPrice, $deliveryPrice, $receivedBonus);
         $this->createOrderProducts($newOrder->id);
         $this->updateUserBonus($newOrder->spent_bonus);
         $this->telegramApiRepository->sendMessage('order', $newOrder);
         $this->sendEmail->sendEmailToCustomer('order', $newOrder);
         return $orderNumber;
+    }
+
+    private function getReceivedBonuses(int $spentBonus, int $totalSum, int $deliveryPrice): int
+    {
+        $bonusCoefficient = $this->basketControllerService->getBonusCoefficient();
+
+        if (Auth::check()){
+            $receivedBonus = round(($totalSum - $spentBonus) * $bonusCoefficient / 100);
+        } else {
+            $receivedBonus = 0;
+        }
+        return $receivedBonus;
     }
 
     /**

@@ -124,7 +124,7 @@
                     </div>
                     <div class="flex mt-2 font-bold">
                         <span class="w-1/3 self-center">Итого</span>
-                        <input type="text" disabled value="{{ $order->delivery_price + $order->total_sum }}"
+                        <input type="text" disabled value="{{ $order->delivery_price + $order->total_sum }} - {{ $order->spent_bonus }} = {{ $order->delivery_price + $order->total_sum - $order->spent_bonus }}"
                                class="text-gray-700 p-1 w-2/3 bg-transparent border border-gray-700 rounded">
                     </div>
 

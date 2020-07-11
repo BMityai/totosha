@@ -193,9 +193,14 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
      * @param int $deliveryPrice
      * @return object
      */
-    public function createOrder(array $params, string $orderNumber, int $totalPrice, int $deliveryPrice): object
-    {
-        $userId     = Auth::check() ? Auth::user()->id : null;
+    public function createOrder(
+        array $params,
+        string $orderNumber,
+        int $totalPrice,
+        int $deliveryPrice,
+        int $receivedBonus
+    ): object {
+        $userId = Auth::check() ? Auth::user()->id : null;
         if (Auth::check()) {
             $spentBonus = $params['spentBonus'] ?? 0;
         } else {
@@ -217,6 +222,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'delivery_type_id' => (int)$params['deliveryType'],
                 'payment_form_id'  => (int)$params['paymentType'],
                 'comment'          => $params['comment'],
+                'received_bonus'   => $receivedBonus,
                 'spent_bonus'      => $spentBonus,
                 'total_sum'        => $totalPrice,
                 'delivery_price'   => $deliveryPrice,
@@ -341,7 +347,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'  => $data['name'],
                 'phone' => Helpers::getCleanPhone($data['phone']),
-                'mail' => $data['mail'],
+                'mail'  => $data['mail'],
 
             ]
         );
@@ -370,7 +376,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'                => $data['name'],
                 'phone'               => $data['phone'],
-                'mail'               => $data['customerEmail'],
+                'mail'                => $data['customerEmail'],
                 'product_name'        => $data['productName'],
                 'product_link'        => $data['productLink'],
                 'product_description' => $data['productDescription'],
@@ -758,7 +764,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'       => $data['name'],
                 'phone'      => $data['phone'],
-                'mail'      => $data['mail'],
+                'mail'       => $data['mail'],
                 'bonus'      => $data['bonus'],
                 'birth_date' => $data['birth_date'],
                 'is_active'  => $data['is_active']
@@ -989,7 +995,8 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         $region = $this->getRegion($id);
         $region->update(
             [
-                'region' => $data['name']
+                'region' => $data['name'],
+                'is_active' => $data['is_active']
             ]
         );
     }
@@ -1027,8 +1034,15 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         );
     }
 
-    public function getAdmins():object
+    public function getAdmins(): object
     {
         return User::where('is_admin', true)->get();
+    }
+
+    public function updateCustomerBonuses(int $userId, int $receivedBonus): void
+    {
+        $user = User::find($userId);
+        $user->bonus += $receivedBonus;
+        $user->save();
     }
 }

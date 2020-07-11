@@ -298,6 +298,7 @@ class AdminController extends Controller
     public function updateRegion(Request $request, int $id)
     {
         $this->service->updateRegion($request->all(), $id);
+        return redirect()->back();
     }
 
     public function getRegionForm()
