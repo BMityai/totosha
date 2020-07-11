@@ -153,4 +153,9 @@ class HomeControllerService
     {
         return $this->dbRepository->getStoreInfoBySlug($slug);
     }
+
+    public function saveAdminReview(int $reviewId, array $data): void
+    {
+        $this->dbRepository->saveAdminReview($reviewId, $data);
+    }
 }

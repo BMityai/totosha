@@ -213,6 +213,7 @@ Route::group(
 Route::get('/preorder_form', 'HomeController@getPreorderForm')->name('getRequestForm');
 Route::post('/create_preorder', 'HomeController@createPreorder')->name('createPreorder');
 Route::post('/create_comment', 'HomeController@createComment')->name('createComment');
+Route::post('/create_admin_comment/{reviewId}', 'HomeController@createAdminComment')->name('adminComment')->middleware('isAdmin');
 Route::get('/coming_soon', 'HomeController@getComingSoonProducts')->name('getComingSoonProducts');
 Route::get('/sales', 'HomeController@getSalesProducts')->name('getSalesProducts');
 Route::get('/reviews', 'HomeController@getReviews')->name('getReviews');

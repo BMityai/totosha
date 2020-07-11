@@ -28,7 +28,20 @@ class CabinetControllerService
      */
     public function getCustomerOrders(): object
     {
-        return Auth::user()->orders;
+        return $this->dbRepository->getOrders(Auth::user()->id);
+
+    }
+
+
+    /**
+     * Get completed all orders
+     *
+     * @return object
+     */
+    public function getCompletedOrders(): object
+    {
+        return $this->dbRepository->getCompletedOrders(Auth::user()->id);
+
     }
 
     /**
@@ -39,7 +52,7 @@ class CabinetControllerService
      */
     public function updateUserData(array $data): bool
     {
-        $isNotChangeEmail = $this->checkIsNotChangeEmail($data['mail']);
+        $isNotChangeEmail = $this->checkIsNotChangeEmail($data['email']);
         $this->dbRepository->updateUserData($data, $isNotChangeEmail);
         return $isNotChangeEmail;
     }

@@ -79,7 +79,6 @@ function addToCart(event) {
         'productId': product_id,
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
-        console.log(response.status)
         if (response.status === 200) {
             if (operation === 'add') {
                 addMiniCartComponentToMiniCartItemsContent(response.data);
@@ -321,7 +320,6 @@ function wishList(event) {
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
         if (response.status === 200) {
-            console.log('ok')
 
         }
     });
@@ -384,7 +382,6 @@ function wishlistProductPage(event) {
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
         if (response.status === 200) {
-            console.log('ok')
         }
     });
 
@@ -626,6 +623,18 @@ function getDeliveryPrice() {
         }
     }
 }
+
+function getAdminCommentForm(event) {
+    let button = event.target;
+    let id = button.dataset.id;
+    let form = document.getElementById('adminReviewForm_' + id);
+    if (form.classList.contains('hidden')) {
+        form.classList.remove('hidden');
+        button.text = 'Скрыть форму'
+    } else {
+        form.classList.add('hidden');
+        button.text = 'Ответить'
+    }}
 
 
 

@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('name');
             $table->string('surname')->nullable();
             $table->string('phone');
-            $table->string('mail');
+            $table->string('email');
             $table->integer('region_id');
             $table->string('district')->nullable();
             $table->string('city')->nullable();

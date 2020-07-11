@@ -17,9 +17,9 @@
 {{--                            <label for="mail" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>--}}
 
 {{--                            <div class="col-md-6">--}}
-{{--                                <input id="mail" type="mail" class="form-control @error('mail') is-invalid @enderror" name="mail" value="{{ $mail ?? old('mail') }}" required autocomplete="mail" autofocus>--}}
+{{--                                <input id="mail" type="mail" class="form-control @error('email') is-invalid @enderror" name="mail" value="{{ $mail ?? old('email') }}" required autocomplete="mail" autofocus>--}}
 
-{{--                                @error('mail')--}}
+{{--                                @error('email')--}}
 {{--                                    <span class="invalid-feedback" role="alert">--}}
 {{--                                        <strong>{{ $message }}</strong>--}}
 {{--                                    </span>--}}
@@ -76,11 +76,11 @@
                     <p class="mt-4">email</p>
                     <input
                         type="email"
-                        class="block border @error('mail') border-red-400 @else border-blue-400 @enderror w-full p-1 text-xl rounded"
-                        name="email" value="{{ $email ?? old('mail') }}"
+                        class="block border @error('email') border-red-400 @else border-blue-400 @enderror w-full p-1 text-xl rounded"
+                        name="email" value="{{ $email ?? old('email') }}"
                         placeholder="Email"/>
 
-                    @error('mail')
+                    @error('email')
                     <p class="text-red-600 text-center -mb-4">{{ $message }}</p>
                     @enderror
 

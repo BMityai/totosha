@@ -29,7 +29,7 @@ class CabinetController extends Controller
 
     public function getBonus()
     {
-        $orders = $this->service->getCustomerOrders();
+        $orders = $this->service->getCompletedOrders();
         return view('CustomerCabinet.bonusHistory', ['orders' => $orders]);
     }
 

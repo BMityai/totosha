@@ -347,7 +347,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'  => $data['name'],
                 'phone' => Helpers::getCleanPhone($data['phone']),
-                'mail'  => $data['mail'],
+                'email' => $data['email'],
 
             ]
         );
@@ -376,7 +376,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'                => $data['name'],
                 'phone'               => $data['phone'],
-                'mail'                => $data['customerEmail'],
+                'email'               => $data['customerEmail'],
                 'product_name'        => $data['productName'],
                 'product_link'        => $data['productLink'],
                 'product_description' => $data['productDescription'],
@@ -432,7 +432,9 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
      */
     public function getReviews(): object
     {
-        return Review::all()->sortByDesc('created_at');
+        return Review::query()
+            ->orderByDesc('created_at')
+            ->simplePaginate(40);
     }
 
     /**
@@ -736,9 +738,9 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             $customersQuery->where('phone', 'like', "%{$phone}%");
         }
 
-        if (!empty($filter['mail'])) {
-            $email = $filter['mail'];
-            $customersQuery->where('mail', 'like', "%{$email}%");
+        if (!empty($filter['email'])) {
+            $email = $filter['email'];
+            $customersQuery->where('email', 'like', "%{$email}%");
         }
 
         if (!empty($filter['status'])) {
@@ -764,7 +766,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             [
                 'name'       => $data['name'],
                 'phone'      => $data['phone'],
-                'mail'       => $data['mail'],
+                'email'      => $data['email'],
                 'bonus'      => $data['bonus'],
                 'birth_date' => $data['birth_date'],
                 'is_active'  => $data['is_active']
@@ -995,7 +997,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         $region = $this->getRegion($id);
         $region->update(
             [
-                'region' => $data['name'],
+                'region'    => $data['name'],
                 'is_active' => $data['is_active']
             ]
         );
@@ -1041,8 +1043,41 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
 
     public function updateCustomerBonuses(int $userId, int $receivedBonus): void
     {
-        $user = User::find($userId);
+        $user        = User::find($userId);
         $user->bonus += $receivedBonus;
         $user->save();
+    }
+
+    public function getOrders(int $userId): object
+    {
+        return Order::query()
+            ->where('user_id', $userId)
+            ->orderByDesc('created_at')
+            ->simplePaginate(20);
+    }
+
+    public function getCompletedOrders(int $userId): object
+    {
+        return Order::query()
+            ->where('user_id', $userId)
+            ->where('order_status_id', 4)
+            ->orderByDesc('created_at')
+            ->simplePaginate(20);
+    }
+
+    public function saveAdminReview(int $reviewId, array $data): void
+    {
+        $review = Review::find($reviewId);
+        $review->update(
+            [
+                'admin_review' => $data['review']
+            ]
+        );
+    }
+
+    public function updateOrderPaymentField(object $order, bool $value): void
+    {
+        $order->is_paid = $value;
+        $order->save();
     }
 }

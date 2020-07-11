@@ -38,7 +38,7 @@ class PreorderRequest extends FormRequest
         return [
             'required'  => 'Обязательное для заполнения поле',
             'string'    => 'Неправильный формат',
-            'mail'     => 'Введите корректный mail',
+            'email'     => 'Введите корректный mail',
             'phone.max' => 'Неверный номер телефона',
             'phone.min' => 'Неверный номер телефона',
             'name.min'  => 'Имя должно содержать не менее :min букв',

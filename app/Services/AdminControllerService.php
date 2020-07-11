@@ -96,6 +96,7 @@ class AdminControllerService
         $order        = $this->dbRepository->getOrderById($orderId);
         $changeFields = $this->getOrderChangeFields($order, $data);
         $this->updateCustomerBonuses($order, $changeFields);
+        $this->updatePaymentField($order, $changeFields);
         $this->dbRepository->updateOrder($order, $changeFields);
         return $order;
     }
@@ -107,13 +108,20 @@ class AdminControllerService
         }
     }
 
+    private function updatePaymentField(object $order, array $changeFields): void
+    {
+        if ($changeFields['order_status_id'] == 4){
+            $this->dbRepository->updateOrderPaymentField($order, true);
+        }
+    }
+
     private function getOrderChangeFields(object $order, array $data): array
     {
         $result                    = [];
         $result['order_status_id'] = $order->order_status_id != $data['orderStatus'] ? $data['orderStatus'] : false;
         $result['name']            = $order->name != $data['customerName'] ? $data['customerName'] : false;
         $result['phone']           = $order->phone != $data['customerPhone'] ? $data['customerPhone'] : false;
-        $result['mail']           = $order->email != $data['customerEmail'] ? $data['customerEmail'] : false;
+        $result['email']           = $order->email != $data['customerEmail'] ? $data['customerEmail'] : false;
         $result['region_id']       = $order->region_id != $data['deliveryRegion'] ? $data['deliveryRegion'] : false;
         $result['district']        = $order->district != $data['deliveryDistrict'] ? $data['deliveryDistrict'] : false;
         $result['city']            = $order->city != $data['deliveryCity'] ? $data['deliveryCity'] : false;
