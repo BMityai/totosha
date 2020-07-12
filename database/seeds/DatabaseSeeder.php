@@ -20,12 +20,6 @@ class DatabaseSeeder extends Seeder
          $this->call(ManufacturerSeeder::class);
          $this->call(MaterialSeeder::class);
          $this->call(BannerSeeder::class);
-         $this->call(AboutUsSeeder::class);
-         $this->call(PaymentAndDeliverySeeder::class);
-         $this->call(PurchaseReturns::class);
-         $this->call(HowToMakeAnOrderSeeder::class);
-         $this->call(LoyaltyProgramSeeder::class);
-         $this->call(ContactsSeeder::class);
-         $this->call(WholesaleSeeder::class);
+         $this->call(ContentSettingsSeeder::class);
     }
 }

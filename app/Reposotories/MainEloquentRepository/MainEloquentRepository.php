@@ -7,8 +7,8 @@ use App\Age;
 use App\Banner;
 use App\Basket;
 use App\Category;
-use App\CategoryImage;
 use App\Contact;
+use App\ContentSetting;
 use App\DeliveryType;
 use App\Helpers\Helpers;
 use App\HowToMakeAnOrder;
@@ -56,16 +56,27 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         return Category::where('is_active', true)->get();
     }
 
-    public function getActiveNewProducts()
+    public function getActiveLastProducts(int $count)
     {
-        return Product::where('is_active', true)->where('new', true)->get();
+        return Product::orderBy('id', 'desc')->take($count)->get();;
+    }
+
+    public function getProductsAddedInTheLastThreeMonths(string $date)
+    {
+        return Product::query()
+        ->where('is_active', true)
+        ->where('created_at', '>', $date)
+        ->get();
     }
 
     public function getActiveRecommendedProducts()
     {
-        return Product::where('is_active', true)
+        return Product::query()
+            ->where('is_active', true)
             ->where('recommended', true)
-            ->get();
+            ->get()
+            ->shuffle()
+            ->take(50);
     }
 
     public function getActiveProductBySlug($slug)
@@ -188,13 +199,24 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
      * Create order
      *
      * @param array $params
-     * @param int $orderNumber
+     * @param string $orderNumber
+     * @param int $totalPrice
+     * @param int $deliveryPrice
      * @return object
      */
-    public function createOrder(array $params, string $orderNumber, int $totalPrice, int $deliveryPrice): object
-    {
-        $userId     = Auth::check() ? Auth::user()->id : null;
-        $spentBonus = $params['spentBonus'] ?? 0;
+    public function createOrder(
+        array $params,
+        string $orderNumber,
+        int $totalPrice,
+        int $deliveryPrice,
+        int $receivedBonus
+    ): object {
+        $userId = Auth::check() ? Auth::user()->id : null;
+        if (Auth::check()) {
+            $spentBonus = $params['spentBonus'] ?? 0;
+        } else {
+            $spentBonus = 0;
+        }
         return Order::create(
             [
                 'number'           => $orderNumber,
@@ -211,6 +233,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'delivery_type_id' => (int)$params['deliveryType'],
                 'payment_form_id'  => (int)$params['paymentType'],
                 'comment'          => $params['comment'],
+                'received_bonus'   => $receivedBonus,
                 'spent_bonus'      => $spentBonus,
                 'total_sum'        => $totalPrice,
                 'delivery_price'   => $deliveryPrice,
@@ -372,16 +395,16 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         );
     }
 
-    public function createReview(array $data): void
+    public function createReview(array $data): object
     {
         if (Auth::check()) {
             $userId = Auth::user()->id;
         } else {
             $userId = null;
         }
-        $productId = isset($data['productId']) ?? null;
+        $productId = $data['productId'] ?? null;
 
-        Review::create(
+        return Review::create(
             [
                 'name'       => $data['name'],
                 'product_id' => $productId,
@@ -420,7 +443,9 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
      */
     public function getReviews(): object
     {
-        return Review::all()->sortByDesc('created_at');
+        return Review::query()
+            ->orderByDesc('created_at')
+            ->simplePaginate(40);
     }
 
     /**
@@ -885,5 +910,185 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
                 'content' => $data['content']
             ]
         );
+    }
+
+
+    public function getStoreInfo(): object
+    {
+        return ContentSetting::all();
+    }
+
+    public function getStoreInfoBySlug(string $slug): object
+    {
+        return ContentSetting::where('slug', $slug)->first();
+    }
+
+    public function updateStoreInfo(array $data, string $slug): void
+    {
+        $storeInfo = $this->getStoreInfoBySlug($slug);
+        $storeInfo->update(
+            [
+                'content' => $data['content']
+            ]
+        );
+    }
+
+    public function getDeliveryTypeBySlug(string $slug): object
+    {
+        return DeliveryType::where('code', $slug)->first();
+    }
+
+    public function updateDeliveryType(array $data, string $slug): void
+    {
+        $deliveryType = $this->getDeliveryTypeBySlug($slug);
+        foreach ($deliveryType->getTarif as $type) {
+            $type->update(
+                [
+                    'price' => $data['price'][$type->id]
+                ]
+            );
+        }
+    }
+
+    public function getManufacturerById(int $id): object
+    {
+        return Manufacturer::find($id);
+    }
+
+    public function updateManufacturer(array $data, int $id): void
+    {
+        $manufacturer = $this->getManufacturerById($id);
+        $manufacturer->update(
+            [
+                'country' => $data['country']
+            ]
+        );
+    }
+
+    public function createManufacturer(array $data): void
+    {
+        Manufacturer::create(
+            [
+                'country' => $data['country']
+            ]
+        );
+    }
+
+    public function getMaterialById(int $id): object
+    {
+        return Material::find($id);
+    }
+
+    public function updateMaterial(array $data, int $id): void
+    {
+        $material = $this->getMaterialById($id);
+        $material->update(
+            [
+                'name' => $data['name']
+            ]
+        );
+    }
+
+    public function createMaterial(array $data): void
+    {
+        Material::create(
+            [
+                'name' => $data['name']
+            ]
+        );
+    }
+
+    public function getRegion(int $id)
+    {
+        return Region::find($id);
+    }
+
+    public function updateRegion(array $data, int $id): void
+    {
+        $region = $this->getRegion($id);
+        $region->update(
+            [
+                'region'    => $data['name'],
+                'is_active' => $data['is_active']
+            ]
+        );
+    }
+
+    public function addRegion(array $data): void
+    {
+        Region::create(
+            [
+                'region' => $data['name']
+            ]
+        );
+    }
+
+    public function getAge(int $id)
+    {
+        return Age::find($id);
+    }
+
+    public function updateAge(array $data, int $id): void
+    {
+        $age = $this->getAge($id);
+        $age->update(
+            [
+                'age' => $data['age']
+            ]
+        );
+    }
+
+    public function createAge(array $data): void
+    {
+        Age::create(
+            [
+                'age' => $data['age']
+            ]
+        );
+    }
+
+    public function getAdmins(): object
+    {
+        return User::where('is_admin', true)->get();
+    }
+
+    public function updateCustomerBonuses(int $userId, int $receivedBonus): void
+    {
+        $user        = User::find($userId);
+        $user->bonus += $receivedBonus;
+        $user->save();
+    }
+
+    public function getOrders(int $userId): object
+    {
+        return Order::query()
+            ->where('user_id', $userId)
+            ->orderByDesc('created_at')
+            ->simplePaginate(20);
+    }
+
+    public function getCompletedOrders(int $userId): object
+    {
+        return Order::query()
+            ->where('user_id', $userId)
+            ->where('order_status_id', 4)
+            ->orderByDesc('created_at')
+            ->simplePaginate(20);
+    }
+
+    public function saveAdminReview(int $reviewId, array $data): void
+    {
+        $review = Review::find($reviewId);
+        $review->update(
+            [
+                'admin_review' => $data['review']
+            ]
+        );
+    }
+
+    public function updateOrderPaymentField(object $order, bool $value): void
+    {
+        $order->is_paid = $value;
+        $order->save();
     }
 }

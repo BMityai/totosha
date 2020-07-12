@@ -6,6 +6,8 @@ use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
+use function foo\func;
+
 class ViewShareServiseProvider extends ServiceProvider
 {
     /**
@@ -28,6 +30,7 @@ class ViewShareServiseProvider extends ServiceProvider
         $this->GetCategories();
         $this->GetRecommendProducts();
         $this->getCartInfo();
+        $this->getStoreInfoContent();
     }
 
     private function GetCategories()
@@ -39,13 +42,14 @@ class ViewShareServiseProvider extends ServiceProvider
                 'searchResult',
                 'comingSoon',
                 'sales',
-                'aboutUs',
-                'paymentAndDelivery',
-                'purchaseReturns',
-                'howToMakeAnOrder',
-                'loyaltyProgram',
-                'contacts',
-                'wholesales',
+                'storeInfo',
+//                'aboutUs',
+//                'paymentAndDelivery',
+//                'purchaseReturns',
+//                'howToMakeAnOrder',
+//                'loyaltyProgram',
+//                'contacts',
+//                'wholesales',
             ],
             function ($view) {
                 $mainDbRepository = new MainEloquentRepository();
@@ -74,6 +78,17 @@ class ViewShareServiseProvider extends ServiceProvider
                 $view->with('cartInfo', $mainDbRepository->getCartInfo());
                 $view->with('basket', $mainDbRepository->getCartInfo());
                 $view->with('wishListInfo', count($mainDbRepository->getWishList()));
+            }
+        );
+    }
+
+    private function getStoreInfoContent()
+    {
+        View::composer(
+            ['layouts.header'],
+            function ($view) {
+                $mainDbRepository = new MainEloquentRepository();
+                $view->with('storeInfo', $mainDbRepository->getStoreInfo());
             }
         );
     }

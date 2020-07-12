@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Helpers\SendEmailHelper;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
+use App\Reposotories\TelegramApiRepository\TelegramApiRepositoryInterface;
+use Carbon\Carbon;
 
 class HomeControllerService
 {
@@ -12,12 +15,24 @@ class HomeControllerService
     private $dbRepository;
 
     /**
+     * @var SendEmailHelper
+     */
+    private $sendEmail;
+
+    /**
+     * @var TelegramApiRepositoryInterface
+     */
+    private $telegramApiRepository;
+
+    /**
      * HomeControllerService constructor.
      * @param MainEloquentRepositoryInterface $mainEloquentRepository
+     * @param TelegramApiRepositoryInterface $telegramApiRepository
      */
-    public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
+    public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository, TelegramApiRepositoryInterface $telegramApiRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
+        $this->telegramApiRepository = $telegramApiRepository;
     }
 
     /**
@@ -40,7 +55,12 @@ class HomeControllerService
      */
     public function getActiveNewProducts(): object
     {
-        return $this->dbRepository->getActiveNewProducts();
+        $date = Carbon::now()->subMonths(3)->format('Y-m-d');
+        $newProducts = $this->dbRepository->getProductsAddedInTheLastThreeMonths($date);
+        if(count($newProducts) < 50) {
+            $newProducts = $this->dbRepository->getActiveLastProducts(50);
+        }
+        return $newProducts->shuffle()->take(50);
     }
 
     /**
@@ -50,7 +70,7 @@ class HomeControllerService
      */
     public function getActiveRecommendedProducts(): object
     {
-        return $this->dbRepository->getActiveRecommendedProducts();
+        return $this->dbRepository->getActiveRecommendedProducts()->shuffle()->take(50);
     }
 
     /**
@@ -92,7 +112,8 @@ class HomeControllerService
      */
     public function createReview(array $data): void
     {
-        $this->dbRepository->createReview($data);
+        $review = $this->dbRepository->createReview($data);
+        $this->telegramApiRepository->sendMessage('review', $review);
     }
 
     /**
@@ -134,38 +155,13 @@ class HomeControllerService
         return $this->dbRepository->getAllActiveCategories();
     }
 
-    public function getAboutUsContent(): object
+    public function getStoreInfo(string $slug): object
     {
-        return $this->dbRepository->getAboutUsContent();
+        return $this->dbRepository->getStoreInfoBySlug($slug);
     }
 
-    public function getPaymentAndDelivery(): object
+    public function saveAdminReview(int $reviewId, array $data): void
     {
-        return $this->dbRepository->getPaymentAndDelivery();
-    }
-
-    public function getPurchaseReturns(): object
-    {
-        return $this->dbRepository->getPurchaseReturns();
-    }
-
-    public function getHowToMakeAnOrder(): object
-    {
-        return $this->dbRepository->getHowToMakeAnOrder();
-    }
-
-    public function getLoyaltyProgram(): object
-    {
-        return $this->dbRepository->getLoyaltyProgram();
-    }
-
-    public function getContacts(): object
-    {
-        return $this->dbRepository->getContacts();
-    }
-
-    public function getWholesales():object
-    {
-        return $this->dbRepository->getWholesales();
+        $this->dbRepository->saveAdminReview($reviewId, $data);
     }
 }

@@ -37,17 +37,34 @@
             </form>
 
             @foreach($reviews as $review)
-                <div class="text-sm sm:text-xl mt-6">
+                <div class="customer-comment-block text-sm sm:text-xl mt-6">
                     <div class="mt-2">
                         <span class="font-bold">{{ $review->name }}</span>
                         <span
                             class="opacity-75 ml-4">{{  date('d-m-Y', strtotime(stristr($review->created_at, ' ', true)))  }}</span>
+                        @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin)
+                        <span onclick="getAdminCommentForm(event)" data-id="{{ $review->id }}" class="admin-comment hidden cursor-pointer float-right text-blue-700">Ответить</span>
+                        @endif
                     </div>
                     <div>
                         <p>
                             {{ $review->review }}
                         </p>
                     </div>
+                    @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin)
+                    <form id="adminReviewForm_{{ $review->id }}" action="{{ route('adminComment', $review->id) }}" class="hidden"
+                          method="POST">
+                        @csrf
+
+                        <textarea class="w-full border @error('review') border-red-700 @enderror outline-none text-lg mt-4"
+                                  name="review" id="" rows="5"></textarea>
+                        @error('review')
+                        <p class="text-red-700 text-center -mb-4">{{ $message }}</p>
+                        @enderror
+                        <input type="submit" value="ОТВЕТИТЬ"
+                               class="p-2 cursor-pointer rounded bg-blue-600 hover:bg-blue-500 text-white">
+                    </form>
+                    @endif
                 </div>
                 @isset($review->admin_review)
 
@@ -74,5 +91,8 @@
             @endforeach
 
         </div>
+
     </div>
+    {{ $reviews->links() }}
+
 @endsection

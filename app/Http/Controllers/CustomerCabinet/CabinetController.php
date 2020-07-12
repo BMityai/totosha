@@ -29,7 +29,7 @@ class CabinetController extends Controller
 
     public function getBonus()
     {
-        $orders = $this->service->getCustomerOrders();
+        $orders = $this->service->getCompletedOrders();
         return view('CustomerCabinet.bonusHistory', ['orders' => $orders]);
     }
 
@@ -44,7 +44,7 @@ class CabinetController extends Controller
            session()->flash('updateData', 'Изменение прошло успешно');
            return redirect()->back();
        };
-        session()->flash('updateData', 'Необходимо верифицировать email адрес');
+        session()->flash('updateData', 'Необходимо верифицировать mail адрес');
         return redirect()->route('verification.notice');
     }
 

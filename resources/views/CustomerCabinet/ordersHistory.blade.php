@@ -36,7 +36,7 @@
                                 {{ date('d-m-Y', strtotime(stristr($order->created_at, ' ', true))) }}
                             </div>
                             <div class="orderSum w-1/4 text-center">
-                                {{ $order->total_sum }} ₸
+                                {{ $order->total_sum + $order->delivery_price }} ₸
                             </div>
                             <div class="orderSum w-1/4 text-center">
                                 {{ $order->status->name }}
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="flex justify-between mt-2">
                                     <div>Начислено</div>
-                                    <div class="italic">{{ $order->received_bonus }}</div>
+                                    <div class="italic">{{ $order->order_status_id == 4 ? $order->received_bonus : 0 }}</div>
                                 </div>
                             </div>
                         </div>
@@ -128,6 +128,8 @@
                     </section>
                 </div>
             @endforeach
+
         </div>
+        {{ $orders->links() }}
     </div>
 @endsection

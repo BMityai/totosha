@@ -79,7 +79,6 @@ function addToCart(event) {
         'productId': product_id,
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
-        console.log(response.status)
         if (response.status === 200) {
             if (operation === 'add') {
                 addMiniCartComponentToMiniCartItemsContent(response.data);
@@ -321,7 +320,6 @@ function wishList(event) {
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
         if (response.status === 200) {
-            console.log('ok')
 
         }
     });
@@ -384,7 +382,6 @@ function wishlistProductPage(event) {
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
         if (response.status === 200) {
-            console.log('ok')
         }
     });
 
@@ -527,6 +524,7 @@ function totalPriceCalculate() {
     totalPriceElements.forEach((element) => {
         cartTotalPrice += parseInt(element.textContent.split(' ')[0]);
     })
+
     if (mainCartTotalPriceContent) {
         let mainCartAmountPrice = document.getElementById('mainCartAmountPrice')
         let deliveryPrice = document.getElementById('deliveryPrice').textContent;
@@ -540,7 +538,7 @@ function totalPriceCalculate() {
             let bonusValue = receivedBonus.dataset.bonus;
             let summ = cartTotalPrice + parseInt(deliveryPrice) - parseInt(spentBonusValue);
             mainCartAmountPrice.textContent = summ + ' ₸';
-            receivedBonus.textContent = '+ ' + Math.round(cartTotalPrice * parseInt(bonusValue) / 100) + ' ₸';
+            receivedBonus.textContent = '+ ' + Math.round((cartTotalPrice-parseInt(spentBonusValue)) * bonusValue / 100) + ' ₸';
         } else {
             mainCartAmountPrice.textContent = cartTotalPrice + parseInt(deliveryPrice) + ' ₸'
         }
@@ -610,10 +608,8 @@ function getDeliveryPrice() {
                 'X-CSRF-TOKEN': csrf_token
             }).then(response => {
                 if (response.status === 200) {
-                    console.log('ok')
                     let deliveryPrice = response.data;
                     deliveryPriceEl.textContent = deliveryPrice + ' ₸';
-                    console.log(deliveryPriceInForm);
                     deliveryPriceInForm.classList.remove('hidden');
                     deliveryPriceInForm.textContent = 'Стоимость доставки: ' + deliveryPrice + ' ₸';
                     totalPriceCalculate();
@@ -627,6 +623,18 @@ function getDeliveryPrice() {
         }
     }
 }
+
+function getAdminCommentForm(event) {
+    let button = event.target;
+    let id = button.dataset.id;
+    let form = document.getElementById('adminReviewForm_' + id);
+    if (form.classList.contains('hidden')) {
+        form.classList.remove('hidden');
+        button.text = 'Скрыть форму'
+    } else {
+        form.classList.add('hidden');
+        button.text = 'Ответить'
+    }}
 
 
 

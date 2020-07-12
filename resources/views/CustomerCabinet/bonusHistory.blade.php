@@ -39,7 +39,9 @@
                 </div>
             </div>
         @endforeach
+
     </div>
+    {{ $orders->links() }}
 
 
 

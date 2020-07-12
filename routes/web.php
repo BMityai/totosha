@@ -72,84 +72,140 @@ Route::group(
         );
 
         //settings
-        Route::group(['prefix' => '/settings'], function (){
-            Route::get('', 'AdminPanel\AdminController@showSettings')->name(
-                'admin.settings'
-            );
-
-            //content
-            Route::group(['prefix' => '/content'], function (){
-                Route::get('', 'AdminPanel\AdminController@showSettingsContent')->name(
-                    'admin.settings.content'
+        Route::group(
+            ['prefix' => '/settings'],
+            function () {
+                Route::get('', 'AdminPanel\AdminController@showSettings')->name(
+                    'admin.settings'
                 );
 
-                //banners
-                Route::get('/banner/{position}', 'AdminPanel\AdminController@getBanner')->name(
-                    'admin.settings.banner'
-                );
-                Route::post('/banner/{position}', 'AdminPanel\AdminController@updateBanner')->name(
-                    'admin.settings.updateBanner'
+                //delivery
+                Route::get('/delivery', 'AdminPanel\AdminController@getDeliveryTypes')->name(
+                    'admin.settings.deliveryTypes'
                 );
 
-                //about us
-                Route::get('/about_us', 'AdminPanel\AdminController@getAboutUsForm')->name(
-                    'admin.settings.aboutUs'
-                );
-                Route::post('/about_us', 'AdminPanel\AdminController@updateAboutUsContent')->name(
-                    'admin.settings.updateAboutUsContent'
+                Route::get('/delivery/{slug}', 'AdminPanel\AdminController@getDeliveryType')->name(
+                    'admin.settings.deliveryType'
                 );
 
-                //payment and delivery
-                Route::get('/payment_and_delivery', 'AdminPanel\AdminController@getPaymentAndDeliveryForm')->name(
-                    'admin.settings.deliveryAndPayment'
-                );
-                Route::post('/payment_and_delivery', 'AdminPanel\AdminController@updatePaymentAndDeliveryContent')->name(
-                    'admin.settings.updatePaymentAndDeliveryContent'
+                Route::post('/delivery/{slug}', 'AdminPanel\AdminController@updateDeliveryType')->name(
+                    'admin.settings.updateDeliveryType'
                 );
 
-                //purchase returns
-                Route::get('/purchase_returns', 'AdminPanel\AdminController@getPurchaseReturnsForm')->name(
-                    'admin.settings.purchaseReturns'
-                );
-                Route::post('/purchase_returns', 'AdminPanel\AdminController@updatePurchaseReturnsContent')->name(
-                    'admin.settings.updatePurchaseReturns'
+
+                //manufacturer
+                Route::get('/manufacturers', 'AdminPanel\AdminController@getManufacturers')->name(
+                    'admin.settings.manufacturers'
                 );
 
-                //howToMakeAnOrder
-                Route::get('/how_to_make_an_order', 'AdminPanel\AdminController@getHowToMakeAnOrderForm')->name(
-                    'admin.settings.howToMakeAnOrder'
-                );
-                Route::post('/how_to_make_an_order', 'AdminPanel\AdminController@updateHowToMakeAnOrderContent')->name(
-                    'admin.settings.updateHowToMakeAnOrder'
+                Route::get('/manufacturer/{id}', 'AdminPanel\AdminController@getManufacturer')->name(
+                    'admin.settings.manufacturer'
                 );
 
-                //loyalty program
-                Route::get('/loyalty_program', 'AdminPanel\AdminController@getLoyaltyProgramForm')->name(
-                    'admin.settings.loyaltyProgram'
-                );
-                Route::post('/loyalty_program', 'AdminPanel\AdminController@updateLoyaltyProgramContent')->name(
-                    'admin.settings.updateLoyaltyProgram'
+                Route::post('/manufacturer/{id}', 'AdminPanel\AdminController@updateManufacturer')->name(
+                    'admin.settings.updateManufacturer'
                 );
 
-                //contacts
-                Route::get('/contacts', 'AdminPanel\AdminController@getContactsForm')->name(
-                    'admin.settings.contacts'
-                );
-                Route::post('/contacts', 'AdminPanel\AdminController@updateContactsContent')->name(
-                    'admin.settings.updateContacts'
+                Route::get('/add_manufacturer', 'AdminPanel\AdminController@getAddManufacturerForm')->name(
+                    'admin.settings.getAddManufacturerForm'
                 );
 
-                //wholesales
-                Route::get('/wholesales', 'AdminPanel\AdminController@getWholesalesForm')->name(
-                    'admin.settings.wholesales'
-                );
-                Route::post('/wholesales', 'AdminPanel\AdminController@updateWholesalesContent')->name(
-                    'admin.settings.updateWholesales'
+                Route::post('/add_manufacturer', 'AdminPanel\AdminController@addManufacturer')->name(
+                    'admin.settings.addManufacturer'
                 );
 
-            });
+                //material
+                Route::get('/materials', 'AdminPanel\AdminController@getMaterials')->name(
+                    'admin.settings.materials'
+                );
 
-        });
+                Route::get('/material/{id}', 'AdminPanel\AdminController@getMaterial')->name(
+                    'admin.settings.material'
+                );
+
+                Route::post('/material/{id}', 'AdminPanel\AdminController@updateMaterial')->name(
+                    'admin.settings.updateMaterial'
+                );
+
+                Route::get('/add_material', 'AdminPanel\AdminController@getMaterialForm')->name(
+                    'admin.settings.getAddMaterialForm'
+                );
+
+                Route::post('/add_material', 'AdminPanel\AdminController@addMaterial')->name(
+                    'admin.settings.addMaterial'
+                );
+
+                //region
+                Route::get('/regions', 'AdminPanel\AdminController@getRegions')->name(
+                    'admin.settings.regions'
+                );
+
+                Route::get('/region/{id}', 'AdminPanel\AdminController@getRegion')->name(
+                    'admin.settings.region'
+                );
+
+                Route::post('/region/{id}', 'AdminPanel\AdminController@updateRegion')->name(
+                    'admin.settings.updateRegion'
+                );
+
+                Route::get('/add_region', 'AdminPanel\AdminController@getRegionForm')->name(
+                    'admin.settings.getAddRegionForm'
+                );
+
+                Route::post('/add_region', 'AdminPanel\AdminController@addRegion')->name(
+                    'admin.settings.addRegion'
+                );
+
+
+                //age
+                Route::get('/ages', 'AdminPanel\AdminController@getAges')->name(
+                    'admin.settings.ages'
+                );
+
+                Route::get('/age/{id}', 'AdminPanel\AdminController@getAge')->name(
+                    'admin.settings.age'
+                );
+
+                Route::post('/age/{id}', 'AdminPanel\AdminController@updateAge')->name(
+                    'admin.settings.updateAge'
+                );
+
+                Route::get('/add_age', 'AdminPanel\AdminController@getAgeForm')->name(
+                    'admin.settings.getAddAgeForm'
+                );
+
+                Route::post('/add_age', 'AdminPanel\AdminController@addAge')->name(
+                    'admin.settings.addAge'
+                );
+
+
+                //content
+                Route::group(
+                    ['prefix' => '/content'],
+                    function () {
+                        Route::get('', 'AdminPanel\AdminController@showSettingsContent')->name(
+                            'admin.settings.content'
+                        );
+
+                        //banners
+                        Route::get('/banner/{position}', 'AdminPanel\AdminController@getBanner')->name(
+                            'admin.settings.banner'
+                        );
+                        Route::post('/banner/{position}', 'AdminPanel\AdminController@updateBanner')->name(
+                            'admin.settings.updateBanner'
+                        );
+
+                        //store info content
+                        Route::get('/{slug}', 'AdminPanel\AdminController@getStoreInfoForm')->name(
+                            'admin.settings.storeInfo'
+                        );
+                        Route::post('/{slug}', 'AdminPanel\AdminController@updateStoreInfo')->name(
+                            'admin.settings.updateStoreInfo'
+                        );
+                    }
+                );
+            }
+        );
     }
 );
 
@@ -157,6 +213,7 @@ Route::group(
 Route::get('/preorder_form', 'HomeController@getPreorderForm')->name('getRequestForm');
 Route::post('/create_preorder', 'HomeController@createPreorder')->name('createPreorder');
 Route::post('/create_comment', 'HomeController@createComment')->name('createComment');
+Route::post('/create_admin_comment/{reviewId}', 'HomeController@createAdminComment')->name('adminComment')->middleware('isAdmin');
 Route::get('/coming_soon', 'HomeController@getComingSoonProducts')->name('getComingSoonProducts');
 Route::get('/sales', 'HomeController@getSalesProducts')->name('getSalesProducts');
 Route::get('/reviews', 'HomeController@getReviews')->name('getReviews');
@@ -181,19 +238,7 @@ Route::post('/search', 'SearchController@search')->name('search');
 
 Route::get('wishlist', 'WishListController@get')->name('wishList');
 
-Route::get('about_us', 'HomeController@getAboutUs')->name('aboutUs');
-
-Route::get('payment_and_delivery', 'HomeController@getPaymentAndDelivery')->name('paymentAndDelivery');
-
-Route::get('purchase_returns', 'HomeController@getPurchaseReturns')->name('purchaseReturns');
-
-Route::get('how_to_make_an_order', 'HomeController@getHowToMakeAnOrder')->name('howToMakeAnOrder');
-
-Route::get('loyalty_program', 'HomeController@getLoyaltyProgram')->name('loyaltyProgram');
-
-Route::get('contacts', 'HomeController@getContacts')->name('contacts');
-
-Route::get('wholesales', 'HomeController@getWholesales')->name('wholesales');
+Route::get('/info/{slug}', 'HomeController@getStoreInfo')->name('getStoreInfo');
 
 Route::get('basket', 'BasketController@getBasket')->name('basket');
 
@@ -218,7 +263,9 @@ Route::post('/change_count', 'BasketController@changeCount')->name('changeCount'
 
 Route::post('/get_delivery_price', 'BasketController@getDeliveryPrice')->name('getDeliveryPrice');
 
-Route::post('/create_order', 'OrderController@createOrder')->middleware(['checkOnCreateDoubleOrder', 'inStock'])->name('createOrder');
+Route::post('/create_order', 'OrderController@createOrder')->middleware(['checkOnCreateDoubleOrder', 'inStock'])->name(
+    'createOrder'
+);
 
 Route::post('/add_to_wishlist', 'WishListController@addOrDelete')->name('addToWishList');
 

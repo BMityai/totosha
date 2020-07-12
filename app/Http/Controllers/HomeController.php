@@ -6,8 +6,10 @@ use App\Http\Requests\FilterRequest;
 use App\Http\Requests\PreorderRequest;
 use App\Http\Requests\ProductReviewRequest;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepository;
+use App\Reposotories\TelegramApiRepository\TelegramApiRepository;
 use App\Services\HomeControllerService;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->service = new HomeControllerService(new MainEloquentRepository());
+        $this->service = new HomeControllerService(new MainEloquentRepository(), new TelegramApiRepository());
     }
 
     /**
@@ -35,7 +37,6 @@ class HomeController extends Controller
     {
         $categories = $this->service->getAllActiveCategories();
         $newProducts = $this->service->getActiveNewProducts();
-
         return view('home', ['newProducts' => $newProducts, 'categories' => $categories]);
     }
 
@@ -95,45 +96,15 @@ class HomeController extends Controller
         return view('reviews', ['reviews' => $reviews]);
     }
 
-    public function getAboutUs()
+    public function getStoreInfo($slug)
     {
-        $aboutUs = $this->service->getAboutUsContent();
-        return view('aboutUs', ['aboutUs' => $aboutUs]);
+        $storeInfo = $this->service->getStoreInfo($slug);
+        return view('storeInfo', ['storeInfo' => $storeInfo]);
     }
 
-    public function getPaymentAndDelivery()
+    public function createAdminComment(Request $request, int $reviewId)
     {
-        $paymentAndDeliveryBlock = $this->service->getPaymentAndDelivery();
-        return view('paymentAndDelivery', ['paymentAndDelivery' => $paymentAndDeliveryBlock]);
-    }
-
-    public function getPurchaseReturns()
-    {
-        $purchaseReturnBlock = $this->service->getPurchaseReturns();
-        return view('purchaseReturns', ['purchaseReturns' => $purchaseReturnBlock]);
-    }
-
-    public function getHowToMakeAnOrder()
-    {
-        $howToMakeAnOrderBlock = $this->service->getHowToMakeAnOrder();
-        return view('howToMakeAnOrder', ['howToMakeAnOrderBlock' => $howToMakeAnOrderBlock]);
-    }
-
-    public function getLoyaltyProgram()
-    {
-        $loyaltyProgramBlock = $this->service->getLoyaltyProgram();
-        return view('loyaltyProgram', ['loyaltyProgramBlock' => $loyaltyProgramBlock]);
-    }
-
-    public function getContacts()
-    {
-        $contactsBlock = $this->service->getContacts();
-        return view('contacts', ['contactsBlock' => $contactsBlock]);
-    }
-
-    public function getWholesales()
-    {
-        $wholesalesBlock = $this->service->getWholesales();
-        return view('wholesales', ['wholesalesBlock' => $wholesalesBlock]);
+        $this->service->saveAdminReview($reviewId, $request->all());
+        return redirect()->back();
     }
 }

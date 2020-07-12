@@ -76,7 +76,7 @@ class Helpers
 
         $secondPart = $manufacturer;
         if(strlen($secondPart) < 2){
-            $secondPart = '0' . $secondPart;
+            $secondPart = '7' . $secondPart;
         }
 
         $thirdPart = $material;
@@ -86,7 +86,7 @@ class Helpers
 
         $fourthPart = $productId;
         if(strlen($fourthPart) < 4){
-            $fourthPart = '0' . $fourthPart;
+            $fourthPart = '7' . $fourthPart;
         }
         return $firstPart . $secondPart . $thirdPart . $fourthPart;
     }

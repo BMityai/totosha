@@ -3,8 +3,10 @@
 
 namespace App\Services;
 
+use App\Helpers\BonusCalcHelper;
 use App\Helpers\Helpers;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -15,6 +17,10 @@ class AdminControllerService
      * @var MainEloquentRepositoryInterface
      */
     private $dbRepository;
+    /**
+     * @var BonusCalcHelper
+     */
+    private $bonusHelper;
 
     /**
      * AdminControllerService constructor.
@@ -23,6 +29,7 @@ class AdminControllerService
     public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
+        $this->bonusHelper = new BonusCalcHelper();
     }
 
     /**
@@ -88,8 +95,24 @@ class AdminControllerService
     {
         $order        = $this->dbRepository->getOrderById($orderId);
         $changeFields = $this->getOrderChangeFields($order, $data);
+        $this->updateCustomerBonuses($order, $changeFields);
+        $this->updatePaymentField($order, $changeFields);
         $this->dbRepository->updateOrder($order, $changeFields);
         return $order;
+    }
+
+    private function updateCustomerBonuses(object $order, array $changeFields): void
+    {
+        if ($changeFields['order_status_id'] == 4 && !is_null($order->user_id)) {
+            $this->dbRepository->updateCustomerBonuses($order->user_id, $order->received_bonus);
+        }
+    }
+
+    private function updatePaymentField(object $order, array $changeFields): void
+    {
+        if ($changeFields['order_status_id'] == 4){
+            $this->dbRepository->updateOrderPaymentField($order, true);
+        }
     }
 
     private function getOrderChangeFields(object $order, array $data): array
@@ -328,73 +351,93 @@ class AdminControllerService
         return $path . '/' . 'banner_top_content.' . $format;
     }
 
-    public function getAboutUsContent():object
+    public function getStoreInfo(): object
     {
-        return $this->dbRepository->getAboutUsContent();
+        return $this->dbRepository->getStoreInfo();
     }
 
-    public function updateAboutUsContent(array $data): void
+    public function getStoreInfoBySlug(string $slug):object
     {
-        $this->dbRepository->updateAboutUsContent($data);
+        return $this->dbRepository->getStoreInfoBySlug($slug);
     }
 
-    public function getPaymentAndDeliveryForm(): object
+    public function updateStoreInfo(array $data, string $slug): void
     {
-        return $this->dbRepository->getPaymentAndDelivery();
+        $this->dbRepository->updateStoreInfo($data, $slug);
     }
 
-    public function updatePaymentAndDeliveryContent(array $data): void
+    public function getDeliveryTypes(): object
     {
-        $this->dbRepository->updatePaymentAndDeliveryContent($data);
+        return $this->dbRepository->getDeliveryTypes();
     }
 
-    public function getPurchaseReturnsForm(): object
+    public function getDeliveryTypeBySlug(string $slug): object
     {
-        return $this->dbRepository->getPurchaseReturns();
+        return $this->dbRepository->getDeliveryTypeBySlug($slug);
     }
 
-    public function updatePurchaseReturnsContent(array $data): void
+    public function updateDeliveryType(array $data, string $slug): void
     {
-        $this->dbRepository->updatePurchaseReturnsContent($data);
+        $this->dbRepository->updateDeliveryType($data, $slug);
     }
 
-    public function getHowToMakeAnOrder(): object
+    public function getManufacturer(int $id): object
     {
-        return $this->dbRepository->getHowToMakeAnOrder();
+        return $this->dbRepository->getManufacturerById($id);
     }
 
-    public function updateHowToMakeAnOrderContent(array $data): void
+    public function updateManufacturer(array $data, int $id): void
     {
-        $this->dbRepository->updateHowToMakeAnOrderContent($data);
+        $this->dbRepository->updateManufacturer($data, $id);
     }
 
-    public function getLoyaltyProgram(): object
+    public function createManufacturer(array $data):void
     {
-        return $this->dbRepository->getLoyaltyProgram();
+        $this->dbRepository->createManufacturer($data);
     }
 
-    public function updateLoyaltyProgramContent(array $data): void
+    public function getMaterialById(int $id): object
     {
-        $this->dbRepository->updateLoyaltyProgramContent($data);
+        return $this->dbRepository->getMaterialById($id);
     }
 
-    public function getContacts(): object
+    public function updateMaterial(array $data, int $id): void
     {
-        return $this->dbRepository->getContacts();
+        $this->dbRepository->updateMaterial($data, $id);
     }
 
-    public function updateContactsContent(array $data): void
+    public function createMaterial(array $data): void
     {
-        $this->dbRepository->updateContactsContent($data);
+        $this->dbRepository->createMaterial($data);
     }
 
-    public function getWholesales(): object
+    public function getRegion(int $id): object
     {
-        return $this->dbRepository->getWholesales();
+        return $this->dbRepository->getRegion($id);
     }
 
-    public function updateWholesalesContent(array $data): void
+    public function updateRegion(array $data, int $id): void
     {
-        $this->dbRepository->updateWholesalesContent($data);
+        $this->dbRepository->updateRegion($data, $id);
+    }
+
+    public function addRegion(array $data): void
+    {
+        $this->dbRepository->addRegion($data);
+    }
+
+    public function getAge(int $id)
+    {
+        return $this->dbRepository->getAge($id);
+    }
+
+    public function updateAge(array $data, int $id): void
+    {
+        $this->dbRepository->updateAge($data, $id);
+    }
+
+    public function createAge(array $data):void
+    {
+        $this->dbRepository->createAge($data);
     }
 }

@@ -179,7 +179,8 @@ class AdminController extends Controller
 
     public function showSettingsContent()
     {
-        return view('admin.settings.content');
+        $storeInfo = $this->service->getStoreInfo();
+        return view('admin.settings.content', ['storeInfo' => $storeInfo]);
     }
 
     public function getBanner(string $position)
@@ -194,87 +195,150 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function getAboutUsForm()
+    public function getStoreInfoForm($slug)
     {
-        $aboutUs = $this->service->getAboutUsContent();
-        return view('admin.settings.aboutUs', ['aboutUs' => $aboutUs]);
+        $storeInfo = $this->service->getStoreInfoBySlug($slug);
+        return view('admin.settings.storeInfo', ['storeInfo' => $storeInfo]);
     }
 
-    public function updateAboutUsContent(Request $request)
+    public function updateStoreInfo(Request $request, $slug)
     {
-        $this->service->updateAboutUsContent($request->all());
+        $this->service->updateStoreInfo($request->all(), $slug);
         return redirect()->back();
     }
 
-    public function getPaymentAndDeliveryForm()
+    public function getDeliveryTypes()
     {
-        $paymentAndDeliveryForm = $this->service->getPaymentAndDeliveryForm();
-        return view('admin.settings.paymentsAndDelivery', ['paymentAndDeliveryForm' => $paymentAndDeliveryForm]);
+        $deliveryTypes = $this->service->getDeliveryTypes();
+        return view('admin.settings.deliveryTypes', ['deliveryTypes' => $deliveryTypes]);
     }
 
-    public function updatePaymentAndDeliveryContent(Request $request)
+    public function getDeliveryType($slug)
     {
-        $this->service->updatePaymentAndDeliveryContent($request->all());
+        $deliveryType = $this->service->getDeliveryTypeBySlug($slug);
+        return view('admin.settings.deliveryType', ['deliveryType' => $deliveryType]);
+    }
+
+    public function updateDeliveryType(Request $request, $slug)
+    {
+        $this->service->updateDeliveryType($request->all(), $slug);
         return redirect()->back();
     }
 
-    public function getPurchaseReturnsForm()
+    public function getManufacturers()
     {
-        $purchaseReturn = $this->service->getPurchaseReturnsForm();
-        return view('admin.settings.purchaseReturns', ['purchaseReturn' => $purchaseReturn]);
+        $manufacturers = $this->service->getManufacturers();
+        return view('admin.settings.manufacturers', ['manufacturers' => $manufacturers]);
     }
 
-    public function updatePurchaseReturnsContent(Request $request)
+    public function getManufacturer($id)
     {
-        $this->service->updatePurchaseReturnsContent($request->all());
+        $manufacturer = $this->service->getManufacturer($id);
+        return view('admin.settings.manufacturer', ['manufacturer' => $manufacturer]);
+    }
+
+    public function updateManufacturer(Request $request, $id)
+    {
+        $this->service->updateManufacturer($request->all(), $id);
         return redirect()->back();
     }
 
-    public function getHowToMakeAnOrderForm()
+    public function getAddManufacturerForm()
     {
-        $howToMakeAnOrderBlock = $this->service->getHowToMakeAnOrder();
-        return view('admin.settings.howToMakeAnOrder', ['howToMakeAnOrderBlock' => $howToMakeAnOrderBlock]);
+        return view('admin.settings.addManufacturerForm');
     }
 
-    public function updateHowToMakeAnOrderContent(Request $request)
+    public function addManufacturer(Request $request)
     {
-        $this->service->updateHowToMakeAnOrderContent($request->all());
+        $this->service->createManufacturer($request->all());
+        return redirect()->route('admin.settings.manufacturers');
+    }
+
+    public function getMaterials()
+    {
+        $materials = $this->service->getMaterials();
+        return view('admin.settings.materials', ['materials' => $materials]);
+    }
+
+    public function getMaterial($id)
+    {
+        $material = $this->service->getMaterialById($id);
+        return view('admin.settings.material', ['material' => $material]);
+    }
+
+    public function updateMaterial(Request $request, $id)
+    {
+        $this->service->updateMaterial($request->all(), $id);
         return redirect()->back();
     }
 
-    public function getLoyaltyProgramForm()
+    public function getMaterialForm()
     {
-        $loyaltyProgramBlock = $this->service->getLoyaltyProgram();
-        return view('admin.settings.loyaltyProgram', ['loyaltyProgramBlock' => $loyaltyProgramBlock]);
+        return view('admin.settings.addMaterialForm');
     }
 
-    public function updateLoyaltyProgramContent(Request $request)
+    public function addMaterial(Request $request)
     {
-        $this->service->updateLoyaltyProgramContent($request->all());
+        $this->service->createMaterial($request->all());
         return redirect()->back();
     }
 
-    public function getContactsForm()
+    public function getRegions()
     {
-        $contactsBlock = $this->service->getContacts();
-        return view('admin.settings.contacts', ['contactsBlock' => $contactsBlock]);
+        $regions = $this->service->getRegions();
+        return view('admin.settings.regions', ['regions' => $regions]);
     }
 
-    public function updateContactsContent(Request $request)
+    public function getRegion(int $id)
     {
-        $this->service->updateContactsContent($request->all());
+        $region = $this->service->getRegion($id);
+        return view('admin.settings.region', ['region' => $region]);
+    }
+
+    public function updateRegion(Request $request, int $id)
+    {
+        $this->service->updateRegion($request->all(), $id);
         return redirect()->back();
     }
 
-    public function getWholesalesForm()
+    public function getRegionForm()
     {
-        $wholesalesBlock = $this->service->getWholesales();
-        return view('admin.settings.wholesales', ['wholesalesBlock' => $wholesalesBlock]);
+        return view('admin.settings.addRegionForm');
     }
 
-    public function updateWholesalesContent(Request $request)
+    public function addRegion(Request $request)
     {
-        $this->service->updateWholesalesContent($request->all());
+        $this->service->addRegion($request->all());
         return redirect()->back();
     }
+
+    public function getAges()
+    {
+        $ages = $this->service->getAges();
+        return view('admin.settings.ages', ['ages' => $ages]);
+    }
+
+    public function getAge(int $id)
+    {
+        $age = $this->service->getAge($id);
+        return view('admin.settings.age', ['age' => $age]);
+    }
+
+    public function getAgeForm()
+    {
+        return view('admin.settings.addAgeForm');
+    }
+
+    public function updateAge(Request $request, int $id)
+    {
+        $this->service->updateAge($request->all(), $id);
+        return redirect()->back();
+    }
+
+    public function addAge(Request $request)
+    {
+        $this->service->createAge($request->all());
+        return redirect()->back();
+    }
+
 }

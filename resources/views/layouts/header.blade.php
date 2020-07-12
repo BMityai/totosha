@@ -19,14 +19,19 @@
                 <div class="menuInfoContent w-full sm:w-2/5 mt-10 sm:mt-0">
                     <h2 class="uppercase">Инфо</h2>
                     <hr>
-                    <a href="{{ route('aboutUs') }}"><p class="opacity-75 hover:opacity-100 mt-4">О нас</p></a>
+
+                    @foreach($storeInfo as $info)
+                    <a href="{{ route('getStoreInfo', $info->slug) }}"><p class="opacity-75 hover:opacity-100 mt-4">{{ $info->title }}</p></a>
+                    @endforeach
                     <a href="{{ route('getReviews') }}"><p class="opacity-75 hover:opacity-100 mt-4">Отзывы</p></a>
-                    <a href="{{ route('paymentAndDelivery') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>
-                    <a href="{{ route('purchaseReturns') }}"><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>
-                    <a href="{{ route('howToMakeAnOrder') }}"><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>
-                    <a href="{{ route('loyaltyProgram') }}"><p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p></a>
-                    <a href="{{ route('contacts') }}"><p class="opacity-75 hover:opacity-100 mt-4">Контакты</p></a>
-                    <a href="{{ route('wholesales') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p></a>
+{{--                    <a href="{{ route('paymentAndDelivery') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оплата и доставка</p></a>--}}
+{{--                    <a href="{{ route('purchaseReturns') }}"><p class="opacity-75 hover:opacity-100 mt-4">Возврат товара</p></a>--}}
+{{--                    <a href="{{ route('howToMakeAnOrder') }}"><p class="opacity-75 hover:opacity-100 mt-4">Как оформить заказ?</p></a>--}}
+{{--                    <a href="{{ route('loyaltyProgram') }}"><p class="opacity-75 hover:opacity-100 mt-4">Бонусная программа</p></a>--}}
+{{--                    <a href="{{ route('contacts') }}"><p class="opacity-75 hover:opacity-100 mt-4">Контакты</p></a>--}}
+{{--                    <a href="{{ route('wholesales') }}"><p class="opacity-75 hover:opacity-100 mt-4">Оптовые продажи</p></a>--}}
+
+
                 </div>
             </div>
         </div>
@@ -182,6 +187,7 @@
         class="loginErrorMsg text-lg shadow-md rounded pt-12 bg-red-700 fixed z-10 text-white w-full text-center text-bold @error('email') block @else hidden @enderror">
         Ошибка авторизации
     </div>
+
     <div
         class="succesVerify text-lg shadow-md rounded pt-12 bg-green-500 fixed z-10 text-white w-full text-center text-bold @if(session('emailVerify')) block @else hidden @endif">
         Поздравляем. Верификация прошла успешно.
