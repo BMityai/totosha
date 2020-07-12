@@ -97,8 +97,18 @@ class AdminControllerService
         $changeFields = $this->getOrderChangeFields($order, $data);
         $this->updateCustomerBonuses($order, $changeFields);
         $this->updatePaymentField($order, $changeFields);
+        $this->updateProductCount($order, $changeFields);
         $this->dbRepository->updateOrder($order, $changeFields);
         return $order;
+    }
+
+    private function updateProductCount(object $order, array $changeFields):void
+    {
+        if ($changeFields['order_status_id'] == 5 || $changeFields['order_status_id'] == 6 || $changeFields['order_status_id'] == 8) {
+            foreach ($order->products as $product) {
+                $this->dbRepository->returnProduct($product->product_id, $product->count);
+            };
+        }
     }
 
     private function updateCustomerBonuses(object $order, array $changeFields): void
