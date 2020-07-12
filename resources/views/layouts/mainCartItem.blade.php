@@ -5,7 +5,7 @@
     <div class="w-full sm:w-1/2 flex">
         <div class="cartProductImg w-1/4">
             <a href="">
-                <img src="http://placehold.it/800x700" alt="">
+                <img src="{{ asset($basketProduct->product->getMainImage()->path) }}" alt="">
             </a>
         </div>
         <div class="cartProductName w-11/12 p-1 text-lg sm:text-base self-center text-justify sm:text-center">

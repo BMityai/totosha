@@ -207,7 +207,7 @@
 
     <div onclick="showProductFullImg(event)" id="productFullImgModal"
          class="overflow-y-auto w-full h-full z-10 absolute">
-        <img id="productFullImg" class=" absolute rounded-t cursor-pointer" src="http://placehold.it/830x730" alt="">
+        <img id="productFullImg" class=" absolute rounded-t cursor-pointer" src="" alt="">
     </div>
 
     <div class="bg-blue-600 h-12 fixed top-0 right-0 left-0 z-30">

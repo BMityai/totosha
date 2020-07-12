@@ -3,7 +3,7 @@
     <div class="w-full sm:w-1/2 flex">
         <div class="cartProductImg w-1/4">
             <a href="">
-                <img src="http://placehold.it/800x700" alt="">
+                <img src="{{ asset($product->product->getMainImage()->path) }}" alt="">
             </a>
         </div>
         <div
