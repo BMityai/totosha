@@ -26,7 +26,7 @@ class PreorderRequest extends FormRequest
         return [
             "name"               => "required|string|min:2",
             'phone'              => 'string|max:18|min:18',
-            "customerEmail"      => "mail",
+            "customerEmail"      => "email",
             "productName"        => "required|string|min:2|max:100",
             "productLink"        => "string|min:2, max:255",
             "productDescription" => "string|min:2, max:500",
