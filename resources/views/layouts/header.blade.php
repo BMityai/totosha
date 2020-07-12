@@ -7,7 +7,7 @@
                          class="opacity-75 hover:opacity-100">
                 </a>
             </div>
-            <div class="menuContent pl-4 pr-4 block sm:flex justify-around mt-10 text-white text-xl font-bold">
+            <div class="menuContent mb-20 pl-4 pr-4 block sm:flex justify-around mt-10 text-white text-xl font-bold">
                 <div class="menuCategories w-full sm:w-2/5">
                     <h2 class="uppercase">Категории</h2>
                     <hr>

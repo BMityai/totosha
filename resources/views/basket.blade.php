@@ -130,7 +130,7 @@
                             <span class="mt-4">Область</span>
                             <select onchange="checkLocation(event)" name="region"
                                     class="w-full border-gray-300 p-2 text-xl  rounded @error('region') border border-2 border-red-400 @enderror">
-                                <option hidden selected value>Выберите область</option>
+{{--                                <option hidden selected value>Выберите область</option>--}}
 
                                 @foreach($regions as $region)
                                     <option value="{{ $region->id }}"
@@ -222,7 +222,7 @@
                             <p class="mt-4">Форма оплаты</p>
                             <select name="paymentType"
                                     class="@error('paymentType') border-red-400 @else border-gray-300 @enderror border w-full p-1 text-xl rounded">
-                                <option value="" hidden selected value>Выберите способ</option>
+{{--                                <option value="" hidden selected value>Выберите способ</option>--}}
                                 @foreach($paymentTypes as $paymentType)
                                     <option value="{{ $paymentType->id }}"
                                             @if($paymentType->is_active == false)
@@ -243,7 +243,7 @@
                             <p class="mt-4">Тип доставки</p>
                             <select id="deliveryType" onchange="getDeliveryPrice()" name="deliveryType"
                                     class="@error('deliveryType') border-red-400 @else border-gray-300 @enderror border w-full p-1 text-xl rounded">
-                                <option value="" class="hidden" disabled selected>Выберите тип</option>
+{{--                                <option value="" class="hidden" disabled selected>Выберите тип</option>--}}
                                 @foreach($deliveryTypes as $deliveryType)
                                     <option value="{{ $deliveryType->id }}"
                                         @if($deliveryType->is_active == false || $deliveryType->id != old('deliveryType'))

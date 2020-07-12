@@ -1091,4 +1091,11 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         $order->is_paid = $value;
         $order->save();
     }
+
+    public function returnProduct(int $productId, int $productCount): void
+    {
+        $product = $this->getProductById($productId);
+        $product->count += $productCount;
+        $product->save();
+    }
 }
