@@ -572,15 +572,15 @@ function checkLocation(event) {
     }
 
     if (locationId == 1) {
-        deliveryOptions[1].disabled = false;
-        deliveryOptions[1].selected = true;
-        deliveryOptions[2].disabled = true;
-        deliveryOptions[3].disabled = true;
-    } else {
+        deliveryOptions[0].disabled = false;
+        deliveryOptions[0].selected = true;
         deliveryOptions[1].disabled = true;
-        deliveryOptions[2].selected = true;
-        deliveryOptions[2].disabled = false;
-        deliveryOptions[3].disabled = true;
+        deliveryOptions[2].disabled = true;
+    } else {
+        deliveryOptions[0].disabled = true;
+        deliveryOptions[1].selected = true;
+        deliveryOptions[1].disabled = false;
+        deliveryOptions[2].disabled = true;
     }
     getDeliveryPrice()
 }
