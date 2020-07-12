@@ -56,16 +56,27 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         return Category::where('is_active', true)->get();
     }
 
-    public function getActiveNewProducts()
+    public function getActiveLastProducts(int $count)
     {
-        return Product::where('is_active', true)->where('new', true)->get();
+        return Product::orderBy('id', 'desc')->take($count)->get();;
+    }
+
+    public function getProductsAddedInTheLastThreeMonths(string $date)
+    {
+        return Product::query()
+        ->where('is_active', true)
+        ->where('created_at', '>', $date)
+        ->get();
     }
 
     public function getActiveRecommendedProducts()
     {
-        return Product::where('is_active', true)
+        return Product::query()
+            ->where('is_active', true)
             ->where('recommended', true)
-            ->get();
+            ->get()
+            ->shuffle()
+            ->take(50);
     }
 
     public function getActiveProductBySlug($slug)

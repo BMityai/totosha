@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Helpers\SendEmailHelper;
 use App\Reposotories\MainEloquentRepository\MainEloquentRepositoryInterface;
 use App\Reposotories\TelegramApiRepository\TelegramApiRepositoryInterface;
+use Carbon\Carbon;
 
 class HomeControllerService
 {
@@ -54,7 +55,12 @@ class HomeControllerService
      */
     public function getActiveNewProducts(): object
     {
-        return $this->dbRepository->getActiveNewProducts();
+        $date = Carbon::now()->subMonths(3)->format('Y-m-d');
+        $newProducts = $this->dbRepository->getProductsAddedInTheLastThreeMonths($date);
+        if(count($newProducts) < 50) {
+            $newProducts = $this->dbRepository->getActiveLastProducts(50);
+        }
+        return $newProducts->shuffle()->take(50);
     }
 
     /**
@@ -64,7 +70,7 @@ class HomeControllerService
      */
     public function getActiveRecommendedProducts(): object
     {
-        return $this->dbRepository->getActiveRecommendedProducts();
+        return $this->dbRepository->getActiveRecommendedProducts()->shuffle()->take(50);
     }
 
     /**

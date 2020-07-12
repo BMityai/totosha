@@ -37,7 +37,6 @@ class HomeController extends Controller
     {
         $categories = $this->service->getAllActiveCategories();
         $newProducts = $this->service->getActiveNewProducts();
-
         return view('home', ['newProducts' => $newProducts, 'categories' => $categories]);
     }
 
