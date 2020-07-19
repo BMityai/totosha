@@ -3,8 +3,6 @@
 
 @section('content')
 
-
-
         <form action="{{ route('admin.addProduct') }}" method="POST" enctype="multipart/form-data"
               class="container text-white mt-24 sm:mt-16 m-auto lg:mt-32 mb-32">
             @csrf
