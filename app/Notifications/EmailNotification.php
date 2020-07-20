@@ -53,7 +53,7 @@ class EmailNotification extends Notification
         );
 
         return (new MailMessage)
-            ->subject('Подтверждение mail адреса')
+            ->subject('Подтверждение email адреса')
             ->line('Чтобы подтвердить адрес электронной почты, перейдите по ссылке (нажмите на кнопку)')
             ->action('Подтвердить', $verifyUrl)
             ->line('Если вы не регистрировались на MIMISHKA.KZ, то просто удалите данное письмо');

@@ -25,10 +25,10 @@
             <hr>
             <div class="footerContent flex justify-between pt-2 pb-6 text-white text-base sm:text-xl">
                 <div class="leftFooterContent w-1/3 p-1 text-center">
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">Помощь</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">Оплата и доставка</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">Возврат товара</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">Заказы</p></a>
+                    <a href="{{ route('getStoreInfo', 'how_to_make_an_order') }}"><p class="opacity-75 hover:opacity-100 mt-1">Помощь</p></a>
+                    <a href="{{ route('getStoreInfo', 'payment_and_delivery') }}"><p class="opacity-75 hover:opacity-100 mt-1">Оплата и доставка</p></a>
+                    <a href="{{ route('getStoreInfo', 'purchase_returns') }}"><p class="opacity-75 hover:opacity-100 mt-1">Возврат товара</p></a>
+                    <a href="{{ route('getStoreInfo', 'wholesales') }}"><p class="opacity-75 hover:opacity-100 mt-1">Оптовикам</p></a>
                 </div>
 
                 <div class="centerFooterContent w-1/3 p-1">
@@ -52,10 +52,10 @@
                 </div>
 
                 <div class="rightFooterContent w-1/3 p-1 text-center">
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">О нас</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">Отзывы</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">Бонусная программа</p></a>
-                    <a href=""><p class="opacity-75 hover:opacity-100 mt-1">Контакты</p></a>
+                    <a href="{{ route('getStoreInfo', 'about_us') }}"><p class="opacity-75 hover:opacity-100 mt-1">О нас</p></a>
+                    <a href="{{ route('getReviews') }}"><p class="opacity-75 hover:opacity-100 mt-1">Отзывы</p></a>
+                    <a href="{{ route('getStoreInfo', 'loyalty_program') }}"><p class="opacity-75 hover:opacity-100 mt-1">Бонусная программа</p></a>
+                    <a href="{{ route('getStoreInfo', 'contacts') }}"><p class="opacity-75 hover:opacity-100 mt-1">Контакты</p></a>
 
                 </div>
 
