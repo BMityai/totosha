@@ -49,7 +49,7 @@ Route::group(
         Route::get('/add_category', 'AdminPanel\AdminController@getAddCategoryForm')->name(
             'admin.getAddCategoryForm'
         );
-        Route::post('/add_category', 'AdminPanel\AdminController@addCategory')->name('admin.addProduct');
+        Route::post('/add_category', 'AdminPanel\AdminController@addCategory')->name('admin.addCategory');
         Route::get('/category/{categoryId}', 'AdminPanel\AdminController@getCategoryEditForm')->name(
             'admin.editCategoryForm'
         );

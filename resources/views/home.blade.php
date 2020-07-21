@@ -51,7 +51,7 @@
         <h2 class="text-xl">Категории</h2>
         <div class="categories flex flex-wrap justify-between">
             @foreach($categories as $category)
-            <a class="" href="">
+            <a class="" href="{{ route('category', $category->slug) }}">
                 <img class="largeImg" src="{{ asset($category->image) }}" alt="">
                 <img class="mobileImg" src="{{ asset($category->mobile_image) }}" alt="">
             </a>

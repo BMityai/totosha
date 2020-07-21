@@ -174,6 +174,7 @@
             </div>
 
             <div class="productsContent flex justify-between flex-wrap mt-4">
+
                 @if($products)
                     @foreach($products as $product)
                         @include('layouts.card', $product)

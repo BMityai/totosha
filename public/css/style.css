@@ -360,6 +360,7 @@ input::-webkit-inner-spin-button {
 .productsContent .slideCard{
     min-width: 200px;
     width: 19%;
+    max-height: 320px;
 }
 
 .filling-empty-space-childs {
@@ -373,7 +374,7 @@ input::-webkit-inner-spin-button {
     .productsContent .slideCard{
         min-width: 190px;
         width: 19%;
-
+        max-height: 310px;
     }
 
     .filling-empty-space-childs {
@@ -388,6 +389,7 @@ input::-webkit-inner-spin-button {
         min-width: 180px;
         width: 19%;
         margin-bottom: 1rem;
+        max-height: 300px;
     }
 
 
@@ -402,6 +404,7 @@ input::-webkit-inner-spin-button {
     .productsContent .slideCard{
         min-width: 200px;
         width: 19%;
+        max-height: 100%;
     }
 
     .filling-empty-space-childs {
