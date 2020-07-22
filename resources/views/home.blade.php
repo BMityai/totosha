@@ -14,7 +14,7 @@
     <div class="container mt-6">
         <div class="infoList flex justify-between flex-wrap sm:flex-no-wrap">
             <div class="delivery pr-1 sm:p-0 sm:mr-1 w-1/2 sm:w-auto">
-                <a href="#">
+                <a href="{{ route('getStoreInfo', 'payment_and_delivery') }}">
                     <img class="rounded-lg" src="{{ asset('images/home/delivery.png') }}" alt="">
                 </a>
             </div>
@@ -29,7 +29,7 @@
                 </a>
             </div>
             <div class="bonus pl-1 sm:p-0 mt-2 sm:m-0 sm:ml-1 w-1/2 sm:w-auto">
-                <a href="#">
+                <a href="{{ route('getStoreInfo', 'loyalty_program') }}">
                     <img class="rounded-lg" src="{{ asset('images/home/register.png') }}" alt="">
                 </a>
             </div>
