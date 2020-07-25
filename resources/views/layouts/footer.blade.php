@@ -9,14 +9,14 @@
                 </a>
                 <div class="contacts w-1/2 ">
                     <div class="socialNet flex justify-around h-full items-center">
-                        <a href="" class="w-6 opacity-75 hover:opacity-100">
-                            <img src="{{ asset('images/ico/contacts/instagram.png') }}" alt="">
+                        <a href="https://instagram.com/mimishka1.kz" class="w-6 opacity-75 hover:opacity-100">
+                            <img src="{{ asset('images/ico/contacts/instagram.png') }}" alt="Instagram">
                         </a>
-                        <a href="" class="w-6 opacity-75 hover:opacity-100">
-                            <img src="{{ asset('images/ico/contacts/whatsApp.png') }}" alt="">
+                        <a href="https://wa.me/77775146712" class="w-6 opacity-75 hover:opacity-100">
+                            <img src="{{ asset('images/ico/contacts/whatsApp.png') }}" alt="WhatsApp">
                         </a>
-                        <a href="" class="w-6 opacity-75 hover:opacity-100">
-                            <img src="{{ asset('images/ico/contacts/telegram.png') }}" alt="">
+                        <a href="https://t.me/mimishka_kz" class="w-6 opacity-75 hover:opacity-100">
+                            <img src="{{ asset('images/ico/contacts/telegram.png') }}" alt="Telegram">
                         </a>
                     </div>
                 </div>
