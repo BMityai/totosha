@@ -549,6 +549,11 @@ function totalPriceCalculate() {
 
 function checkLocation(event) {
     let locationId = event.target.value;
+    setVisibilityDeliveryMethod(locationId);
+    getDeliveryPrice()
+}
+
+function setVisibilityDeliveryMethod(locationId) {
     let districtInput = document.getElementById('customerDistrict');
     let cityInput = document.getElementById('customerCity');
     let deliveryTypeContent = document.getElementById('deliveryTypeContent');
@@ -582,11 +587,14 @@ function checkLocation(event) {
         deliveryOptions[1].disabled = false;
         deliveryOptions[2].disabled = true;
     }
-    getDeliveryPrice()
 }
+
 
 window.onload = function() {
     if(window.location.href.includes("/basket")){
+        let region = document.getElementById('deliveryRegion');
+        let regionId = region.querySelector('select').value
+        setVisibilityDeliveryMethod(regionId);
         getDeliveryPrice();
     }
 };
