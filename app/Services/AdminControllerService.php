@@ -161,6 +161,7 @@ class AdminControllerService
 
     public function createNewProduct($data): void
     {
+        $discount = empty($data['discount']) ? 0 : $data['discount'];
         $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);
         $productSlug               = Str::slug($data['name']);
         $data['priceWithDiscount'] = $discountPrice;
