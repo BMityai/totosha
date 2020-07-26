@@ -267,8 +267,9 @@
 
         <div class="mt-2 description w-full sm:w-3/4 text-xl px-3 sm:px-0">
             <div>
-                Описание
+                <strong>Описание</strong>
             </div>
+            <div class="text-base md:text-xl">
             <div class="text-base md:text-xl">
                 {!! $product->description !!}
             </div>
