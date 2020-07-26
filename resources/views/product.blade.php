@@ -41,7 +41,6 @@
                         Артикул
                     </div>
                     <div class="pl-1 w-2/3">
-                        6547654
                         {{ $product->art_no }}
                     </div>
                 </div>
