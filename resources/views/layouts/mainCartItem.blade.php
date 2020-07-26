@@ -4,12 +4,12 @@
 <div id="mainCartProductContent_{{ $basketProduct->product->id }}" class="block sm:flex my-4 text-base">
     <div class="w-full sm:w-1/2 flex">
         <div class="cartProductImg w-1/4">
-            <a href="">
+            <a href="{{ route('product', $basketProduct->product->id) }}">
                 <img src="{{ asset($basketProduct->product->getMainImage()->path) }}" alt="">
             </a>
         </div>
         <div class="cartProductName w-11/12 p-1 text-lg sm:text-base self-center text-justify sm:text-center">
-            <a href="">{{ $basketProduct->product->name }}</a>
+            <a href="{{ route('product', $basketProduct->product->id) }}">{{ $basketProduct->product->name }}</a>
         </div>
     </div>
     <div class="w-full sm:w-1/2 flex text-lg text-base sm:text-lg">
