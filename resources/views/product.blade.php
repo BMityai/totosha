@@ -270,7 +270,6 @@
                 <strong>Описание</strong>
             </div>
             <div class="text-base md:text-xl">
-            <div class="text-base md:text-xl">
                 {!! $product->description !!}
             </div>
         </div>
