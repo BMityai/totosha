@@ -29,7 +29,7 @@ class AdminControllerService
     public function __construct(MainEloquentRepositoryInterface $mainEloquentRepository)
     {
         $this->dbRepository = $mainEloquentRepository;
-        $this->bonusHelper = new BonusCalcHelper();
+        $this->bonusHelper  = new BonusCalcHelper();
     }
 
     /**
@@ -102,7 +102,7 @@ class AdminControllerService
         return $order;
     }
 
-    private function updateProductCount(object $order, array $changeFields):void
+    private function updateProductCount(object $order, array $changeFields): void
     {
         if ($changeFields['order_status_id'] == 5 || $changeFields['order_status_id'] == 6 || $changeFields['order_status_id'] == 8) {
             foreach ($order->products as $product) {
@@ -120,7 +120,7 @@ class AdminControllerService
 
     private function updatePaymentField(object $order, array $changeFields): void
     {
-        if ($changeFields['order_status_id'] == 4){
+        if ($changeFields['order_status_id'] == 4) {
             $this->dbRepository->updateOrderPaymentField($order, true);
         }
     }
@@ -161,8 +161,8 @@ class AdminControllerService
 
     public function createNewProduct($data): void
     {
-        $discount = empty($data['discount']) ? 0 : $data['discount'];
-        $discountPrice             = Helpers::getDiscountPrice($data['price'], $discount);
+        $data['discount']          = empty($data['discount']) ? 0 : $data['discount'];
+        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);
         $productSlug               = Str::slug($data['name']);
         $data['priceWithDiscount'] = $discountPrice;
         $data['slug']              = $productSlug;
@@ -235,8 +235,8 @@ class AdminControllerService
 
     public function updateProduct(int $productId, array $data)
     {
-        $discount = empty($data['discount']) ? 0 : $data['discount'];
-        $discountPrice             = Helpers::getDiscountPrice($data['price'], $discount);        $productSlug               = Str::slug($data['name']);
+        $data['discount']          = empty($data['discount']) ? 0 : $data['discount'];
+        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);        $productSlug               = Str::slug($data['name']);
         $data['priceWithDiscount'] = $discountPrice;
         $data['slug']              = $productSlug;
         $product                   = $this->dbRepository->updateProduct($productId, $data);
@@ -266,8 +266,8 @@ class AdminControllerService
 
     public function createNewCategory(array $data): void
     {
-        $data['slug']      = Str::slug($data['name']);
-        $data['imagePath'] = $this->getCategoryImagePath($data);
+        $data['slug']            = Str::slug($data['name']);
+        $data['imagePath']       = $this->getCategoryImagePath($data);
         $data['mobileImagePath'] = $this->getCategoryMobileImagePath($data);
         $this->dbRepository->createCategory($data);
     }
@@ -290,13 +290,13 @@ class AdminControllerService
 
     public function updateCategory(int $categoryId, array $categoryData)
     {
-        $categoryData['slug']      = Str::slug($categoryData['name']);
-        if (empty($categoryData['img'])){
+        $categoryData['slug'] = Str::slug($categoryData['name']);
+        if (empty($categoryData['img'])) {
             $categoryData['imagePath'] = null;
         } else {
             $categoryData['imagePath'] = $this->getCategoryImagePath($categoryData);
         }
-        if (empty($categoryData['mobile_img'])){
+        if (empty($categoryData['mobile_img'])) {
             $categoryData['imagePath'] = null;
         } else {
             $categoryData['mobileImagePath'] = $this->getCategoryMobileImagePath($categoryData);
@@ -314,7 +314,7 @@ class AdminControllerService
         return $this->dbRepository->getCustomer($customerId);
     }
 
-    public function updateUserData(array $data, int $userId):void
+    public function updateUserData(array $data, int $userId): void
     {
         $this->dbRepository->updateUserDataFromAdminPanel($data, $userId);
     }
@@ -331,13 +331,13 @@ class AdminControllerService
 
     public function updateBanner(string $position, array $data): void
     {
-        if (empty($data['img'])){
+        if (empty($data['img'])) {
             $data['mainImagePath'] = null;
         } else {
             $data['mainImagePath'] = $this->getBannerMainImagePath($position, $data);
         }
 
-        if (empty($data['content_image'])){
+        if (empty($data['content_image'])) {
             $data['contentImagePath'] = null;
         } else {
             $data['contentImagePath'] = $this->getBannerContentImagePath($position, $data);
@@ -367,7 +367,7 @@ class AdminControllerService
         return $this->dbRepository->getStoreInfo();
     }
 
-    public function getStoreInfoBySlug(string $slug):object
+    public function getStoreInfoBySlug(string $slug): object
     {
         return $this->dbRepository->getStoreInfoBySlug($slug);
     }
@@ -402,7 +402,7 @@ class AdminControllerService
         $this->dbRepository->updateManufacturer($data, $id);
     }
 
-    public function createManufacturer(array $data):void
+    public function createManufacturer(array $data): void
     {
         $this->dbRepository->createManufacturer($data);
     }
@@ -447,7 +447,7 @@ class AdminControllerService
         $this->dbRepository->updateAge($data, $id);
     }
 
-    public function createAge(array $data):void
+    public function createAge(array $data): void
     {
         $this->dbRepository->createAge($data);
     }
