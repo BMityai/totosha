@@ -161,7 +161,8 @@ class AdminControllerService
 
     public function createNewProduct($data): void
     {
-        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);
+        $discount = empty($data['discount']) ? 0 : $data['discount'];
+        $discountPrice             = Helpers::getDiscountPrice($data['price'], $discount);
         $productSlug               = Str::slug($data['name']);
         $data['priceWithDiscount'] = $discountPrice;
         $data['slug']              = $productSlug;
@@ -234,8 +235,8 @@ class AdminControllerService
 
     public function updateProduct(int $productId, array $data)
     {
-        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);
-        $productSlug               = Str::slug($data['name']);
+        $discount = empty($data['discount']) ? 0 : $data['discount'];
+        $discountPrice             = Helpers::getDiscountPrice($data['price'], $discount);        $productSlug               = Str::slug($data['name']);
         $data['priceWithDiscount'] = $discountPrice;
         $data['slug']              = $productSlug;
         $product                   = $this->dbRepository->updateProduct($productId, $data);
