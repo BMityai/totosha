@@ -115,11 +115,11 @@
                                                                         <td class="m_2703370947226851947es-m-txt-l"
                                                                             align="right" style="padding:0;Margin:0"><p
                                                                                 style="Margin:0;font-size:14px;font-family:arial,'helvetica neue',helvetica,sans-serif;line-height:21px;color:#ffffff">
-                                                                                +12 34567890</p>
+                                                                                +7 (777) 514 67 12</p>
                                                                             <p style="Margin:0;font-size:14px;font-family:arial,'helvetica neue',helvetica,sans-serif;line-height:21px;color:#ffffff">
-                                                                                <a href="mailto:info@company-name.com"
+                                                                                <a href="mailto:info@mimishka.kz"
                                                                                    style="font-family:arial,'helvetica neue',helvetica,sans-serif;font-size:14px;text-decoration:underline;color:#dfe0df"
-                                                                                   target="_blank">info@company-name.com</a>
+                                                                                   target="_blank">info@mimishka.kz</a>
                                                                             </p></td>
                                                                     </tr>
                                                                     </tbody>

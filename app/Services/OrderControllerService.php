@@ -50,6 +50,7 @@ class OrderControllerService
      */
     public function createOrder(array $params): string
     {
+        $params['spentBonus'] = !empty($params['spentBonus']) ? $params['spentBonus'] : 0;
         $orderNumber = Helpers::generateOrderNumber((int)$params['region']);
         $totalPrice = $this->basketControllerService->getTotalPrice();
         $deliveryPrice = $this->basketControllerService->getDeliveryPrice($params['region'], $params['deliveryType']);

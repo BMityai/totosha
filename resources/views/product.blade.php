@@ -117,11 +117,12 @@
                         </div>
                     </div>
 
+                    @if($product->discount > 0)
                     <div class="flex mt-4">
                         <span class="w-1/2 text-lg  self-end">Скидка</span>
                         <div class="priceBlock w-1/2">
                             <div
-                                class="text-lg @if($product->discount > 0) font-bold @endif text-right">{{$product->discount}}
+                                class="text-lg font-bold text-right">{{$product->discount}}
                                 %
                             </div>
                         </div>
@@ -131,11 +132,12 @@
                         <span class="w-1/2 text-lg  self-end">Вы экономите</span>
                         <div class="priceBlock w-1/2">
                             <div
-                                class="text-lg @if($product->discount > 0) font-bold @endif text-right">{{$product->price - $product->discount_price}}
+                                class="text-lg font-bold text-right">{{$product->price - $product->discount_price}}
                                 ₸
                             </div>
                         </div>
                     </div>
+                    @endif
 
                     <div class="flex mt-3">
                         <span class="w-1/2 text-lg  self-end">Бонусы</span>

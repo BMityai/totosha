@@ -158,7 +158,7 @@
                                             <tr style="border-collapse:collapse">
                                                 <td align="left" style="padding:0;Margin:0"><p
                                                         style="Margin:0;font-size:14px;font-family:arial,'helvetica neue',helvetica,sans-serif;line-height:21px;color:#333333">
-                                                        {{ $order->region->region }}{{ (strlen($order->district) > 1) ? ', ' . $order->district : null }}{{ (strlen($order->city) > 1) ? ', ' . $order->city : null }}{{  ', ' . $order->street }}{{  ', ' . $order->building }}{{ (strlen($order->apartment) > 1) ? ', ' . $order->apartment : null }}
+                                                        {{ $order->region->region }}{{ (strlen($order->district) > 1) ? ', ' . $order->district : null }}{{ (strlen($order->city) > 1) ? ', ' . $order->city : null }}{{  ', ' . $order->street }}{{  ', ' . $order->building }}{{ (strlen($order->apartment) > 0) ? ', ' . $order->apartment : null }}
 
                                                     </p></td>
                                             </tr>
@@ -215,7 +215,7 @@
                                             <tr style="border-collapse:collapse">
                                                 <td align="left" style="padding:0;Margin:0"><p
                                                         style="Margin:0;font-size:14px;font-family:arial,'helvetica neue',helvetica,sans-serif;line-height:21px;color:#333333">
-                                                        +7 (777) 777 77 77<br></p></td>
+                                                        {{ $order->phone }}<br></p></td>
                                             </tr>
                                             </tbody>
                                         </table>
