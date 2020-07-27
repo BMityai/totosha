@@ -18,7 +18,7 @@
             </span>
         </div>
 
-        <span class="cartProductName mt-1 mb-1 block h-12 sm:h-10 pl-2 pr-2">{{ $product->name }}</span>
+        <span class="cartProductName mt-1 mb-1 block h-10 sm:h-12 pl-2 pr-2">{{ $product->name }}</span>
         <div class="text-center font-semibold">
             <span class=" @if($product->discount > 0) opacity-75 line-through	@endif">{{ $product->price }} ₸</span>
             @if($product->discount > 0) <span>{{ $product->discount_price }} ₸</span> @endif
