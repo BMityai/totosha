@@ -192,14 +192,13 @@
             <div class="productDescription w-full sm:w-5/12 px-3 block sm:hidden">
                 <div class="mt-6 text-xl sm:text-md md:text-xl flex justify-between">
                     <p>Характеристики</p>
-                    <a href="#productReviews" class=" text-blue-700 hover:text-blue-600 hover:underline"> Отзывы (2)</a>
+                    <a href="#productReviews" class=" text-blue-700 hover:text-blue-600 hover:underline"> Отзывы ({{ count($product->reviews) }})</a>
                 </div>
                 <div class="artNo flex mt-4">
                     <div class="w-1/2 sm:w-3/5 md:w-2/5 lg:w-1/3">
                         Артикул
                     </div>
                     <div class="pl-1 w-2/3">
-                        6547654
                         {{ $product->art_no }}
                     </div>
                 </div>
