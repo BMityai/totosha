@@ -461,6 +461,7 @@ input::-webkit-inner-spin-button {
 
     .cartProductName{
         font-size: 12px;
+        height: 2.5rem;
     }
 
     .filling-empty-space-childs {
