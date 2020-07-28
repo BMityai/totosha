@@ -44,7 +44,8 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             ->where('is_active', true)
             ->first()
             ->products()
-            ->where('is_active', true);
+            ->where('is_active', true)
+            ->sortByDesc('created_at');
         if (!empty($filter)) {
             $this->filterAccordingToCustomerRequest($productsQuery, $filter);
         }
@@ -64,9 +65,9 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
     public function getProductsAddedInTheLastThreeMonths(string $date)
     {
         return Product::query()
-        ->where('is_active', true)
-        ->where('created_at', '>', $date)
-        ->get();
+            ->where('is_active', true)
+            ->where('created_at', '>', $date)
+            ->get();
     }
 
     public function getActiveRecommendedProducts()
@@ -1094,7 +1095,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
 
     public function returnProduct(int $productId, int $productCount): void
     {
-        $product = $this->getProductById($productId);
+        $product        = $this->getProductById($productId);
         $product->count += $productCount;
         $product->save();
     }
