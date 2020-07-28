@@ -60,6 +60,8 @@ class HomeController extends Controller
         }
         $helper = new BonusCalcHelper();
         $discountRatio = $helper->getBonusCoefficient();
+        dump($discountRatio);
+
         return view('product', ['product' => $product, 'discountRatio' => $discountRatio /100]);
     }
 
