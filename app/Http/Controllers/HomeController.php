@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\BonusCalcHelper;
 use App\Http\Requests\FilterRequest;
 use App\Http\Requests\PreorderRequest;
 use App\Http\Requests\ProductReviewRequest;
@@ -10,6 +11,8 @@ use App\Reposotories\TelegramApiRepository\TelegramApiRepository;
 use App\Services\HomeControllerService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use PHPUnit\TextUI\Help;
+use Symfony\Component\Console\Helper\Helper;
 
 class HomeController extends Controller
 {
@@ -55,7 +58,9 @@ class HomeController extends Controller
         if (is_null($product)){
             abort('404');
         }
-        return view('product', ['product' => $product]);
+        $helper = new BonusCalcHelper();
+        $discountRatio = $helper->getBonusCoefficient();
+        return view('product', ['product' => $product, 'discountRatio' => $discountRatio /100]);
     }
 
     public function getPreorderForm()

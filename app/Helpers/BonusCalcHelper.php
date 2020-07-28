@@ -18,7 +18,7 @@ class BonusCalcHelper
         if (Auth::check()){
             return $this->calculateBonusCoefficient();
         } else {
-            return 1;
+            return 0;
         }
     }
 
