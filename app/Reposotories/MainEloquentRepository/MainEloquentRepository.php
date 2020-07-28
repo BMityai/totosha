@@ -45,7 +45,7 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             ->first()
             ->products()
             ->where('is_active', true)
-            ->sortByDesc('created_at');
+            ->orderBy('created_at');
         if (!empty($filter)) {
             $this->filterAccordingToCustomerRequest($productsQuery, $filter);
         }
