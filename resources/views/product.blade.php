@@ -142,7 +142,7 @@
                         <span class="w-1/2 text-lg  self-end">Бонусы</span>
                         <div class="priceBlock w-1/2 font-bold">
                             @if($product->discount == 0)
-                                <div class="text-lg text-right">+ {{round($product->price * 0.03)}} ₸</div>
+                                <div class="text-lg text-right">+ {{round($product->price * $discountRatio)}} ₸</div>
                             @else
                                 <div class="text-lg text-right">+ {{round($product->discount_price * $discountRatio)}} ₸</div>
                             @endif
