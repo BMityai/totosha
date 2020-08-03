@@ -23,6 +23,7 @@
     <meta name="wishlistadduri" content="{{ route('addToWishList') }}">
     <meta name="count_uri" content="{{ route('changeCount') }}">
     <title>Mimishka.kz @yield('title')</title>
+    <meta name="description" content="@yield('description')">
 
 </head>
 <body class="bg-white m-auto">

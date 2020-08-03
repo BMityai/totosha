@@ -1,9 +1,10 @@
 @extends('layouts.master')
-@section('title', ': Главная страница')
+@section('title', ' - интернет магазин детских товаров, доставка по всей территории Республики Казахстан ')
+@section('description', 'Интернет магазин детских товаров Mimishka.kz, доставка по всей территории Республики Казахстан ')
 @section('content')
 
     <div class="container h-12 mt-16">
-        @include('layouts.search')
+        @include('layouts                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    search')
     </div>
 
     <div class="container mt-3">
