@@ -1,5 +1,7 @@
 @extends('layouts.master')
-@section('title', ':' . $category->name)
+@section('title', ': купить товары категории: ' . $category->name .  ', дешево')
+@section('description', $category->description)
+
 @section('content')
     <div class="container mt-16 ">
         @include('layouts.search')
