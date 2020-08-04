@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', ': скоро в продаже')
+@section('title', ': Отзывы')
 @section('content')
     <div class="container mt-16 ">
         <div class="w-1/3 mx-auto">

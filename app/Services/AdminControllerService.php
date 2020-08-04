@@ -236,7 +236,8 @@ class AdminControllerService
     public function updateProduct(int $productId, array $data)
     {
         $data['discount']          = empty($data['discount']) ? 0 : $data['discount'];
-        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);        $productSlug               = Str::slug($data['name']);
+        $discountPrice             = Helpers::getDiscountPrice($data['price'], $data['discount']);
+        $productSlug               = Str::slug($data['name']);
         $data['priceWithDiscount'] = $discountPrice;
         $data['slug']              = $productSlug;
         $product                   = $this->dbRepository->updateProduct($productId, $data);
@@ -249,9 +250,11 @@ class AdminControllerService
 
     public function getImageUniqueNumber(object $product): int
     {
-        $lastImage = $product->images->last();
-        $number    = strrchr($lastImage->title, '__');
-        return substr($number, 1, strlen($number));
+        if (empty($product->images)) {
+            return 0;
+        }
+        return $product->images->last()->id;
+
     }
 
     public function getAllCategories(): ?object
