@@ -14,10 +14,13 @@
 
         gtag('config', 'UA-171069360-1');
     </script>
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('/fancybox/jquery.fancybox-1.3.4.css')}}" type="text/css" media="screen" />
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="uri" content="{{ route('addToBasket') }}">
     <meta name="wishlistadduri" content="{{ route('addToWishList') }}">
@@ -34,15 +37,24 @@
 </div>
 @include('layouts.footer')
 
+
+
 <script src="{{ asset('js/axios.min.js') }}"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/add.js') }}"></script>
 <script src="{{ asset('js/slick.js') }}"></script>
+
 <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
+
+
 <script>
+
+
     $(document).ready(function () {
+
+
         let imageCount = 5;
         let interval = 4000;
         if ($(window).width() < 900) {
@@ -78,6 +90,24 @@
             autoplaySpeed: interval,
             dots: true,
             pauseOnHover: false,
+            asNavFor: '.thumb-slider'
+        });
+
+        $('.thumb-slider').slick({
+            infinite: true,
+            slidesToShow: 3.2,
+            slidesToScroll: 1,
+            arrows: false,
+            focusOnSelect: true,
+            asNavFor: '.productSlickCarousel',
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        swipe: true
+                    }
+                }
+            ]
         });
     });
 
@@ -85,8 +115,17 @@
         $('#birthDate').inputmask({"mask": "99/99/9999"});  //static mask
         $('#phone').inputmask({"mask": "+7 (999) 999-99-99"}); //specifying options
     });
-
 </script>
 
+<script type="text/javascript" src="{{ asset('/fancybox/jquery.mousewheel-3.0.4.pack.js') }}"></script>
+<script type="text/javascript"  src="{{ asset('/fancybox/jquery.fancybox-1.3.4.pack.js') }}"></script>
+<script type="text/javascript"  src="{{ asset('/fancybox/jquery.easing-1.3.pack.js') }}"></script>
+<script>
+    $("a.fancybox-img").fancybox({
+        'overlayShow'	: true,
+        'transitionIn'	: 'elastic',
+        'transitionOut'	: 'elastic'
+    });
+</script>
 </body>
 </html>

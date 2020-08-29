@@ -20,12 +20,26 @@
                 <div class="productSlickCarousel">
                     @if(count($product->images) > 0)
                     @foreach($product->images as $image)
-                    <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
+                            <a class="fancybox-img" href="{{ asset($image->path) }}" rel="group1">
+                    <img  class="test rounded-t cursor-pointer"
                          src="{{ asset($image->path) }}" alt="">
+                            </a>
                     @endforeach
                     @else
                     <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
                          src="{{ asset('/images/default.png') }}" alt="">
+                    @endif
+                </div>
+
+                <div class="thumb-slider">
+                    @if(count($product->images) > 0)
+                        @foreach($product->images as $image)
+                            <img  class="rounded-t cursor-pointer"
+                                 src="{{ asset($image->path) }}" alt="">
+                        @endforeach
+                    @else
+                        <img onclick="showProductFullImg(event)" class="rounded-t cursor-pointer"
+                             src="{{ asset('/images/default.png') }}" alt="">
                     @endif
                 </div>
 

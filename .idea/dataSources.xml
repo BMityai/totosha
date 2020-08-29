@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="moimalysh@localhost" uuid="c89279e3-d3b5-4d14-aba2-0144d0d1bb0e">
+    <data-source source="LOCAL" name="mimishka@localhost" uuid="8ab33f54-0e04-4776-ab7b-6f4c1aa02dd1">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/moimalysh</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/mimishka</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="sap_data@95.56.230.61" uuid="a7c2bdd7-fd28-4abb-8b3a-295192a27f32">
+    <data-source source="LOCAL" name="MySQL - @localhost" uuid="da69f966-95ef-4d2a-ba44-d794dc498770">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://95.56.230.61:3306/sap_data</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
     </data-source>
   </component>
 </project>
