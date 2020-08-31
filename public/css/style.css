@@ -289,6 +289,16 @@ h6 {
 .mobileImg{
     display: none;
 }
+.productContent.block .productSlickCarousel .slick-arrow{
+    opacity: 0;
+
+}
+
+.productSlickCarousel:hover .slick-arrow{
+    opacity: .3!important;
+    transition: opacity .3s ease;
+
+}
 
 @media (max-width: 690px) {
     .categories a{
@@ -450,6 +460,10 @@ input::-webkit-inner-spin-button {
         max-width: 49%;
         width:49%;
         height:0;
+    }
+
+    .productContent.block .productSlickCarousel .slick-arrow{
+       display: none!important;
     }
 }
 @media (max-width: 420px) {

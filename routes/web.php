@@ -240,7 +240,9 @@ Route::get('wishlist', 'WishListController@get')->name('wishList');
 
 Route::get('/info/{slug}', 'HomeController@getStoreInfo')->name('getStoreInfo');
 
-Route::get('basket', 'BasketController@getBasket')->name('basket');
+Route::get('/cart', 'BasketController@getBasket')->name('basket');
+
+Route::get('/checkout', 'BasketController@getCheckout')->name('checkout');
 
 Route::get('/login', 'HomeController@index')->name('login')->middleware('showLoginForm');
 

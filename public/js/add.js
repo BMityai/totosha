@@ -80,6 +80,7 @@ function addToCart(event) {
         'X-CSRF-TOKEN': csrf_token
     }).then(response => {
         if (response.status === 200) {
+            console.log(operation)
             if (operation === 'add') {
                 addMiniCartComponentToMiniCartItemsContent(response.data);
             }
@@ -103,15 +104,15 @@ function addToCart(event) {
 }
 
 function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
-    let miniCartItemsContent = document.getElementById('productInMinicartId_' + product_id);
-    let mainCartItemsContent = document.getElementById('mainCartProductContent_' + product_id);
-    let modal = document.getElementById('displayOverlayAddToCart')
-    let cartInfo = document.getElementById('cartInfoNum')
-    let cartInfoNum = cartInfo.textContent;
-    let button = document.getElementById('removeButtonFromCart_' + product_id);
-    let secondButton = document.getElementById('addButtonToBasket_' + product_id);
-    let buttonInProductPage = document.getElementById('removeButtonFromCart');
-    let secondButtonInProductPage = document.getElementById('addButtonToBasket');
+    let miniCartItemsContent = document.getElementById('productInMinicartId_' + product_id),
+        mainCartItemsContent = document.getElementById('mainCartProductContent_' + product_id),
+        modal = document.getElementById('displayOverlayAddToCart'),
+        cartInfo = document.getElementById('cartInfoNum'),
+        cartInfoNum = cartInfo.textContent,
+        button = document.getElementById('removeButtonFromCart_' + product_id),
+        secondButton = document.getElementById('addButtonToBasket_' + product_id),
+        buttonInProductPage = document.getElementById('removeButtonFromCart'),
+        secondButtonInProductPage = document.getElementById('addButtonToBasket');
     miniCartItemsContent.remove();
     modal.classList.remove('bg-green-400');
     if (button) {
@@ -119,6 +120,9 @@ function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
         button.classList.remove('addCartButton');
         secondButton.text = 'В КОРЗИНУ';
         secondButton.classList.remove('addCartButton');
+        console.log(button)
+        console.log(secondButton)
+
     }
     if (buttonInProductPage) {
         buttonInProductPage.text = 'В КОРЗИНУ';
@@ -134,6 +138,8 @@ function deleteMiniCartComponentToMiniCartItemsContent(product_id) {
     cartInfo.textContent = parseInt(cartInfoNum) - 1;
     modal.innerText = 'Товар успешно удален';
     modal.classList.add('showInfo');
+    totalPriceCalculate();
+    getDeliveryPrice()
 
     setTimeout(function () {
         modal.classList.remove('showInfo');
@@ -515,20 +521,20 @@ function editPerProductPrice(button) {
 }
 
 function totalPriceCalculate() {
-    let cartTotalPrice = 0;
-    let spentBonus = document.getElementById('spentBonus');
-    let receivedBonus = document.getElementById('received_bonus');
-    let totalPriceContent = document.getElementById('cartTotalPrice');
-    let mainCartTotalPriceContent = document.getElementById('mainCartTotalPrice');
-    let totalPriceElements = [].slice.call(document.getElementsByClassName('price'));
+    let cartTotalPrice = 0,
+        spentBonus = document.getElementById('spentBonus'),
+        receivedBonus = document.getElementById('received_bonus'),
+        totalPriceContent = document.getElementById('cartTotalPrice'),
+        mainCartTotalPriceContent = document.getElementById('orderPrice'),
+        totalPriceElements = [].slice.call(document.getElementsByClassName('price'));
     totalPriceElements.forEach((element) => {
         cartTotalPrice += parseInt(element.textContent.split(' ')[0]);
     })
 
     if (mainCartTotalPriceContent) {
-        let mainCartAmountPrice = document.getElementById('mainCartAmountPrice')
-        let deliveryPrice = document.getElementById('deliveryPrice').textContent;
-        mainCartTotalPriceContent.textContent = cartTotalPrice + ' ₸';
+        let deliveryPrice = document.getElementById('deliveryPrice').textContent,
+            totalAmount = document.getElementById('totalAmount');
+        mainCartTotalPriceContent.textContent = cartTotalPrice;
         if (spentBonus) {
             let spentBonusValue = 0;
             if (spentBonus.value) {
@@ -536,11 +542,11 @@ function totalPriceCalculate() {
             }
             document.getElementById('spent_bonus_form').value = spentBonusValue;
             let bonusValue = receivedBonus.dataset.bonus;
-            let summ = cartTotalPrice + parseInt(deliveryPrice) - parseInt(spentBonusValue);
-            mainCartAmountPrice.textContent = summ + ' ₸';
+            // let summ = cartTotalPrice + - parseInt(spentBonusValue);
+            // mainCartAmountPrice.textContent = summ + ' ₸';
             receivedBonus.textContent = '+ ' + Math.round((cartTotalPrice-parseInt(spentBonusValue)) * bonusValue / 100) + ' ₸';
         } else {
-            mainCartAmountPrice.textContent = cartTotalPrice + parseInt(deliveryPrice) + ' ₸'
+            totalAmount.textContent = parseInt(deliveryPrice) + parseInt(cartTotalPrice);
         }
     }
 
@@ -591,7 +597,7 @@ function setVisibilityDeliveryMethod(locationId) {
 
 
 window.onload = function() {
-    if(window.location.href.includes("/basket")){
+    if(window.location.href.includes("/checkout")){
         let region = document.getElementById('deliveryRegion');
         let regionId = region.querySelector('select').value
         setVisibilityDeliveryMethod(regionId);
@@ -600,14 +606,15 @@ window.onload = function() {
 };
 
 function getDeliveryPrice() {
-    let deliveryPriceEl = document.getElementById('deliveryPrice');
-    if (deliveryPriceEl) {
-        let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        let deliveryType = document.getElementById('deliveryType').value;
-        let deliveryPriceInForm = document.getElementById('deliveryPriceInfo');
-        let deliveryLocation = document.getElementById('deliveryRegion').getElementsByTagName('select')[0].value
-        let modal = document.getElementById('displayOverlayAddToCart')
+    let deliveryTypeEl = document.getElementById('deliveryType');
 
+    if (deliveryTypeEl) {
+        let csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            deliveryType = deliveryTypeEl.value,
+            deliveryPriceInForm = document.getElementById('deliveryPriceInfo'),
+            deliverySummEl = document.getElementById('deliveryPrice'),
+            deliveryLocation = document.getElementById('deliveryRegion').getElementsByTagName('select')[0].value,
+            modal = document.getElementById('displayOverlayAddToCart')
         if (deliveryLocation && deliveryType) {
             let uri = document.getElementById('getDeliveryPriceUrl').href;
             axios.post(uri, {
@@ -617,9 +624,9 @@ function getDeliveryPrice() {
             }).then(response => {
                 if (response.status === 200) {
                     let deliveryPrice = response.data;
-                    deliveryPriceEl.textContent = deliveryPrice + ' ₸';
                     deliveryPriceInForm.classList.remove('hidden');
                     deliveryPriceInForm.textContent = 'Стоимость доставки: ' + deliveryPrice + ' ₸';
+                    deliverySummEl.textContent = deliveryPrice;
                     totalPriceCalculate();
                 } else {
                     modal.innerText = 'Ошибка... Что-то пошло не так...'
@@ -643,6 +650,15 @@ function getAdminCommentForm(event) {
         form.classList.add('hidden');
         button.text = 'Ответить'
     }}
+
+    function getTotalPrice(event)
+    {
+        let totalPrice = document.getElementById('mainCartTotalPrice').dataset.totalprice;
+        let spentBonus = event.target.value;
+        spentBonus = 234234;
+        console.log(totalPrice);
+        console.log(event.target.value)
+    }
 
 
 

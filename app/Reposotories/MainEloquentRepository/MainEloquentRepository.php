@@ -164,14 +164,14 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
         return Basket::where('session_id', session()->getId())->get();
     }
 
-    public function changeProductCountInBasket($productId, $count)
+    public function changeProductCountInBasket($productId, $count): void
     {
         if (Auth::check()) {
-            return Basket::where('user_id', Auth::user()->id)
+            Basket::where('user_id', Auth::user()->id)
                 ->where('product_id', $productId)
                 ->update(['count' => $count]);
         }
-        return Basket::where('session_id', session()->getId())
+        Basket::where('session_id', session()->getId())
             ->where('product_id', $productId)
             ->update(['count' => $count]);
     }

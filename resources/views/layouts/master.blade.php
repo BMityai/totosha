@@ -78,7 +78,7 @@
             slidesToScroll: imageCount,
             autoplay: true,
             autoplaySpeed: interval,
-            dots: true,
+            // dots: true,
             pauseOnHover: false,
         });
 

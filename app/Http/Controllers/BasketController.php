@@ -36,8 +36,7 @@ class BasketController extends Controller
 
     public function changeCount(BasketProductCountChangeRequest $request)
     {
-        $result = $this->service->changeProductCountInMiniBasket((int)$request->productId, (int)$request->count);
-        return response()->json($result);
+        $this->service->changeProductCountInMiniBasket((int)$request->productId, (int)$request->count);
     }
 
     public function getBasket()
@@ -63,7 +62,27 @@ class BasketController extends Controller
 
     public function getDeliveryPrice(DeliveryPriceRequest $request)
     {
-        $deliveryPrice = $this->service->getDeliveryPrice($request->deliveryLocation, $request->deliveryType);
+        $deliveryPrice = $this->service->getDeliveryPrice($request->get('deliveryLocation'), $request->get('deliveryType'));
         return response()->json($deliveryPrice);
     }
+
+    public function getCheckout()
+    {
+        $basket           = $this->service->getBasket();
+        $totalPrice       = $this->service->getTotalPrice();
+        $paymentTypes     = $this->service->getPaymentTypes();
+        $deliveryTypes    = $this->service->getDeliveryTypes();
+        $regions          = $this->service->getRegions();
+        $bonusСoefficient = $this->service->getBonusCoefficient();
+        return view(
+            'checkout',
+            [
+                'basket'           => $basket,
+                'totalPrice'       => $totalPrice,
+                'regions'          => $regions,
+                'paymentTypes'     => $paymentTypes,
+                'deliveryTypes'    => $deliveryTypes,
+                'bonusСoefficient' => $bonusСoefficient
+            ]
+        );    }
 }

@@ -53,11 +53,11 @@ class BasketControllerService
      *
      * @param int $productId
      * @param int $count
-     * @return object
+     * @return void
      */
-    public function changeProductCountInMiniBasket(int $productId, int $count): object
+    public function changeProductCountInMiniBasket(int $productId, int $count): void
     {
-        return $this->dbRepository->changeProductCountInBasket($productId, $count);
+        $this->dbRepository->changeProductCountInBasket($productId, $count);
     }
 
     /**
@@ -148,9 +148,9 @@ class BasketControllerService
             if (is_null($basketProduct->product->weight)){
                 continue;
             }
-            $totalWeight += $basketProduct->product->weight;
+            $totalWeight += $basketProduct->product->weight * $basketProduct->count;
         }
-        return $totalWeight;
+        return $totalWeight / 1000;
     }
 
     /**
