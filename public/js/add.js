@@ -543,7 +543,7 @@ function totalPriceCalculate() {
             document.getElementById('spent_bonus_form').value = spentBonusValue;
             let bonusValue = receivedBonus.dataset.bonus;
             // let summ = cartTotalPrice + - parseInt(spentBonusValue);
-            // mainCartAmountPrice.textContent = summ + ' ₸';
+            totalAmount.textContent = parseInt(deliveryPrice) + parseInt(cartTotalPrice) - parseInt(spentBonusValue);
             receivedBonus.textContent = '+ ' + Math.round((cartTotalPrice-parseInt(spentBonusValue)) * bonusValue / 100) + ' ₸';
         } else {
             totalAmount.textContent = parseInt(deliveryPrice) + parseInt(cartTotalPrice);
@@ -653,11 +653,24 @@ function getAdminCommentForm(event) {
 
     function getTotalPrice(event)
     {
-        let totalPrice = document.getElementById('mainCartTotalPrice').dataset.totalprice;
+        let totalPriceEl = document.getElementById('totalAmount');
+        let totalSum = parseInt(document.getElementById('orderPrice').textContent) + parseInt(document.getElementById('deliveryPrice').textContent);
         let spentBonus = event.target.value;
-        spentBonus = 234234;
-        console.log(totalPrice);
-        console.log(event.target.value)
+        if(!spentBonus) {
+            spentBonus = 0;
+        }
+        if (totalSum >= spentBonus) {
+            totalSum = parseInt(totalSum) - parseInt(spentBonus);
+        } else {
+            totalSum = 0;
+        }
+        totalPriceEl.textContent = totalSum;
+        let receivedBonus = document.getElementById('received_bonus');
+        let bonusValue = receivedBonus.dataset.bonus;
+        let bonus = Math.round((totalSum - parseInt(document.getElementById('deliveryPrice').textContent)) * bonusValue / 100);
+        let bonusVal = bonus < 0 ? 0 : '+ ' + bonus;
+        receivedBonus.textContent = bonusVal + ' ₸';
+
     }
 
 

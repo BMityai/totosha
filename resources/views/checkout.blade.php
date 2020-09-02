@@ -10,7 +10,7 @@
             <div class="orderContent  rounded bg-blue-200 p-2 ">
                 <form action="{{ route('createOrder') }}" method="POST">
                     @csrf
-                    <input id="spent_bonus_form" type="tel" class="hidden" name="spentBonus">
+                    <input id="spent_bonus_form" type="tel" class="hidden   " name="spentBonus">
 
                     <p class="font-semibold text-lg text-center mt-4">Адрес доставки</p>
                     <div class="deliveryLocation block sm:flex justify-between">
@@ -211,7 +211,7 @@
                             <input id="spentBonus" oninput="getTotalPrice(event)"
                                    name="spentBonus" type="tel"
                                    value="{{ old('spentBonus') }}"
-                                   class="@error('spentBonus') border border-2 border-red-700 @enderror w-20 rounded border text-right"
+                                   class="@error('spentBonus') border border-2 border-red-700 @enderror w-28 h-12 rounded border text-right text-xl"
                                    placeholder="0 ₸">
                         </div>
                         @error('spentBonus')
@@ -233,6 +233,13 @@
                             <p> <span id="totalAmount" class="text-lg">0</span> ₸ </p>
                         </div>
                     </div>
+
+                    @auth
+                        <div class="flex my-4 text-base   justify-between">
+                            <span>Бонусы</span>
+                            <span id="received_bonus" data-bonus="{{ $bonusСoefficient }}" class="mr-8">+ {{ round($totalPrice * $bonusСoefficient / 100) }}  ₸</span>
+                        </div>
+                    @endauth
 
                     <button
                             type="submit"

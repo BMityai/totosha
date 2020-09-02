@@ -68,13 +68,6 @@
                     <span id="mainCartTotalPrice" data-totalPrice="{{ $totalPrice }}" class="mr-8">{{ $totalPrice }}  ₸</span>
                 </div>
 
-{{--                @auth--}}
-{{--                    <div class="flex my-4 text-base   justify-between">--}}
-{{--                        <span>Бонусы</span>--}}
-{{--                        <span id="received_bonus" data-bonus="{{ $bonusСoefficient }}" class="mr-8">+ {{ round($totalPrice * $bonusСoefficient / 100) }}  ₸</span>--}}
-{{--                    </div>--}}
-{{--                @endauth--}}
-
             </div>
             <a class="w-full block text-center py-3 mt-4 rounded bg-blue-600 text-white hover:bg-blue-500 focus:outline-none my-1"
                href="{{ route('checkout') }}"
