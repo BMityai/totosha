@@ -9,17 +9,22 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171069360-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-171069360-1');
     </script>
 
+    <link rel="stylesheet" href="{{ asset('css/xloader.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
-    <link rel="stylesheet" href="{{ asset('/fancybox/jquery.fancybox-1.3.4.css')}}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('/fancybox/jquery.fancybox-1.3.4.css')}}" type="text/css" media="screen"/>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="uri" content="{{ route('addToBasket') }}">
@@ -30,13 +35,15 @@
 
 </head>
 <body class="bg-white m-auto">
+<div id="xLoader">
+    <div class="glistening-window"><span></span><span></span><span></span><span></span></div>
+</div>
 <div id="app">
     @include('layouts.header')
 
     @yield('content')
 </div>
 @include('layouts.footer')
-
 
 
 <script src="{{ asset('js/axios.min.js') }}"></script>
@@ -118,13 +125,13 @@
 </script>
 
 <script type="text/javascript" src="{{ asset('/fancybox/jquery.mousewheel-3.0.4.pack.js') }}"></script>
-<script type="text/javascript"  src="{{ asset('/fancybox/jquery.fancybox-1.3.4.pack.js') }}"></script>
-<script type="text/javascript"  src="{{ asset('/fancybox/jquery.easing-1.3.pack.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/fancybox/jquery.fancybox-1.3.4.pack.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/fancybox/jquery.easing-1.3.pack.js') }}"></script>
 <script>
     $("a.fancybox-img").fancybox({
-        'overlayShow'	: true,
-        'transitionIn'	: 'elastic',
-        'transitionOut'	: 'elastic'
+        'overlayShow': true,
+        'transitionIn': 'elastic',
+        'transitionOut': 'elastic'
     });
 </script>
 </body>

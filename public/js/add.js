@@ -1,4 +1,12 @@
-// menu modal
+document.addEventListener("DOMContentLoaded", function (){
+    setTimeout(function (){
+        let preloader = document.getElementById('xLoader');
+        preloader.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }, 1000)
+});
+
+
 function menuShow() {
     let body = document.body;
     let span1 = document.getElementById('sandwich_1')
