@@ -373,8 +373,8 @@ input::-webkit-inner-spin-button {
 
 .productsContent .slideCard{
     min-width: 200px;
-    width: 19%;
-    max-height: 320px;
+    width: 23%;
+    max-height: 350px;
 }
 
 .filling-empty-space-childs {
@@ -446,7 +446,7 @@ input::-webkit-inner-spin-button {
 
 @media (min-width: 1280px) {
     .productsContent .slideCard {
-        margin-bottom: 2.25rem !important;
+        margin-bottom: 1.25rem !important;
     }
 }
 
