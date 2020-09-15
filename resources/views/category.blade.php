@@ -150,9 +150,10 @@
                     </div>
 
                     <h1 class="mt-4 font-bold">По цене</h1>
-
-                    <?php $maxPrice = $category->products->sortBy('price')->last()->price ?>
-                    <?php $minPrice = $category->products->sortBy('price')->first()->price?>
+                    <?php
+                    $maxPrice = count($category->products) ? $category->products->sortBy('price')->last()->price : 0;
+                    $minPrice = count($category->products) ? $category->products->sortBy('price')->first()->price : 0;
+                    ?>
                     <div class="filter">
                         <div data-current-min-value="{{ old('priceFrom') ?? request()->priceFrom }}" data-current-max-value="{{ request()->priceTo ?? $maxPrice }}" data-min-value="{{$minPrice}}" data-max-value="{{$maxPrice}}" class="range-widget js-range">
                             <div class="range-widget__slider w-10/12"></div>

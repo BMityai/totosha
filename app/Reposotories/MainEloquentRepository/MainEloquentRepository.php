@@ -45,7 +45,6 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             ->first()
             ->products()
             ->where('is_active', true);
-//            ->orderBy('created_at', 'DESC');
 //        if (!empty($filter)) {
             $this->filterAccordingToCustomerRequest($productsQuery, $filter);
 //        }
@@ -113,20 +112,10 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             $productsQuery->orderBy('price', 'DESC');
         } elseif (!empty($filter['sort']) && $filter['sort'] == 'priceUp') {
             $productsQuery->orderBy('price', 'asc');
-        } else {
-            $productsQuery->orderByRaw('RAND()');
-        }
-
-//        if (!empty($filter['sort']) && $filter['sort'] == 'priceUp') {
-//            $productsQuery->orderBy('price', 'asc');
-//        } else {
-//            $productsQuery->orderByRaw('RAND()');
-//        }
-
-        if (!empty($filter['sort']) && $filter['sort'] == 'new') {
+        } elseif (!empty($filter['sort']) && $filter['sort'] == 'new') {
             $productsQuery->orderBy('created_at', 'DESC');
         } else {
-            $productsQuery->orderByRaw('RAND()');
+            $productsQuery->orderBy('count', 'DESC');
         }
     }
 
