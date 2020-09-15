@@ -23,7 +23,8 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/slick-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nouislider.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/fancybox/jquery.fancybox-1.3.4.css')}}" type="text/css" media="screen"/>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -52,6 +53,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/add.js') }}"></script>
 <script src="{{ asset('js/slick.js') }}"></script>
+<script src="{{ asset('js/nouislider.min.js') }}"></script>
 
 <script src="{{ asset('js/jquery.inputmask.js') }}"></script>
 
@@ -134,5 +136,6 @@
         'transitionOut': 'elastic'
     });
 </script>
+
 </body>
 </html>

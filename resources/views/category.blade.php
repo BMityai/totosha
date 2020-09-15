@@ -150,22 +150,44 @@
                     </div>
 
                     <h1 class="mt-4 font-bold">По цене</h1>
-                    <div class="w-10/12 text-white mt-1">
-                        <input type="tel" name="priceFrom" value="{{ old('priceFrom') ?? request()->priceFrom }}"
-                               class="@error('priceFrom') border border-2 border-red-700 @enderror text-black text-center h-8 rounded outline-none w-full"
-                               placeholder="с">
-                        @error('priceFrom')
-                        <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
-                        @enderror
+
+                    <?php $maxPrice = $category->products->sortBy('price')->last()->price ?>
+                    <?php $minPrice = $category->products->sortBy('price')->first()->price?>
+                    <div class="filter">
+                        <div data-current-min-value="{{ old('priceFrom') ?? request()->priceFrom }}" data-current-max-value="{{ request()->priceTo ?? $maxPrice }}" data-min-value="{{$minPrice}}" data-max-value="{{$maxPrice}}" class="range-widget js-range">
+                            <div class="range-widget__slider w-10/12"></div>
+                            <div class="range-widget__row">
+                                <div class="range-widget__col">
+                                    <div class="range-widget__input-wrapper range-widget__input-wrapper--type_simple">
+                                        <div class="w-10/12 text-white mt-1">
+                                            <input type="tel" name="priceFrom" value="{{ old('priceFrom') ?? request()->priceFrom }}"
+                                                   class="range-widget-min range-widget__input @error('priceFrom') border border-2 border-red-700 @enderror text-black text-center h-8 rounded outline-none w-full"
+                                                   placeholder="с">
+                                            @error('priceFrom')
+                                            <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="range-widget__col">
+                                    <div class="range-widget__input-wrapper range-widget__input-wrapper--type_simple">
+                                        <div class="w-10/12 text-white mt-1">
+                                            <input type="tel" name="priceTo" value="{{ old('priceTo') ?? request()->priceTo }}"
+                                                   class="range-widget-max range-widget__input @error('priceTo') border border-2 border-red-700 @enderror h-8 rounded text-black text-center outline-none w-full"
+                                                   placeholder="по">
+                                            @error('priceTo')
+                                            <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="w-10/12 text-white mt-1">
-                        <input type="tel" name="priceTo" value="{{ old('priceTo') ?? request()->priceTo }}"
-                               class="@error('priceTo') border border-2 border-red-700 @enderror h-8 rounded text-black text-center outline-none w-full"
-                               placeholder="по">
-                        @error('priceTo')
-                        <p class="w-10/12 text-red-700 text-sm">{{ $message }}</p>
-                        @enderror
-                    </div>
+
+
+
+
                     <input type="submit" value="Применить"
                            class="w-10/12 h-8 rounded bg-orange-400 hover:bg-orange-500 mt-4">
                     <p class="mt-2 text-center w-10/12 hover:bg-gray-300 rounded">
@@ -193,4 +215,6 @@
         </div>
         @if($products){{ $products->links('layouts.pagination') }}@endif
     </div>
+
+
 @endsection
