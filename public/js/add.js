@@ -590,6 +590,7 @@ function setVisibilityDeliveryMethod(locationId) {
         deliveryRegion.classList.add('w' + '-' + 'full');
     }
 
+
     if (locationId == 1) {
         deliveryOptions[0].disabled = false;
         deliveryOptions[0].selected = true;

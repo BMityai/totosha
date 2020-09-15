@@ -44,12 +44,13 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
             ->where('is_active', true)
             ->first()
             ->products()
-            ->where('is_active', true)
-            ->orderBy('created_at', 'DESC');
-        if (!empty($filter)) {
+            ->where('is_active', true);
+//            ->orderBy('created_at', 'DESC');
+//        if (!empty($filter)) {
             $this->filterAccordingToCustomerRequest($productsQuery, $filter);
-        }
-        return $productsQuery->paginate(12)->withPath('?' . $requestQueryString);
+//        }
+
+        return $productsQuery->paginate(24)->withPath('?' . $requestQueryString);
     }
 
     public function getAllActiveCategories()
@@ -110,14 +111,22 @@ class MainEloquentRepository implements MainEloquentRepositoryInterface
 
         if (!empty($filter['sort']) && $filter['sort'] == 'priceDown') {
             $productsQuery->orderBy('price', 'DESC');
+        } elseif (!empty($filter['sort']) && $filter['sort'] == 'priceUp') {
+            $productsQuery->orderBy('price', 'asc');
+        } else {
+            $productsQuery->orderByRaw('RAND()');
         }
 
-        if (!empty($filter['sort']) && $filter['sort'] == 'priceUp') {
-            $productsQuery->orderBy('price', 'asc');
-        }
+//        if (!empty($filter['sort']) && $filter['sort'] == 'priceUp') {
+//            $productsQuery->orderBy('price', 'asc');
+//        } else {
+//            $productsQuery->orderByRaw('RAND()');
+//        }
 
         if (!empty($filter['sort']) && $filter['sort'] == 'new') {
             $productsQuery->orderBy('created_at', 'DESC');
+        } else {
+            $productsQuery->orderByRaw('RAND()');
         }
     }
 
